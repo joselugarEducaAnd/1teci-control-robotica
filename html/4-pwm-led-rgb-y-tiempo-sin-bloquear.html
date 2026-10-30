@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-mvnp5ch9-o7z4v7y85">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="exe-pass-score" content="5">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+<title>4. PWM, LED RGB y tiempo sin bloquear | Control, automatización y robótica</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Tecnología e Ingeniería I (1.º de Bachillerato). Control, automatización y robótica con Arduino, sensores e IoT.">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
+<script src="../libs/exe_math/tex-mml-svg.js"> </script>
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mvnp5ch9-o7z4v7y85" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Bienvenida</a>
+</li>
+<li> <a href="../html/1-sistemas-de-control.html" class="no-ch">1. Sistemas de control</a>
+</li>
+<li> <a href="../html/2-primeros-pasos-con-arduino.html" class="no-ch">2. Primeros pasos con Arduino</a>
+</li>
+<li> <a href="../html/3-salidas-digitales-y-bucle-for.html" class="no-ch">3. Salidas digitales y bucle for</a>
+</li>
+<li class="active"> <a href="../html/4-pwm-led-rgb-y-tiempo-sin-bloquear.html" class="active no-ch">4. PWM, LED RGB y tiempo sin bloquear</a>
+</li>
+<li> <a href="../html/5-entradas-digitales.html" class="no-ch">5. Entradas digitales</a>
+</li>
+<li> <a href="../html/6-entradas-analogicas-y-sensores.html" class="no-ch">6. Entradas analógicas y sensores</a>
+</li>
+<li> <a href="../html/7-servomotores-la-barrera.html" class="no-ch">7. Servomotores: la barrera</a>
+</li>
+<li> <a href="../html/8-comunicacion-serie-y-redes-de-dispositivos.html" class="no-ch">8. Comunicación serie y redes de dispositivos</a>
+</li>
+<li> <a href="../html/9-iot-telemetria-y-scada.html" class="no-ch">9. IoT, telemetría y SCADA</a>
+</li>
+<li> <a href="../html/10-tecnologias-emergentes-e-ia-en-el-control.html" class="no-ch">10. Tecnologías emergentes e IA en el control</a>
+</li>
+<li> <a href="../html/11-proyecto-de-automatizacion.html" class="no-ch">11. Proyecto de automatización</a>
+</li>
+<li> <a href="../html/12-traza-y-prediccion-de-programas.html" class="no-ch">12. Traza y predicción de programas</a>
+</li>
+<li> <a href="../html/chuleta-de-arduino.html" class="no-ch">Chuleta de Arduino</a>
+</li>
+</ul>
+</nav><main id="page-mvnp5ch9-o7z4v7y85" class="page"> 
+<header class="main-header"> <p class="page-counter"> <span class="page-counter-label">Página </span><span class="page-counter-content"> <strong class="page-counter-current-page">5</strong><span class="page-counter-sep">/</span><strong class="page-counter-total">14</strong></span></p>
+
+<div class="package-header"><p class="package-title">Control, automatización y robótica</p></div>
+<div class="page-header"><h1 class="page-title">4. PWM, LED RGB y tiempo sin bloquear</h1></div>
+</header><div id="page-content-page-mvnp5ch9-o7z4v7y85" class="page-content">
+<article id="block-u801clsv-ylslfvxmw" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-34l4kli1-3z3s8svr1" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-34l4kli1-3z3s8svr1&quot;}">
+<style>.exe-content{--chrome:#943d92;--chrome-osc:#752972;--chrome-tinte:#f8eff8;--chrome-linea:#e4c8e3}.exe-content .clave{color:var(--chrome-osc,#752972)}.exe-content pre.codigo{background:#faf6fa;border:1px solid var(--chrome-linea);border-left:5px solid var(--chrome);border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.5;white-space:pre;margin:1em 0}.exe-content pre.consola{background:#1f1d24;color:#ece8f2;border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.45;white-space:pre;margin:.4em 0 1em}.exe-content pre code{padding:0;background:none;color:inherit;font-size:1em}.exe-content p.cod-tit{font-weight:700;margin:1.2em 0 -.5em;color:var(--chrome-osc)}.exe-content code{font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace}</style><div class="bloque bloque-nota"><p class="bloque-titulo">Qué vas a conseguir en esta página</p><p>Graduar el brillo de una luz con PWM, cambiar un valor de escala con <code>map</code>, repetir mientras se cumpla una condición con <code>while</code>, mezclar colores con el LED RGB usando funciones propias y medir el tiempo con <code>millis()</code> sin detener el programa.</p></div><p>Haz las prácticas y las tareas de esta página en la placa y en copias de tu <strong>Shield virtual</strong>: ya tiene el LED RGB en los pines 9, 10 y 11.</p><h2>Una salida «a medias»: PWM</h2><p>Un pin digital solo da 0 V o 5 V. Entonces, ¿cómo se consigue que un LED brille a la mitad? El truco es encender y apagar la salida <strong>muy deprisa</strong>, cientos de veces por segundo. Si está encendida la mitad de cada ciclo y apagada la otra mitad, el LED recibe de media la mitad de energía y lo ves brillar a medias: el ojo no es capaz de ver un parpadeo tan rápido. Esta técnica se llama <strong>PWM</strong> (<em>pulse width modulation</em>, modulación por ancho de pulso).</p><p>La fracción de cada ciclo en la que la salida está a 5 V se llama <strong>ciclo de trabajo</strong>. Cuanto mayor es, mayor es la <strong>tensión media</strong> de la salida:</p><div class="marco-formula"><p class="formula-bloque">\[V_{media}=5\ \text{V}\cdot d\]</p></div><p>donde <em>d</em> es el ciclo de trabajo: el tiempo que la salida pasa a 5 V dividido entre lo que dura el ciclo completo.</p><p class="formula-bloque">\[d=\frac{t_{5\,V}}{T}\]</p><figure style="max-width:860px;margin:1.2em auto"><a href="../content/resources/pwm_ciclo.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/pwm_ciclo.svg" alt="Cinco señales PWM con ciclos de trabajo del 0, 25, 50, 75 y 100 %, con su valor de analogWrite y su tensión media." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>Cuanto más tiempo pasa la salida a 5 V en cada ciclo, mayor es la tensión media. <a href="../content/resources/pwm_ciclo.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><p>En Arduino no tienes que generar tú los pulsos: lo hace la función <code>analogWrite(pin, valor)</code>, donde <code>valor</code> va de <strong>0</strong> (siempre apagado) a <strong>255</strong> (siempre encendido). Así, <code>analogWrite(9, 128)</code> deja el pin 9 a 5 V la mitad de cada ciclo.</p><div class="bloque bloque-nota"><p class="bloque-titulo">Solo en los pines con ~</p><p>PWM solo funciona en los pines marcados con <strong>~</strong> en la placa: 3, 5, 6, 9, 10 y 11. En el shield, los que puedes graduar son los tres colores del <strong>LED RGB</strong> (9, 10 y 11). Los LED rojo (12) y azul (13) no tienen ~: con <code>analogWrite</code> solo se encienden (valores de 128 en adelante) o se apagan (por debajo).</p></div><div class="bloque bloque-actividad"><p class="bloque-titulo">Ahora tú: del porcentaje al valor</p><p><i>No se entrega ni cuenta para la nota: sirve para comprobar si lo has entendido.</i></p><p>Quieres que el rojo del LED RGB brille al 20 %, al 50 % y al 80 %. ¿Qué valor tienes que poner en <code>analogWrite</code> en cada caso y qué tensión media dará la salida? Haz la cuenta antes de mirar.</p><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver la solución</summary><table class="tabla-datos"><thead><tr><th>Brillo</th><th>Valor (255 · porcentaje / 100)</th><th>Tensión media</th></tr></thead><tbody><tr><td>20 %</td><td>51</td><td>1 V</td></tr><tr><td>50 %</td><td>127 (vale también 128)</td><td>2,5 V</td></tr><tr><td>80 %</td><td>204</td><td>4 V</td></tr></tbody></table></details></div><h2>Cambiar de escala: map</h2><p>Esa cuenta de pasar de una escala a otra es tan frecuente que Arduino trae una función que la hace: <code>map(valor, desdeMin, desdeMax, hastaMin, hastaMax)</code>. Recibe un número de la primera escala y devuelve el que le corresponde, en proporción, en la segunda. Por ejemplo, <code>map(40, 0, 100, 0, 255)</code> da 102.</p><p>Trabaja con números enteros y <strong>corta los decimales</strong>: <code>map(50, 0, 100, 0, 255)</code> da 127, no 127,5. La usarás mucho en las páginas siguientes, para convertir la lectura de un sensor en un brillo o en un ángulo.</p><p class="cod-tit">Ejemplo: el rojo del LED RGB se enciende por etapas, del 0 % al 100 %</p><pre class="codigo"><code>// El rojo del LED RGB se enciende por etapas: 0 %, 20 %, 40 %, 60 %, 80 % y 100 %
+const int RGB_ROJO = 9;   // pin con ~: admite analogWrite
+
+void setup() {
+  pinMode(RGB_ROJO, OUTPUT);
+}
+
+void loop() {
+  for (int porcentaje = 0; porcentaje &lt;= 100; porcentaje += 20) {
+    int valor = map(porcentaje, 0, 100, 0, 255);   // de 0-100 % a 0-255
+    analogWrite(RGB_ROJO, valor);
+    delay(600);
+  }
+  delay(1000);
+}</code></pre><h2>El bucle while</h2><p>El bucle <code>while</code> repite un bloque <strong>mientras se cumpla una condición</strong>. Frente a lo que has visto en Python, la idea es la misma; solo cambia la forma de escribirlo: la condición va entre paréntesis y el bloque que se repite, entre llaves.</p><pre class="codigo"><code>while (condición) {
+  // se repite mientras la condición sea cierta
+}</code></pre><p>La condición se comprueba <strong>antes</strong> de cada vuelta. Si dentro del bucle nada hace que la condición llegue a ser falsa, el bucle no termina nunca y el resto del programa no se ejecuta. Por eso casi siempre hay dentro una variable que cambia en cada vuelta.</p><table class="tabla-datos"><thead><tr><th>Usa…</th><th>Cuando…</th><th>Ejemplo</th></tr></thead><tbody><tr><td><code>for</code></td><td>sabes de antemano cuántas vueltas hay que dar</td><td>tres destellos; 256 escalones de brillo</td></tr><tr><td><code>while</code></td><td>el número de vueltas depende de algo que pasa mientras tanto</td><td>subir el brillo hasta llegar a un valor; esperar a que se pulse un botón</td></tr></tbody></table><div class="bloque bloque-actividad"><p class="bloque-titulo">Práctica: el LED que respira</p><p><i>No se entrega ni cuenta para la nota: sirve para practicar lo que necesitarás en las tareas y en el proyecto.</i></p><p>Este programa sube poco a poco el brillo del verde del LED RGB con un <code>while</code> y después lo baja con otro. Al segundo bucle le faltan tres cosas. Piensa qué condición tiene que cumplirse para seguir bajando, qué le pasa a la intensidad en cada vuelta y qué valor se envía al LED; después, rellena los huecos y pruébalo en Tinkercad y en la placa.</p><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Abrir el programa con huecos</summary><p>Es el programa de la práctica con algunas partes borradas. Cada <b>____</b> es una palabra, un número o un signo que ya has visto en esta página. Cópialo, sustituye cada hueco por lo que falta y pruébalo. Intenta primero hacerlo sin abrir esto: se aprende mucho más.</p><pre class="codigo"><code>// El verde del LED RGB «respira»: sube poco a poco y baja poco a poco
+const int RGB_VERDE = 11;
+const int PAUSA_PASO = 5;   // milisegundos entre un escalón de brillo y el siguiente
+
+int intensidad = 0;
+
+void setup() {
+  pinMode(RGB_VERDE, OUTPUT);
+}
+
+void loop() {
+  while (intensidad &lt; 255) {       // sube mientras no llegue al máximo
+    intensidad++;
+    analogWrite(RGB_VERDE, intensidad);
+    delay(PAUSA_PASO);
+  }
+  while (intensidad ____ 0) {        // baja mientras no llegue a cero
+    intensidad____;
+    analogWrite(RGB_VERDE, ____);
+    delay(PAUSA_PASO);
+  }
+}</code></pre></details><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver el programa completo</summary><pre class="codigo"><code>// El verde del LED RGB «respira»: sube poco a poco y baja poco a poco
+const int RGB_VERDE = 11;
+const int PAUSA_PASO = 5;   // milisegundos entre un escalón de brillo y el siguiente
+
+int intensidad = 0;
+
+void setup() {
+  pinMode(RGB_VERDE, OUTPUT);
+}
+
+void loop() {
+  while (intensidad &lt; 255) {       // sube mientras no llegue al máximo
+    intensidad++;
+    analogWrite(RGB_VERDE, intensidad);
+    delay(PAUSA_PASO);
+  }
+  while (intensidad &gt; 0) {        // baja mientras no llegue a cero
+    intensidad--;
+    analogWrite(RGB_VERDE, intensidad);
+    delay(PAUSA_PASO);
+  }
+}</code></pre><p>Prueba a cambiar <code>PAUSA_PASO</code>: con 2 ms respira deprisa; con 15 ms, muy despacio.</p></details></div><h2>El LED RGB: mezclar colores</h2><p>El LED RGB son en realidad <strong>tres LED en una sola cápsula</strong>: uno rojo (<em>red</em>), uno verde (<em>green</em>) y uno azul (<em>blue</em>), con el cátodo común unido a GND. En el shield, cada color tiene su pin y su resistencia de 330 Ω. Fíjate en el orden, porque no es el de las letras RGB:</p><table class="tabla-datos"><thead><tr><th>Color</th><th>Pin</th><th>¿Admite PWM?</th></tr></thead><tbody><tr><td>Rojo</td><td>9</td><td>Sí (~)</td></tr><tr><td>Azul</td><td>10</td><td>Sí (~)</td></tr><tr><td>Verde</td><td>11</td><td>Sí (~)</td></tr></tbody></table><p>Como cada color va a un pin con PWM, puedes dar a cada uno un brillo de 0 a 255. La luz de los tres se suma: es una <strong>mezcla aditiva</strong>, como la de las pantallas.</p><figure style="max-width:760px;margin:1.2em auto"><a href="../content/resources/mezcla_rgb.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/mezcla_rgb.svg" alt="Mezcla aditiva de la luz roja, verde y azul: rojo y verde dan amarillo, verde y azul dan cian, rojo y azul dan magenta y los tres dan blanco." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>La mezcla de la luz: con tres colores se consiguen todos los demás. <a href="../content/resources/mezcla_rgb.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><p>En el LED real, los tres colores no brillan igual (el verde suele brillar más), así que el amarillo o el blanco pueden salir algo verdosos. No es un fallo de tu programa.</p><h3>Funciones propias en C++</h3><p>Para cambiar de color hay que dar tres <code>analogWrite</code> seguidos. Si eso se repite muchas veces, lo mejor es escribir una <strong>función</strong>, igual que hacías con <code>def</code> en Python. Frente a Python, en C++ se escribe primero lo que devuelve la función (<code>void</code> si no devuelve nada) y cada parámetro lleva delante su tipo:</p><pre class="codigo"><code>void color(int rojo, int verde, int azul) {
+  analogWrite(RGB_ROJO, rojo);
+  analogWrite(RGB_VERDE, verde);
+  analogWrite(RGB_AZUL, azul);
+}</code></pre><p>Después, en <code>loop()</code>, basta con llamarla: <code>color(255, 255, 0);</code> pone el LED en amarillo. La función se escribe fuera de <code>setup()</code> y de <code>loop()</code>, normalmente encima de ellas.</p><p class="cod-tit">Ejemplo: el LED RGB pasa por seis colores</p><pre class="codigo"><code>// El LED RGB pasa por seis colores con una función propia: color(rojo, verde, azul)
+const int RGB_ROJO = 9;
+const int RGB_AZUL = 10;
+const int RGB_VERDE = 11;
+const int ESPERA = 700;
+
+void color(int rojo, int verde, int azul) {
+  analogWrite(RGB_ROJO, rojo);
+  analogWrite(RGB_VERDE, verde);
+  analogWrite(RGB_AZUL, azul);
+}
+
+void setup() {
+  pinMode(RGB_ROJO, OUTPUT);
+  pinMode(RGB_AZUL, OUTPUT);
+  pinMode(RGB_VERDE, OUTPUT);
+}
+
+void loop() {
+  color(255, 0, 0);     // rojo
+  delay(ESPERA);
+  color(255, 255, 0);   // amarillo = rojo + verde
+  delay(ESPERA);
+  color(0, 255, 0);     // verde
+  delay(ESPERA);
+  color(0, 255, 255);   // cian = verde + azul
+  delay(ESPERA);
+  color(0, 0, 255);     // azul
+  delay(ESPERA);
+  color(255, 0, 255);   // magenta = rojo + azul
+  delay(ESPERA);
+}</code></pre><div class="bloque bloque-actividad"><p class="bloque-titulo">Ahora tú: dos colores más</p><p><i>No se entrega ni cuenta para la nota: sirve para comprobar si lo has entendido.</i></p><p>Añade al ejemplo el <strong>blanco</strong> y un <strong>naranja</strong> (mucho rojo, algo de verde y nada de azul). Prueba valores hasta que el naranja te convenza en la placa, no solo en Tinkercad.</p><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver una solución</summary><pre class="codigo"><code>color(255, 255, 255);   // blanco
+delay(ESPERA);
+color(255, 60, 0);      // naranja
+delay(ESPERA);</code></pre><p>El valor del verde para el naranja depende de tu LED: entre 40 y 90 suele quedar bien.</p></details></div><h2>Esperar sin detener el programa: millis</h2><p><code>delay()</code> es cómodo, pero tiene un problema: mientras espera, el programa <strong>no hace nada más</strong>. No puede leer un pulsador ni cambiar otra luz. Si quieres que dos cosas pasen a ritmos distintos, o que el programa reaccione mientras espera, necesitas otra forma de medir el tiempo.</p><p>La función <code>millis()</code> devuelve los <strong>milisegundos que han pasado desde que se encendió la placa</strong>. Ese número crece muy deprisa, así que se guarda en una variable de tipo <code>unsigned long</code>: un número sin signo que llega hasta unos 49 días. Un <code>int</code> no sirve, porque se desborda en 32 segundos.</p><p>La técnica es siempre la misma: guardas el instante en que hiciste algo y, en cada vuelta de <code>loop()</code>, compruebas si ya ha pasado el tiempo que querías. Si ha pasado, lo vuelves a hacer y guardas el nuevo instante.</p><pre class="codigo"><code>if (millis() - ultimo &gt;= INTERVALO) {
+  ultimo = millis();
+  // lo que toca hacer cada INTERVALO milisegundos
+}</code></pre><p class="cod-tit">Ejemplo: dos LED con ritmos distintos a la vez</p><pre class="codigo"><code>// Dos ritmos a la vez sin delay(): el LED rojo cambia cada 300 ms y el azul cada 1000 ms
+const int LED_ROJO = 12;
+const int LED_AZUL = 13;
+const unsigned long RITMO_ROJO = 300;
+const unsigned long RITMO_AZUL = 1000;
+
+unsigned long ultimoRojo = 0;   // instante del último cambio de cada LED
+unsigned long ultimoAzul = 0;
+int estadoRojo = LOW;
+int estadoAzul = LOW;
+
+void setup() {
+  pinMode(LED_ROJO, OUTPUT);
+  pinMode(LED_AZUL, OUTPUT);
+}
+
+void loop() {
+  unsigned long ahora = millis();
+
+  if (ahora - ultimoRojo &gt;= RITMO_ROJO) {   // ¿ya toca cambiar el rojo?
+    ultimoRojo = ahora;
+    estadoRojo = !estadoRojo;               // de LOW a HIGH o de HIGH a LOW
+    digitalWrite(LED_ROJO, estadoRojo);
+  }
+
+  if (ahora - ultimoAzul &gt;= RITMO_AZUL) {   // ¿ya toca cambiar el azul?
+    ultimoAzul = ahora;
+    estadoAzul = !estadoAzul;
+    digitalWrite(LED_AZUL, estadoAzul);
+  }
+}</code></pre><figure style="max-width:820px;margin:1.2em auto"><a href="../content/resources/millis_ritmos.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/millis_ritmos.svg" alt="Línea de tiempo de 3 segundos: el LED rojo cambia cada 300 ms y el azul cada 1000 ms, a la vez." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>Cada LED lleva su propio reloj: ninguno espera al otro. <a href="../content/resources/millis_ritmos.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><p>En este programa no hay ni un <code>delay()</code>: <code>loop()</code> da miles de vueltas por segundo y en cada una mira los dos relojes. <code>!estadoRojo</code> significa «lo contrario de <code>estadoRojo</code>»: si valía <code>LOW</code> pasa a <code>HIGH</code>, y al revés.</p><div class="bloque bloque-actividad"><p class="bloque-titulo">Ahora tú: ¿y con delay?</p><p><i>No se entrega ni cuenta para la nota: sirve para comprobar si lo has entendido.</i></p><p>Intenta explicar por qué este comportamiento es muy difícil de conseguir con <code>delay()</code>. Después cambia el ritmo del rojo a 450 ms y comprueba en la placa que el azul sigue cambiando cada segundo exacto.</p><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver la explicación</summary><p>Con <code>delay(300)</code> el programa se queda parado 300 ms y el azul no puede cambiar en ese tiempo; para acertar los dos ritmos tendrías que calcular a mano todos los cambios y, en cuanto uno de los ritmos no es divisor del otro, la cuenta se complica muchísimo. Con <code>millis()</code> cada salida decide por su cuenta.</p></details></div><div class="bloque bloque-nota"><p class="bloque-titulo">Si algo no funciona</p><table class="tabla-datos"><thead><tr><th>Lo que ves</th><th>Qué compruebas</th></tr></thead><tbody><tr><td>El LED no se gradúa: se enciende de golpe o no hace nada</td><td>¿El pin tiene ~? En el shield, solo el LED RGB (9, 10 y 11) admite PWM.</td></tr><tr><td>Los colores salen cambiados</td><td>El orden del shield es rojo en 9, azul en 10 y verde en 11, no el de las letras RGB.</td></tr><tr><td>El programa se queda «colgado» en un bucle</td><td>En un <code>while</code>, ¿cambia dentro la variable de la condición? Si no, el bucle no acaba nunca.</td></tr><tr><td>Con <code>millis()</code> funciona unos segundos y luego se vuelve loco</td><td>¿Guardas el tiempo en un <code>unsigned long</code>? Un <code>int</code> se desborda a los 32 segundos.</td></tr></tbody></table></div><div class="bloque bloque-actividad"><p class="bloque-titulo">Tarea PWM1 · Amanecer y anochecer</p><p>Programa con el LED RGB del shield esta secuencia, que se repite sin fin:</p><ol><li>El verde (pin 11) sube su brillo poco a poco de 0 a 255.</li><li>Después hace lo mismo el azul (pin 10), y después el rojo (pin 9). Los colores que ya han subido se quedan encendidos.</li><li>Los tres se quedan encendidos 1 segundo.</li><li>El verde baja poco a poco de 255 a 0; después el azul, y después el rojo.</li><li>Los tres se quedan apagados 1 segundo.</li></ol><p>Las subidas tienen que hacerse con <code>while</code> y las bajadas con <code>for</code>. La pausa entre un escalón de brillo y el siguiente va en una constante, <code>PAUSA_PASO</code>, con un valor que haga que cada color tarde alrededor de un segundo en subir o en bajar: calcula tú cuál. Pruébalo primero en Tinkercad, en una copia del Shield virtual llamada <strong>Tarea PWM1 - Amanecer</strong>, y después en la placa.</p><p><b>Está conseguida cuando…</b> la secuencia completa funciona en la placa con los colores en su orden, cada subida o bajada dura alrededor de un segundo, las subidas usan <code>while</code> y las bajadas <code>for</code>, y los pines y la pausa están en constantes.</p><p><b>Entrega.</b> Guarda el programa como <code>tarea_pwm1</code> (<b>Archivo → Guardar como...</b>) y graba con el móvil un vídeo corto de la placa haciéndolo todo, con el papel de tus iniciales y tu curso a la vista; llama al vídeo <code>tarea_pwm1</code>. Súbelos a la tarea <b>Colección de programas (Arduino)</b> de Moodle con <b>Editar entrega</b> y <b>Guardar cambios</b>, igual que en la tarea SD1, sin pulsar todavía <b>Enviar tarea</b>.</p></div><div class="bloque bloque-actividad"><p class="bloque-titulo">Tarea PWM2 · Colores secundarios</p><p>Haz que el LED RGB suba poco a poco su brillo, de 0 a 255, en tres colores <strong>secundarios</strong>: primero el <strong>cian</strong>, después el <strong>amarillo</strong> y por último el <strong>magenta</strong>. Al llegar al máximo, cada color se queda medio segundo y se apaga antes de empezar el siguiente.</p><p>Pista: para que el tono no cambie mientras sube, los dos colores que forman cada secundario tienen que tener siempre la misma intensidad, y el tercero, apagado. Mira la figura de la mezcla de la luz para saber qué dos colores necesitas en cada caso.</p><p>Tienes que escribir una función <code>subirColor(int pinA, int pinB)</code> que haga la subida de dos colores a la vez y los apague al final. <code>loop()</code> solo debe llamarla tres veces, una por color, sin repetir el bucle. En Tinkercad: copia del Shield virtual llamada <strong>Tarea PWM2 - Colores secundarios</strong>.</p><p><b>Está conseguida cuando…</b> en la placa se ven el cian, el amarillo y el magenta en ese orden, cada uno con un tono uniforme mientras sube, y el programa usa la función <code>subirColor</code> con sus dos parámetros, sin bucles repetidos en <code>loop()</code>.</p><p><b>Entrega.</b> Guarda el programa como <code>tarea_pwm2</code> (<b>Archivo → Guardar como...</b>) y graba con el móvil un vídeo corto de la placa haciéndolo todo, con el papel de tus iniciales y tu curso a la vista; llama al vídeo <code>tarea_pwm2</code>. Súbelos a la tarea <b>Colección de programas (Arduino)</b> de Moodle con <b>Editar entrega</b> y <b>Guardar cambios</b>, igual que en la tarea SD1, sin pulsar todavía <b>Enviar tarea</b>.</p></div><div class="bloque bloque-nota"><p class="bloque-titulo">Lo que tienes que saber de esta página</p><ul><li>PWM enciende y apaga una salida muy deprisa; el ciclo de trabajo fija la tensión media: V = 5 V · d.</li><li>analogWrite(pin, valor) da PWM de 0 a 255, solo en los pines con ~ (en el shield, el LED RGB: 9, 10 y 11).</li><li>map(valor, desdeMin, desdeMax, hastaMin, hastaMax) pasa un número de una escala a otra, sin decimales.</li><li>while (condición) repite mientras se cumpla la condición; algo dentro tiene que hacer que deje de cumplirse.</li><li>El LED RGB mezcla la luz: rojo + verde = amarillo, verde + azul = cian, rojo + azul = magenta, los tres = blanco.</li><li>Una función en C++: tipo que devuelve (void si nada), nombre y parámetros con su tipo.</li><li>millis() da los milisegundos desde el encendido; se guarda en unsigned long y permite esperar sin detener el programa.</li></ul></div>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/3-salidas-digitales-y-bucle-for.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/5-entradas-digitales.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-nc-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="license">Creative Commons: Reconocimiento - no comercial - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(Ventana nueva)</span></span></a></p>
+</body>
+</html>

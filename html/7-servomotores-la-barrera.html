@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-mvnp5ch9-x0n72shki">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="exe-pass-score" content="5">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+<title>7. Servomotores: la barrera | Control, automatización y robótica</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Tecnología e Ingeniería I (1.º de Bachillerato). Control, automatización y robótica con Arduino, sensores e IoT.">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
+<script src="../libs/exe_math/tex-mml-svg.js"> </script>
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mvnp5ch9-x0n72shki" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Bienvenida</a>
+</li>
+<li> <a href="../html/1-sistemas-de-control.html" class="no-ch">1. Sistemas de control</a>
+</li>
+<li> <a href="../html/2-primeros-pasos-con-arduino.html" class="no-ch">2. Primeros pasos con Arduino</a>
+</li>
+<li> <a href="../html/3-salidas-digitales-y-bucle-for.html" class="no-ch">3. Salidas digitales y bucle for</a>
+</li>
+<li> <a href="../html/4-pwm-led-rgb-y-tiempo-sin-bloquear.html" class="no-ch">4. PWM, LED RGB y tiempo sin bloquear</a>
+</li>
+<li> <a href="../html/5-entradas-digitales.html" class="no-ch">5. Entradas digitales</a>
+</li>
+<li> <a href="../html/6-entradas-analogicas-y-sensores.html" class="no-ch">6. Entradas analógicas y sensores</a>
+</li>
+<li class="active"> <a href="../html/7-servomotores-la-barrera.html" class="active no-ch">7. Servomotores: la barrera</a>
+</li>
+<li> <a href="../html/8-comunicacion-serie-y-redes-de-dispositivos.html" class="no-ch">8. Comunicación serie y redes de dispositivos</a>
+</li>
+<li> <a href="../html/9-iot-telemetria-y-scada.html" class="no-ch">9. IoT, telemetría y SCADA</a>
+</li>
+<li> <a href="../html/10-tecnologias-emergentes-e-ia-en-el-control.html" class="no-ch">10. Tecnologías emergentes e IA en el control</a>
+</li>
+<li> <a href="../html/11-proyecto-de-automatizacion.html" class="no-ch">11. Proyecto de automatización</a>
+</li>
+<li> <a href="../html/12-traza-y-prediccion-de-programas.html" class="no-ch">12. Traza y predicción de programas</a>
+</li>
+<li> <a href="../html/chuleta-de-arduino.html" class="no-ch">Chuleta de Arduino</a>
+</li>
+</ul>
+</nav><main id="page-mvnp5ch9-x0n72shki" class="page"> 
+<header class="main-header"> <p class="page-counter"> <span class="page-counter-label">Página </span><span class="page-counter-content"> <strong class="page-counter-current-page">8</strong><span class="page-counter-sep">/</span><strong class="page-counter-total">14</strong></span></p>
+
+<div class="package-header"><p class="package-title">Control, automatización y robótica</p></div>
+<div class="page-header"><h1 class="page-title">7. Servomotores: la barrera</h1></div>
+</header><div id="page-content-page-mvnp5ch9-x0n72shki" class="page-content">
+<article id="block-i8ov5oce-zqp271oi4" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-eiw1ajim-mvn40nr68" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-eiw1ajim-mvn40nr68&quot;}">
+<style>.exe-content{--chrome:#943d92;--chrome-osc:#752972;--chrome-tinte:#f8eff8;--chrome-linea:#e4c8e3}.exe-content .clave{color:var(--chrome-osc,#752972)}.exe-content pre.codigo{background:#faf6fa;border:1px solid var(--chrome-linea);border-left:5px solid var(--chrome);border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.5;white-space:pre;margin:1em 0}.exe-content pre.consola{background:#1f1d24;color:#ece8f2;border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.45;white-space:pre;margin:.4em 0 1em}.exe-content pre code{padding:0;background:none;color:inherit;font-size:1em}.exe-content p.cod-tit{font-weight:700;margin:1.2em 0 -.5em;color:var(--chrome-osc)}.exe-content code{font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace}</style><div class="bloque bloque-nota"><p class="bloque-titulo">Qué vas a conseguir en esta página</p><p>Conocer cómo funciona un servomotor, moverlo a un ángulo con la librería <code>Servo</code>, hacer que se mueva despacio y controlarlo con un sensor. Con todo lo de la unidad, programarás la barrera de un aparcamiento.</p></div><h2>Qué es un servomotor</h2><p>Un motor normal gira sin parar mientras le llega corriente. Un <strong>servomotor</strong> (o <strong>servo</strong>), en cambio, gira hasta un <strong>ángulo</strong> concreto y se queda ahí, aguantando aunque intentes moverlo. Por eso se usa para barreras, timones, brazos robóticos o el movimiento de una cámara.</p><p>Dentro tiene un pequeño motor de corriente continua, unos engranajes que reducen la velocidad y aumentan la fuerza, un potenciómetro unido al eje que mide la posición real y un circuito de control. El circuito compara el ángulo que le pides con el que mide el potenciómetro y mueve el motor hasta que coinciden: es un sistema de control en <strong>lazo cerrado</strong>, como los de la página <a href="../html/1-sistemas-de-control.html">1. Sistemas de control</a>.</p><p>El del kit es un <strong>SG90</strong>, un microservo de 9 g que gira unos 180°. Tiene tres cables:</p><table class="tabla-datos"><thead><tr><th>Cable</th><th>Función</th><th>En el shield</th></tr></thead><tbody><tr><td>Marrón</td><td>GND</td><td>patilla GND del conector A3</td></tr><tr><td>Rojo</td><td>Alimentación (5 V)</td><td>patilla VCC</td></tr><tr><td>Naranja</td><td>Señal</td><td>patilla A3</td></tr></tbody></table><p>Se enchufa directamente en el conector de tres patillas de <strong>A3</strong>, con el cable marrón del lado de la serigrafía <strong>GND</strong>. Si lo pones al revés no funciona, así que fíjate antes de encender.</p><h2>Cómo se le dice el ángulo</h2><p>El servo recibe por el cable de señal un <strong>pulso cada 20 ms</strong>. Lo que importa es lo que dura ese pulso: medio milisegundo lo lleva a un extremo, unos 2,4 ms al otro, y los valores intermedios, a las posiciones intermedias.</p><figure style="max-width:860px;margin:1.2em auto"><a href="../content/resources/servo_pulsos.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/servo_pulsos.svg" alt="Tres señales de servo con un pulso cada 20 ms: 0,5 ms llevan el brazo a 0°, 1,5 ms a 90° y 2,4 ms a 180°." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>La duración del pulso fija el ángulo. <a href="../content/resources/servo_pulsos.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><h2>La librería Servo</h2><p>Generar esos pulsos a mano sería complicado, pero no hace falta: Arduino trae una <strong>librería</strong>, un conjunto de funciones ya escritas, que lo hace por ti. Se usa en cuatro pasos:</p><table class="tabla-datos"><thead><tr><th>Paso</th><th>Código</th><th>Qué hace</th></tr></thead><tbody><tr><td>1</td><td><code>#include &lt;Servo.h&gt;</code></td><td>Al principio del programa: incluye la librería.</td></tr><tr><td>2</td><td><code>Servo barrera;</code></td><td>Fuera de las funciones: crea un servo llamado <code>barrera</code>.</td></tr><tr><td>3</td><td><code>barrera.attach(A3);</code></td><td>En <code>setup()</code>: le dice en qué pin está.</td></tr><tr><td>4</td><td><code>barrera.write(90);</code></td><td>Donde quieras: lo mueve al ángulo indicado, de 0 a 180.</td></tr></tbody></table><p>Fíjate en la forma de <code>barrera.write(90)</code>: el nombre del servo, un punto y lo que quieres que haga. Es como en Python cuando escribes <code>lista.append(5)</code>: <code>barrera</code> es un <strong>objeto</strong> y <code>write</code>, uno de sus <strong>métodos</strong>. Si tuvieras dos servos, crearías dos objetos con nombres distintos.</p><p class="cod-tit">Ejemplo: el servo pasa por cuatro posiciones</p><pre class="codigo"><code>// El servo de A3 pasa por cuatro posiciones y se para un poco en cada una
+#include &lt;Servo.h&gt;
+
+const int PIN_SERVO = A3;
+const int ESPERA = 1500;     // milisegundos en cada posición
+
+Servo barrera;               // un objeto Servo por cada servo que uses
+
+void setup() {
+  barrera.attach(PIN_SERVO); // a partir de aquí, la librería genera los pulsos en A3
+}
+
+void loop() {
+  barrera.write(0);
+  delay(ESPERA);
+  barrera.write(45);
+  delay(ESPERA);
+  barrera.write(90);
+  delay(ESPERA);
+  barrera.write(180);
+  delay(ESPERA);
+}</code></pre><div class="bloque bloque-nota"><p class="bloque-titulo">Con la librería Servo, los pines 9 y 10 pierden el PWM</p><p>La librería usa para sus pulsos el mismo temporizador interno que el PWM de los pines 9 y 10. En cuanto haces <code>attach</code>, no uses <code>analogWrite</code> en esos dos pines, que en el shield son el rojo y el azul del LED RGB: ya no gradúan y, además, desajustan el servo. Con un servo en marcha, enciéndelos y apágalos con <code>digitalWrite</code>; el verde (pin 11) sí conserva el PWM, salvo mientras suena <code>tone()</code>, que usa su temporizador: después de un pitido, llama a <code>noTone()</code> y repite el <code>analogWrite</code> del verde (o repítelo en cada vuelta de <code>loop()</code>).</p></div><h2>Moverlo despacio</h2><p><code>write</code> manda el servo al ángulo pedido a toda la velocidad que puede. Una barrera de verdad sube despacio, así que hay que llevarla <strong>grado a grado</strong>, con una pequeña pausa entre uno y otro: un bucle <code>for</code> como los que usaste para el brillo de los LED.</p><p class="cod-tit">Ejemplo: la barrera sube y baja despacio</p><pre class="codigo"><code>// El servo sube de 0 a 90 grados poco a poco y vuelve a bajar: así se mueve una barrera suave
+#include &lt;Servo.h&gt;
+
+const int PIN_SERVO = A3;
+const int BAJADA = 0;
+const int SUBIDA = 90;
+const int PAUSA_GRADO = 15;  // milisegundos por grado: más pausa, movimiento más lento
+
+Servo barrera;
+
+void setup() {
+  barrera.attach(PIN_SERVO);
+  barrera.write(BAJADA);
+  delay(1000);
+}
+
+void loop() {
+  for (int angulo = BAJADA; angulo &lt;= SUBIDA; angulo++) {
+    barrera.write(angulo);
+    delay(PAUSA_GRADO);
+  }
+  delay(2000);
+  for (int angulo = SUBIDA; angulo &gt;= BAJADA; angulo--) {
+    barrera.write(angulo);
+    delay(PAUSA_GRADO);
+  }
+  delay(2000);
+}</code></pre><p>Con <code>PAUSA_GRADO</code> = 15 ms, subir 90° tarda 90 · 15 = 1350 ms, algo más de un segundo. Ten en cuenta también lo contrario: el servo necesita tiempo para llegar. Si le mandas un ángulo y enseguida otro, puede que no llegue nunca al primero.</p><h2>Conecta el servo a una copia de tu Shield virtual</h2><p>Con los sensores de la página 6, tu <strong>Shield virtual</strong> ya tiene todo lo que lleva el shield. El servo <strong>no forma parte del shield</strong>: es un componente más del kit, que se enchufa en uno de sus conectores libres, el de <strong>A3</strong>. Por eso no se añade al Shield virtual, que tiene que seguir siendo igual que el shield. Para las prácticas de esta página y para la tarea de la barrera, haz una copia y conéctale el servo. Es lo que harás siempre que un montaje necesite algo que el shield no trae.</p><figure style="max-width:900px;margin:1.2em auto"><a href="../content/resources/tc_sv_servo_detalle.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/tc_sv_servo_detalle.svg" alt="Captura de Tinkercad con el microservomotor a la derecha de la placa de sensores y sus tres cables: tierra al carril −, alimentación al carril + y señal al pin A3." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>El servo y sus tres cables. <a href="../content/resources/tc_sv_servo_detalle.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><ol><li>En tus diseños, duplica el <strong>Shield virtual</strong> (rueda dentada → <strong>Duplicar</strong>) y llama a la copia <strong>Tarea SV1 - Barrera</strong>.</li><li>Abre la copia y arrastra un <strong>Microservomotor</strong> a la derecha de la placa de sensores.</li><li>Pasa el ratón por las tres patillas de su conector: de izquierda a derecha son tierra, alimentación y señal, el mismo orden que el conector A3 del shield.</li><li>Une la tierra con el carril − de la placa de sensores, la alimentación con el carril + y la señal con el pin <strong>A3</strong> del Arduino. En el kit no hacen falta cables: el conector del servo entra directamente en el de A3.</li></ol><figure style="max-width:760px;margin:1.2em auto"><a href="../content/resources/tc_sv_completo.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/tc_sv_completo.svg" alt="Captura de Tinkercad del shield virtual completo: la placa de salidas y pulsadores arriba, el Arduino en el centro, la placa de sensores debajo y el servo a su derecha." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>La copia para la barrera: el Shield virtual y, además, el servo conectado a A3. <a href="../content/resources/tc_sv_completo.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><div class="bloque bloque-actividad"><p class="bloque-titulo">Práctica: el servo sigue al potenciómetro</p><p><i>No se entrega ni cuenta para la nota: sirve para practicar lo que necesitarás en las tareas y en el proyecto.</i></p><p>Este programa hace que el brazo del servo copie el giro del mando del potenciómetro, como una dirección asistida. Le faltan tres cosas: qué pin se lee, hasta qué ángulo llega la nueva escala y qué método mueve el servo. Rellena los huecos y pruébalo en tu copia <strong>Tarea SV1 - Barrera</strong> y en la placa. Haz en esa copia todas las pruebas de esta página: al final escribirás en ella el programa de la tarea.</p><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Abrir el programa con huecos</summary><p>Es el programa de la práctica con algunas partes borradas. Cada <b>____</b> es una palabra, un número o un signo que ya has visto en esta página. Cópialo, sustituye cada hueco por lo que falta y pruébalo. Intenta primero hacerlo sin abrir esto: se aprende mucho más.</p><pre class="codigo"><code>// El potenciómetro (A0) mueve el servo (A3): el mando y el brazo giran a la vez
+#include &lt;Servo.h&gt;
+
+const int POT = A0;
+const int PIN_SERVO = A3;
+
+Servo brazo;
+
+void setup() {
+  brazo.attach(PIN_SERVO);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int lectura = analogRead(____);
+  int angulo = map(lectura, 0, 1023, 0, ____);
+  brazo.____(angulo);
+  Serial.print(&quot;Angulo: &quot;);
+  Serial.println(angulo);
+  delay(20);
+}</code></pre></details><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver el programa completo</summary><pre class="codigo"><code>// El potenciómetro (A0) mueve el servo (A3): el mando y el brazo giran a la vez
+#include &lt;Servo.h&gt;
+
+const int POT = A0;
+const int PIN_SERVO = A3;
+
+Servo brazo;
+
+void setup() {
+  brazo.attach(PIN_SERVO);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int lectura = analogRead(POT);
+  int angulo = map(lectura, 0, 1023, 0, 180);
+  brazo.write(angulo);
+  Serial.print(&quot;Angulo: &quot;);
+  Serial.println(angulo);
+  delay(20);
+}</code></pre><p>Si el brazo tiembla en la placa, prueba a añadir un <code>delay</code> algo mayor: el potenciómetro baila un poco y el servo intenta seguir cada pequeño cambio.</p></details></div><figure style="max-width:900px;margin:1.2em auto"><a href="../content/resources/tc_sv_servo_simula.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/tc_sv_servo_simula.svg" alt="Simulación en Tinkercad: con el mando del potenciómetro en el centro, el brazo del servo está a mitad de su recorrido." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>En la simulación, el brazo del servo se mueve al girar el mando. <a href="../content/resources/tc_sv_servo_simula.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><div class="bloque bloque-nota"><p class="bloque-titulo">Cuida el servo de verdad</p><ul><li>No gires el brazo con la mano: se rompen los engranajes de plástico.</li><li>Si al llegar a un extremo zumba y se queda temblando, no llega a ese ángulo: usa uno algo menor (por ejemplo, 5 en lugar de 0).</li><li>Se alimenta del USB, que da para un microservo. Si la placa se reinicia cada vez que el servo se mueve, el servo está pidiendo más corriente de la que llega: comprueba que el brazo no está atascado.</li></ul></div><h2>Prueba del shield con el servo</h2><p>Este programa usa todo lo que has visto en la unidad a la vez: los pulsadores encienden los LED que tienen delante, el potenciómetro mueve el servo, la luz gradúa el verde del LED RGB, el zumbador pita al arrancar y el monitor serie muestra las lecturas. Sirve para comprobar que la placa, con el servo enchufado, y tu copia de Tinkercad funcionan: en Tinkercad, cambia el desplazamiento a 500.</p><p class="cod-tit">Programa de prueba del shield con el servo</p><pre class="codigo"><code>// Prueba del shield con el servo enchufado en A3: pulsadores, LED, LED RGB, zumbador, sensores y servo
+#include &lt;Servo.h&gt;
+
+const int SW1 = 2;
+const int SW2 = 3;
+const int ZUMBADOR = 5;
+const int RGB_VERDE = 11;    // con la librería Servo, 9 y 10 ya no admiten PWM; 11 sí
+const int LED_ROJO = 12;
+const int LED_AZUL = 13;
+const int POT = A0;
+const int LDR = A1;
+const int SENSOR_T = A2;
+const int PIN_SERVO = A3;
+const int PULSADO = LOW;
+const float DESPLAZAMIENTO = 0;   // 0 con el LM35 del shield; 500 con el sensor de Tinkercad (TMP36)
+
+Servo servo;
+
+void setup() {
+  pinMode(SW1, INPUT);
+  pinMode(SW2, INPUT);
+  pinMode(LED_ROJO, OUTPUT);
+  pinMode(LED_AZUL, OUTPUT);
+  pinMode(RGB_VERDE, OUTPUT);
+  servo.attach(PIN_SERVO);
+  Serial.begin(9600);
+  tone(ZUMBADOR, 880, 200);  // un pitido al arrancar
+}
+
+void loop() {
+  digitalWrite(LED_AZUL, digitalRead(SW1) == PULSADO);   // SW1 enciende el LED azul, que tiene delante
+  digitalWrite(LED_ROJO, digitalRead(SW2) == PULSADO);   // SW2, el rojo
+  int pot = analogRead(POT);
+  servo.write(map(pot, 0, 1023, 0, 180));                // el potenciómetro mueve el servo
+  int luz = analogRead(LDR);
+  analogWrite(RGB_VERDE, map(luz, 0, 1023, 0, 255));     // más luz, verde más brillante
+  analogRead(SENSOR_T);                                  // lectura de descarte
+  delay(10);
+  float grados = (analogRead(SENSOR_T) * 5000.0 / 1023 - DESPLAZAMIENTO) / 10;
+  Serial.print(&quot;Pot: &quot;);
+  Serial.print(pot);
+  Serial.print(&quot;   Luz: &quot;);
+  Serial.print(luz);
+  Serial.print(&quot;   Temperatura: &quot;);
+  Serial.print(grados, 1);
+  Serial.println(&quot; C&quot;);
+  delay(100);
+}</code></pre><p><code>digitalWrite(LED_AZUL, digitalRead(SW1) == PULSADO)</code> aprovecha que una comparación da <code>true</code> o <code>false</code>, que para <code>digitalWrite</code> valen lo mismo que <code>HIGH</code> y <code>LOW</code>.</p><div class="bloque bloque-nota"><p class="bloque-titulo">Si algo no funciona</p><table class="tabla-datos"><thead><tr><th>Lo que ves</th><th>Qué compruebas</th></tr></thead><tbody><tr><td>El servo no se mueve</td><td>¿Has hecho <code>attach</code> en <code>setup()</code>? ¿Está el conector con el marrón en GND?</td></tr><tr><td>Se mueve a saltos o no termina el recorrido</td><td>Dale tiempo: una pausa de unos 15 ms por grado.</td></tr><tr><td>El rojo o el azul del LED RGB no se gradúan</td><td>Con la librería Servo, los pines 9 y 10 no tienen PWM: usa <code>digitalWrite</code>.</td></tr><tr><td>La placa se reinicia al mover el servo</td><td>El servo pide demasiada corriente: comprueba que el brazo gira libre.</td></tr><tr><td>El compilador dice que no conoce <code>Servo</code></td><td>Falta <code>#include &lt;Servo.h&gt;</code> en la primera línea.</td></tr></tbody></table></div><div class="bloque bloque-actividad"><p class="bloque-titulo">Tarea SV1 · La barrera del aparcamiento</p><p>Programa la barrera de un aparcamiento con el servo, los dos pulsadores y el LED RGB, que hace de semáforo:</p><ol><li>Al empezar, la barrera está bajada (servo en <code>BAJADA</code>) y el semáforo en <strong>rojo</strong>.</li><li>Cuando el vigilante pulsa <strong>SW1</strong>, el semáforo se pone en <strong>verde</strong> y la barrera sube despacio hasta <code>SUBIDA</code> (90°).</li><li>Se queda abierta 5 segundos.</li><li>El semáforo se pone en <strong>ámbar</strong> (rojo y verde a la vez) durante 1 segundo y después en <strong>rojo</strong>, y la barrera empieza a bajar despacio.</li><li><strong>Seguridad:</strong> SW2 hace de fotocélula. Si se pulsa mientras la barrera baja, es que hay un coche debajo: la barrera se para y el ciclo vuelve a empezar desde el verde, como si el vigilante hubiera pulsado otra vez.</li></ol><p>Usa constantes para los pines, los ángulos, la pausa por grado y los tiempos, y escribe al menos dos funciones propias (por ejemplo, <code>subir()</code> y <code>bajar()</code>). Recuerda que, con el servo en marcha, el rojo y el azul del LED RGB solo se encienden o se apagan. En Tinkercad: tu copia <strong>Tarea SV1 - Barrera</strong>, la que preparaste con el servo al principio de la página.</p><p><b>Está conseguida cuando…</b> en la placa, la barrera sube y baja despacio con el semáforo en el orden correcto y los tiempos pedidos, al pulsar SW2 mientras baja vuelve a subir, y el programa usa constantes y al menos dos funciones propias.</p><p><b>Entrega.</b> Guarda el programa como <code>tarea_sv1</code> (<b>Archivo → Guardar como...</b>) y graba con el móvil un vídeo corto de la placa haciéndolo todo, con el papel de tus iniciales y tu curso a la vista; llama al vídeo <code>tarea_sv1</code>. Súbelos a la tarea <b>Colección de programas (Arduino)</b> de Moodle con <b>Editar entrega</b> y <b>Guardar cambios</b>, igual que en la tarea SD1, sin pulsar todavía <b>Enviar tarea</b>.</p></div><div class="bloque bloque-nota"><p class="bloque-titulo">Lo que tienes que saber de esta página</p><ul><li>Un servo gira hasta un ángulo y se queda ahí; por dentro es un control en lazo cerrado con un potenciómetro.</li><li>Cables del SG90: marrón a GND, rojo a 5 V, naranja a la señal. En el shield va en el conector de A3.</li><li>Librería Servo: #include &lt;Servo.h&gt;, Servo nombre;, nombre.attach(pin) en setup() y nombre.write(ángulo), de 0 a 180.</li><li>Para moverlo despacio, un bucle que avanza grado a grado con una pausa (unos 15 ms por grado).</li><li>Con la librería Servo no se usa analogWrite en los pines 9 y 10 (rojo y azul del RGB): solo digitalWrite.</li></ul></div>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/6-entradas-analogicas-y-sensores.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/8-comunicacion-serie-y-redes-de-dispositivos.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-nc-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="license">Creative Commons: Reconocimiento - no comercial - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(Ventana nueva)</span></span></a></p>
+</body>
+</html>

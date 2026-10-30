@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-kpip5hcb-6yadmi224">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="exe-pass-score" content="5">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+<title>12. Traza y predicción de programas | Control, automatización y robótica</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Tecnología e Ingeniería I (1.º de Bachillerato). Control, automatización y robótica con Arduino, sensores e IoT.">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
+<script src="../libs/exe_math/tex-mml-svg.js"> </script>
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-kpip5hcb-6yadmi224" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Bienvenida</a>
+</li>
+<li> <a href="../html/1-sistemas-de-control.html" class="no-ch">1. Sistemas de control</a>
+</li>
+<li> <a href="../html/2-primeros-pasos-con-arduino.html" class="no-ch">2. Primeros pasos con Arduino</a>
+</li>
+<li> <a href="../html/3-salidas-digitales-y-bucle-for.html" class="no-ch">3. Salidas digitales y bucle for</a>
+</li>
+<li> <a href="../html/4-pwm-led-rgb-y-tiempo-sin-bloquear.html" class="no-ch">4. PWM, LED RGB y tiempo sin bloquear</a>
+</li>
+<li> <a href="../html/5-entradas-digitales.html" class="no-ch">5. Entradas digitales</a>
+</li>
+<li> <a href="../html/6-entradas-analogicas-y-sensores.html" class="no-ch">6. Entradas analógicas y sensores</a>
+</li>
+<li> <a href="../html/7-servomotores-la-barrera.html" class="no-ch">7. Servomotores: la barrera</a>
+</li>
+<li> <a href="../html/8-comunicacion-serie-y-redes-de-dispositivos.html" class="no-ch">8. Comunicación serie y redes de dispositivos</a>
+</li>
+<li> <a href="../html/9-iot-telemetria-y-scada.html" class="no-ch">9. IoT, telemetría y SCADA</a>
+</li>
+<li> <a href="../html/10-tecnologias-emergentes-e-ia-en-el-control.html" class="no-ch">10. Tecnologías emergentes e IA en el control</a>
+</li>
+<li> <a href="../html/11-proyecto-de-automatizacion.html" class="no-ch">11. Proyecto de automatización</a>
+</li>
+<li class="active"> <a href="../html/12-traza-y-prediccion-de-programas.html" class="active no-ch">12. Traza y predicción de programas</a>
+</li>
+<li> <a href="../html/chuleta-de-arduino.html" class="no-ch">Chuleta de Arduino</a>
+</li>
+</ul>
+</nav><main id="page-kpip5hcb-6yadmi224" class="page"> 
+<header class="main-header"> <p class="page-counter"> <span class="page-counter-label">Página </span><span class="page-counter-content"> <strong class="page-counter-current-page">13</strong><span class="page-counter-sep">/</span><strong class="page-counter-total">14</strong></span></p>
+
+<div class="package-header"><p class="package-title">Control, automatización y robótica</p></div>
+<div class="page-header"><h1 class="page-title">12. Traza y predicción de programas</h1></div>
+</header><div id="page-content-page-kpip5hcb-6yadmi224" class="page-content">
+<article id="block-zuv71kyh-jv14kcm76" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-l874x2nn-viwmtyo9b" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-l874x2nn-viwmtyo9b&quot;}">
+<style>.exe-content{--chrome:#943d92;--chrome-osc:#752972;--chrome-tinte:#f8eff8;--chrome-linea:#e4c8e3}.exe-content .clave{color:var(--chrome-osc,#752972)}.exe-content pre.codigo{background:#faf6fa;border:1px solid var(--chrome-linea);border-left:5px solid var(--chrome);border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.5;white-space:pre;margin:1em 0}.exe-content pre.consola{background:#1f1d24;color:#ece8f2;border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.45;white-space:pre;margin:.4em 0 1em}.exe-content pre code{padding:0;background:none;color:inherit;font-size:1em}.exe-content p.cod-tit{font-weight:700;margin:1.2em 0 -.5em;color:var(--chrome-osc)}.exe-content code{font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace}</style><div class="bloque bloque-nota"><p class="bloque-titulo">Qué vas a conseguir en esta página</p><p>Aprender a seguir un programa de Arduino paso a paso, sin ejecutarlo, para predecir qué aparecerá en el monitor serie y cómo quedarán las salidas, y encontrar los errores antes de cargarlo. Es lo que se evalúa en el examen en papel con el que termina la unidad, y aquí tienes cómo es y cómo prepararlo.</p></div><h2>Trazar un programa</h2><p><strong>Trazar</strong> un programa es ejecutarlo tú, con papel y lápiz, como lo haría la placa: línea a línea, apuntando cuánto vale cada variable después de cada paso. Sirve para entender un programa que no es tuyo, para encontrar por qué el tuyo no hace lo que esperabas y para predecir lo que hará antes de cargarlo. Lo has hecho sin darte cuenta cada vez que te has preguntado «¿y ahora cuánto vale <code>brillo</code>?».</p><div class="bloque bloque-teoria"><p class="bloque-titulo">Cómo se traza</p><ol><li>Apunta las variables con su valor inicial: primero las <strong>globales</strong> (las de fuera de las funciones) y después las que se crean dentro de <code>setup()</code>.</li><li>Haz una <strong>tabla de traza</strong>: una columna por cada variable que cambia, por cada condición que decide algo y por cada salida (lo que se escribe en el monitor serie o cómo queda un LED), y una fila por vuelta del bucle.</li><li>Sigue el programa línea a línea. <code>setup()</code> se hace una vez; <code>loop()</code> se repite: rellena una fila por cada vuelta que te pidan.</li><li>Al final, escribe exactamente lo que aparece en el monitor serie, línea a línea: <code>print</code> no salta de línea y <code>println</code> sí.</li></ol></div><div class="bloque bloque-nota"><p class="bloque-titulo">Dónde se suele fallar</p><ul><li>Una variable <strong>global</strong> conserva su valor de una vuelta de <code>loop()</code> a la siguiente; una variable creada <strong>dentro</strong> de <code>loop()</code> vuelve a empezar en cada vuelta.</li><li>Si todos los números son enteros, la división es entera: <code>7 / 2</code> da 3. Y <code>map</code> corta los decimales.</li><li><code>Serial.println</code> escribe los números decimales con dos decimales (<code>2.50</code>) si no se le dice otra cosa.</li><li>Un bucle termina cuando la condición deja de cumplirse: la variable se queda con el valor que hizo falsa la condición, no con el anterior.</li><li><code>=</code> guarda un valor y <code>==</code> compara: <code>if (x = 5)</code> se cumple siempre.</li></ul></div><div class="bloque bloque-resuelto"><p class="bloque-titulo">Una traza resuelta</p><p>¿Qué aparece en el monitor serie en las tres primeras vueltas de <code>loop()</code>?</p><pre class="codigo"><code>int cuenta = 0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int veces = 0;
+  cuenta = cuenta + 2;
+  veces = veces + 1;
+  Serial.print(cuenta);
+  Serial.print(&quot; &quot;);
+  Serial.println(veces);
+  delay(500);
+}</code></pre><table class="tabla-datos"><thead><tr><th>Vuelta</th><th>veces</th><th>cuenta</th><th>Monitor serie</th></tr></thead><tbody><tr><td>1</td><td>0 → 1</td><td>0 → 2</td><td><code>2 1</code></td></tr><tr><td>2</td><td>0 → 1</td><td>2 → 4</td><td><code>4 1</code></td></tr><tr><td>3</td><td>0 → 1</td><td>4 → 6</td><td><code>6 1</code></td></tr></tbody></table><p><code>cuenta</code> es global y va sumando: 2, 4, 6. <code>veces</code> se crea dentro de <code>loop()</code>, así que en cada vuelta vuelve a valer 0 antes de sumarle 1: siempre escribe 1.</p></div><h2>El examen en papel</h2><div class="bloque bloque-teoria"><p class="bloque-titulo">Cómo es</p><p>Se hace sin ordenador y sin apuntes. Con el examen se entrega la hoja de sintaxis de Arduino que tienes aquí debajo: lo que se evalúa no es que recuerdes cómo se escribe cada instrucción, sino que sepas usarlas. Tiene cuatro partes:</p><table class="tabla-datos"><thead><tr><th>Parte</th><th>Qué tendrás que hacer</th></tr></thead><tbody><tr><td>A. Predicción</td><td>leer un programa corto y escribir exactamente lo que aparece en el monitor serie, o cómo quedan los LED</td></tr><tr><td>B. Errores</td><td>encontrar los errores de un programa, decir en qué línea están y si son de sintaxis (no compila) o de lógica (compila pero hace otra cosa), y corregirlos</td></tr><tr><td>C. Traza</td><td>rellenar la tabla de traza de un programa, vuelta a vuelta, y decir qué escribe al final</td></tr><tr><td>D. Escritura</td><td>escribir a mano un programa o una función corta que haga lo que se pide</td></tr></tbody></table></div><div class="bloque bloque-pdf"><p class="bloque-titulo">Hoja de sintaxis de Arduino</p><p>Es la misma hoja que te darán con el examen: una cara con cómo se escribe cada instrucción de la unidad y los pines del shield. Úsala para estudiar y, cuando hagas los ejercicios, ten delante solo esta hoja, igual que en el examen.</p><p><a href="../content/resources/hoja_sintaxis_arduino.pdf" target="_blank" rel="noopener">Abrir el PDF</a> (se abre en una pestaña nueva; desde ahí puedes descargarlo o imprimirlo)</p></div><div class="bloque bloque-nota"><p class="bloque-titulo">Cómo prepararlo</p><ul><li>Vuelve a hacer, sin mirar, las prácticas de las páginas 3 a 9.</li><li>Practica la traza: elige un programa del libro, tapa lo que aparece en el monitor serie, trázalo en papel y compruébalo en Tinkercad o en la placa.</li><li>Repasa los errores típicos: el <code>;</code> que falta, una llave sin cerrar, <code>high</code> o <code>serial</code> en minúsculas, <code>=</code> en lugar de <code>==</code>, la división entera, un <code>for</code> que se queda una vuelta corto y un pin sin <code>pinMode</code>.</li><li>Haz los ejercicios de la colección de aquí abajo, en papel y sin mirar el resultado hasta terminar cada uno.</li><li>Relee el apartado «Lo que tienes que saber» del final de cada página.</li></ul></div><div class="bloque bloque-pdf"><p class="bloque-titulo">Ejercicios: predecir, trazar y depurar</p><p>Diecisiete ejercicios como los del examen: predecir lo que aparece en el monitor serie, trazar programas vuelta a vuelta, encontrar y corregir errores y escribir programas cortos. Debajo de cada uno tienes el resultado para que compruebes el tuyo. Si un resultado no te cuadra, carga el programa en Tinkercad o en la placa y míralo en el monitor serie.</p><p><a href="../content/resources/ejercicios/ejercicios_arduino_predecir_trazar_depurar_coleccion.pdf" target="_blank" rel="noopener">Abrir el PDF</a> (se abre en una pestaña nueva; desde ahí puedes descargarlo o imprimirlo)</p></div><h2>Simulacro</h2><p>Intenta resolver cada pregunta en papel antes de abrir la solución.</p><div class="bloque bloque-actividad"><p class="bloque-titulo">Simulacro 1 · Predicción: ¿qué aparece en el monitor serie?</p><p><i>No se entrega ni cuenta para la nota: es un ensayo del examen.</i></p><pre class="codigo"><code>void setup() {
+  Serial.begin(9600);
+  int luz = 650;
+  int umbral = 400;
+  if (luz &lt; umbral) {
+    Serial.println(&quot;Farola encendida&quot;);
+  } else if (luz &lt; umbral + 300) {
+    Serial.println(&quot;Farola a medias&quot;);
+  } else {
+    Serial.println(&quot;Farola apagada&quot;);
+  }
+  Serial.println(map(luz, 0, 1000, 0, 10));
+}
+
+void loop() {}</code></pre><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver la solución</summary><p>650 &lt; 400 es falso. En el <code>else if</code>, <code>umbral + 300</code> vale 700 y 650 &lt; 700 es verdadero: escribe <code>Farola a medias</code>. Después, <code>map(650, 0, 1000, 0, 10)</code> daría 6,5, pero <code>map</code> corta los decimales: escribe <code>6</code>.</p></details></div><div class="bloque bloque-actividad"><p class="bloque-titulo">Simulacro 2 · Errores: encuentra y corrige</p><p><i>No se entrega ni cuenta para la nota: es un ensayo del examen.</i></p><p>Este programa debería hacer parpadear el LED azul, medio segundo encendido y medio segundo apagado. Tiene un error de sintaxis y otro de lógica.</p><pre class="codigo"><code> 1  const int LED_AZUL = 13;
+ 2
+ 3  void setup() {
+ 4    pinMode(LED_AZUL, OUTPUT);
+ 5  }
+ 6
+ 7  void loop() {
+ 8    digitalWrite(LED_AZUL, high);
+ 9    delay(500);
+10    digitalWrite(LED_AZUL, HIGH);
+11    delay(500);
+12  }</code></pre><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver la solución</summary><ul><li>Línea 8: <code>high</code> en minúsculas no existe; es <code>HIGH</code> (sintaxis: no compila).</li><li>Línea 10: vuelve a escribir <code>HIGH</code>, así que el LED no se apaga nunca; tiene que ser <code>LOW</code> (lógica: compila, pero el LED se queda encendido).</li></ul></details></div><div class="bloque bloque-actividad"><p class="bloque-titulo">Simulacro 3 · Traza</p><p><i>No se entrega ni cuenta para la nota: es un ensayo del examen.</i></p><p>Rellena la tabla de traza (columnas <code>i</code>, <code>brillo</code> y <code>paso</code>, al final de cada vuelta) y escribe lo que aparece en el monitor serie.</p><pre class="codigo"><code>void setup() {
+  Serial.begin(9600);
+  int brillo = 0;
+  int paso = 40;
+  for (int i = 0; i &lt; 4; i++) {
+    brillo = brillo + paso;
+    paso = paso + 20;
+  }
+  Serial.println(brillo);
+}
+
+void loop() {}</code></pre><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver la solución</summary><table class="tabla-datos"><thead><tr><th>i</th><th>brillo</th><th>paso</th></tr></thead><tbody><tr><td>antes del bucle</td><td>0</td><td>40</td></tr><tr><td>0</td><td>40</td><td>60</td></tr><tr><td>1</td><td>100</td><td>80</td></tr><tr><td>2</td><td>180</td><td>100</td></tr><tr><td>3</td><td>280</td><td>120</td></tr></tbody></table><p>Escribe <code>280</code>. Fíjate en que <code>brillo</code> se calcula con el <code>paso</code> de antes de aumentarlo, porque la línea que lo suma va primero. Si este valor fuera a un <code>analogWrite</code>, se pasaría del máximo, 255.</p></details></div><div class="bloque bloque-actividad"><p class="bloque-titulo">Simulacro 4 · Escritura</p><p><i>No se entrega ni cuenta para la nota: es un ensayo del examen.</i></p><p>Escribe un programa que, cada segundo, lea la temperatura del LM35, la escriba en el monitor serie con un decimal y encienda el LED rojo si pasa de 28 °C (y lo apague si no). Usa constantes para los pines y para el límite.</p><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver una solución</summary><pre class="codigo"><code>const int LM35 = A2;
+const int LED_ROJO = 12;
+const float LIMITE = 28.0;
+
+void setup() {
+  pinMode(LED_ROJO, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  float temp = analogRead(LM35) * 5000.0 / 1023 / 10;
+  if (temp &gt; LIMITE) {
+    digitalWrite(LED_ROJO, HIGH);
+  } else {
+    digitalWrite(LED_ROJO, LOW);
+  }
+  Serial.println(temp, 1);
+  delay(1000);
+}</code></pre><p>Con el LM35, cada grado son 10 mV: la lectura se pasa a milivoltios con <code>* 5000.0 / 1023</code> y a grados dividiendo entre 10. El <code>5000.0</code> con decimal evita la división entera.</p></details></div><div class="bloque bloque-nota"><p class="bloque-titulo">Lo que tienes que saber de esta página</p><ul><li>Trazar es ejecutar un programa en papel, línea a línea, apuntando el valor de cada variable en una tabla.</li><li>setup() se hace una vez y loop() se repite; las variables globales conservan su valor entre vueltas y las de dentro de loop() vuelven a empezar.</li><li>Errores de sintaxis: el programa no compila (falta ;, una llave, mayúsculas). Errores de lógica: compila, pero hace otra cosa.</li><li>Cuidado con la división entera, los decimales que corta map, print frente a println y = frente a ==.</li></ul></div>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/11-proyecto-de-automatizacion.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/chuleta-de-arduino.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-nc-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="license">Creative Commons: Reconocimiento - no comercial - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(Ventana nueva)</span></span></a></p>
+</body>
+</html>

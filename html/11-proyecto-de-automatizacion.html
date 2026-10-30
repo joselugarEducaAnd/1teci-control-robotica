@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-815qzi7g-1y8n86qtm">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="exe-pass-score" content="5">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+<title>11. Proyecto de automatización | Control, automatización y robótica</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Tecnología e Ingeniería I (1.º de Bachillerato). Control, automatización y robótica con Arduino, sensores e IoT.">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
+<script src="../libs/exe_math/tex-mml-svg.js"> </script>
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-815qzi7g-1y8n86qtm" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Bienvenida</a>
+</li>
+<li> <a href="../html/1-sistemas-de-control.html" class="no-ch">1. Sistemas de control</a>
+</li>
+<li> <a href="../html/2-primeros-pasos-con-arduino.html" class="no-ch">2. Primeros pasos con Arduino</a>
+</li>
+<li> <a href="../html/3-salidas-digitales-y-bucle-for.html" class="no-ch">3. Salidas digitales y bucle for</a>
+</li>
+<li> <a href="../html/4-pwm-led-rgb-y-tiempo-sin-bloquear.html" class="no-ch">4. PWM, LED RGB y tiempo sin bloquear</a>
+</li>
+<li> <a href="../html/5-entradas-digitales.html" class="no-ch">5. Entradas digitales</a>
+</li>
+<li> <a href="../html/6-entradas-analogicas-y-sensores.html" class="no-ch">6. Entradas analógicas y sensores</a>
+</li>
+<li> <a href="../html/7-servomotores-la-barrera.html" class="no-ch">7. Servomotores: la barrera</a>
+</li>
+<li> <a href="../html/8-comunicacion-serie-y-redes-de-dispositivos.html" class="no-ch">8. Comunicación serie y redes de dispositivos</a>
+</li>
+<li> <a href="../html/9-iot-telemetria-y-scada.html" class="no-ch">9. IoT, telemetría y SCADA</a>
+</li>
+<li> <a href="../html/10-tecnologias-emergentes-e-ia-en-el-control.html" class="no-ch">10. Tecnologías emergentes e IA en el control</a>
+</li>
+<li class="active"> <a href="../html/11-proyecto-de-automatizacion.html" class="active no-ch">11. Proyecto de automatización</a>
+</li>
+<li> <a href="../html/12-traza-y-prediccion-de-programas.html" class="no-ch">12. Traza y predicción de programas</a>
+</li>
+<li> <a href="../html/chuleta-de-arduino.html" class="no-ch">Chuleta de Arduino</a>
+</li>
+</ul>
+</nav><main id="page-815qzi7g-1y8n86qtm" class="page"> 
+<header class="main-header"> <p class="page-counter"> <span class="page-counter-label">Página </span><span class="page-counter-content"> <strong class="page-counter-current-page">12</strong><span class="page-counter-sep">/</span><strong class="page-counter-total">14</strong></span></p>
+
+<div class="package-header"><p class="package-title">Control, automatización y robótica</p></div>
+<div class="page-header"><h1 class="page-title">11. Proyecto de automatización</h1></div>
+</header><div id="page-content-page-815qzi7g-1y8n86qtm" class="page-content">
+<article id="block-hwa3npw4-p2qk52nts" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-u7x3win1-7vu3fxwlu" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-u7x3win1-7vu3fxwlu&quot;}">
+<style>.exe-content{--chrome:#943d92;--chrome-osc:#752972;--chrome-tinte:#f8eff8;--chrome-linea:#e4c8e3}.exe-content .clave{color:var(--chrome-osc,#752972)}.exe-content pre.codigo{background:#faf6fa;border:1px solid var(--chrome-linea);border-left:5px solid var(--chrome);border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.5;white-space:pre;margin:1em 0}.exe-content pre.consola{background:#1f1d24;color:#ece8f2;border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.45;white-space:pre;margin:.4em 0 1em}.exe-content pre code{padding:0;background:none;color:inherit;font-size:1em}.exe-content p.cod-tit{font-weight:700;margin:1.2em 0 -.5em;color:var(--chrome-osc)}.exe-content code{font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace}</style><div class="bloque bloque-nota"><p class="bloque-titulo">Qué vas a conseguir en esta página</p><p>Diseñar, programar y poner en marcha un sistema automático con el kit: eliges uno de los cinco proyectos de esta página y decides cómo funciona, pero tiene que leer entradas, tomar decisiones y mover algo de forma controlada con el servo. Es el proyecto de la unidad y cuenta para la nota.</p></div><h2>Qué tienes que construir</h2><p>Vas a automatizar una situación real a escala de maqueta, como has hecho con la barrera del aparcamiento de la página <a href="../html/7-servomotores-la-barrera.html">7. Servomotores: la barrera</a>, pero esta vez lo diseñas tú de principio a fin. Usarás solo lo que ya conoces: el shield, con sus pulsadores, sensores, LED y zumbador, y el servo enchufado en el conector de A3.</p><div class="bloque bloque-teoria"><p class="bloque-titulo">Requisitos del proyecto</p><ul><li><strong>Entradas.</strong> Al menos dos entradas distintas del shield (pulsadores, potenciómetro, luz o temperatura), y el programa decide algo con ellas: no basta con leerlas y mostrarlas.</li><li><strong>Movimiento controlado.</strong> El servo se mueve porque lo decide el programa, y de forma controlada: despacio, grado a grado, o hasta una posición que dependa de una medida. Ir de un extremo a otro de golpe una vez no cuenta. <strong>Es obligatorio:</strong> un proyecto sin movimiento controlado no está completo.</li><li><strong>Avisos.</strong> Al menos una salida más, además del servo, que informe de lo que pasa: los LED, el LED RGB o el zumbador.</li><li><strong>Código claro.</strong> Constantes para los pines, los ángulos, los umbrales y los tiempos; al menos dos funciones propias; y comentarios en las partes que no se entienden a primera vista.</li><li><strong>Descripción.</strong> Al principio del programa, un comentario que explique el proyecto: qué hace, sus entradas, sus salidas y cómo funciona. Es la memoria del proyecto: no hay que entregar nada más por escrito.</li><li><strong>Funciona de verdad.</strong> En la placa, no solo en Tinkercad.</li></ul></div><h3>Elige tu proyecto</h3><p>Elige <strong>uno de estos cinco</strong>. Los detalles los decides tú (los umbrales, los tiempos, los ángulos, cómo avisa) y puedes añadirle mejoras, pero no cambiar de proyecto. Si lo haces completo, cada uno cumple todos los requisitos.</p><table class="tabla-datos"><thead><tr><th>Proyecto</th><th>Qué hace</th><th>Entradas y salidas</th></tr></thead><tbody><tr><td><strong>Termómetro de aguja</strong></td><td>Una aguja marca la temperatura sobre una escala de cartulina, el LED RGB cambia de color por zonas y el zumbador avisa si se pasa de un límite.</td><td>Temperatura, pulsador para silenciar · servo, LED RGB, zumbador</td></tr><tr><td><strong>Persiana automática</strong></td><td>Baja la persiana cuando entra mucha luz y la sube cuando hay poca, despacio; con un pulsador se maneja a mano.</td><td>Luz, potenciómetro para el umbral, pulsador · servo, LED RGB, zumbador</td></tr><tr><td><strong>Cerradura con código</strong></td><td>Si se pulsa una secuencia secreta con SW1 y SW2 (por ejemplo, 2-1-1-2), el pestillo se abre despacio y se cierra solo al rato; si se falla tres veces, se bloquea unos segundos.</td><td>Pulsadores · servo (pestillo), LED, zumbador</td></tr><tr><td><strong>Paso a nivel</strong></td><td>Cuando llega el tren, el LED rojo y el azul parpadean alternándose, suena el aviso y la barrera baja despacio; cuando ha pasado, sube.</td><td>Pulsadores (llega y sale el tren) · servo, LED rojo y azul, zumbador</td></tr><tr><td><strong>Comedero automático</strong></td><td>Cada cierto tiempo abre despacio una trampilla para echar comida; con el potenciómetro se ajusta cuánto tiempo se queda abierta, y con un pulsador se puede dar una ración a mano.</td><td>Potenciómetro, pulsador · servo, LED, zumbador</td></tr></tbody></table><h2>Cómo trabajar</h2><p>Para el proyecto tienes <strong>dos clases</strong> con la placa. La primera empieza con el cuestionario de control, redes e IoT de Moodle, que dura unos 20 minutos, así que llega a ella con el proyecto elegido, la descripción escrita y el programa empezado en Tinkercad, que puedes abrir también desde casa. En clase te quedará probarlo en la placa, ajustarlo, grabar el vídeo y entregarlo al final de la segunda.</p><ol><li><strong>Elige y describe.</strong> Elige uno de los cinco proyectos, decide sus detalles y escribe la descripción de la cabecera antes de programar nada. Si no sabes explicarlo en unas líneas, aún no tienes claro cómo funciona.</li><li><strong>Prepara el circuito en Tinkercad.</strong> Duplica tu Shield virtual, como en la página <a href="../html/3-salidas-digitales-y-bucle-for.html">3. Salidas digitales y bucle for</a>, llama a la copia <strong>Proyecto -</strong> seguido del nombre de tu proyecto (por ejemplo, <strong>Proyecto - Persiana</strong>) y conéctale el servo en A3 igual que en la copia de la barrera de la página <a href="../html/7-servomotores-la-barrera.html">7. Servomotores: la barrera</a>.</li><li><strong>Programa por partes.</strong> Primero comprueba las entradas en el monitor serie; después, cada salida por separado; y al final, las decisiones que lo juntan todo. Si lo escribes todo de una vez y falla, no sabrás dónde.</li><li><strong>Prueba en la placa.</strong> Recuerda: en el programa, <code>DESPLAZAMIENTO</code> a 0 si usas la temperatura, y el servo en el conector de A3 con el cable marrón en GND.</li><li><strong>Graba el vídeo y entrégalo.</strong></li></ol><p class="cod-tit">Ejemplo de descripción al principio del programa</p><pre class="codigo"><code>/*
+  Proyecto: Persiana automática
+  Qué hace: baja la persiana cuando entra mucha luz y la sube cuando
+            vuelve a haber poca, despacio. SW1 la sube o la baja a mano.
+  Entradas: LDR (A1): luz que entra por la ventana.
+            SW1 (D2): mando manual.
+            Potenciómetro (A0): ajusta el umbral de luz.
+  Salidas:  servo (A3): mueve la persiana (0° subida, 90° bajada).
+            LED RGB: verde subida, rojo bajada, azul moviéndose.
+            Zumbador (D5): pitido corto antes de moverse.
+  Funcionamiento: cada medio segundo compara la luz con el umbral;
+            si la pasa, pita y baja la persiana grado a grado...
+*/</code></pre><div class="bloque bloque-nota"><p class="bloque-titulo">Para que el movimiento sea controlado</p><ul><li>Para moverlo despacio, usa un bucle que avance grado a grado con una pausa, como en la barrera. Mejor aún, en una función, por ejemplo <code>moverHasta(angulo)</code>, que sirva para cualquier ángulo.</li><li>Para que la posición dependa de una medida, usa <code>map</code> y <code>constrain</code>, como con la LDR en la página <a href="../html/6-entradas-analogicas-y-sensores.html">6. Entradas analógicas y sensores</a>.</li><li>Guarda los ángulos en constantes (<code>ABIERTA</code>, <code>CERRADA</code>) y comprueba en la placa que el servo llega a ellos sin zumbar.</li></ul></div><div class="bloque bloque-nota"><p class="bloque-titulo">Si algo no funciona</p><table class="tabla-datos"><thead><tr><th>Lo que ves</th><th>Qué compruebas</th></tr></thead><tbody><tr><td>El servo no se mueve o tiembla</td><td>¿Está hecho el <code>attach</code> en <code>setup()</code>? ¿Está el conector con el marrón en GND? Si zumba en un extremo, usa un ángulo algo menor.</td></tr><tr><td>El rojo o el azul del LED RGB no se gradúan</td><td>Con la librería Servo, los pines 9 y 10 no tienen PWM: enciéndelos o apágalos con <code>digitalWrite</code>.</td></tr><tr><td>El verde deja de graduarse después de un pitido</td><td><code>tone()</code> usa el temporizador del pin 11: después del pitido, llama a <code>noTone()</code> y repite el <code>analogWrite</code> del verde, o repítelo en cada vuelta de <code>loop()</code>.</td></tr><tr><td>El programa no atiende a los pulsadores mientras el servo se mueve</td><td>Mientras dura un bucle con <code>delay</code>, la placa no lee nada más. Mueve el servo en pasos cortos o lee el pulsador dentro del bucle, como la fotocélula de la barrera.</td></tr><tr><td>Funciona en Tinkercad pero no en la placa</td><td>Revisa <code>DESPLAZAMIENTO</code>, los umbrales (la luz del aula no es la de la simulación) y que la placa elegida en el IDE sea <strong>Arduino Uno</strong>.</td></tr></tbody></table></div><div class="bloque bloque-actividad"><p class="bloque-titulo">Proyecto · Tu sistema automático</p><p>Diseña, programa y pon en marcha uno de los cinco proyectos de la lista, cumpliendo todos los requisitos de esta página.</p><p><b>Está conseguida cuando…</b> el sistema funciona en la placa como dice su descripción, combina al menos dos entradas con decisiones, mueve el servo de forma controlada, avisa con otra salida y el código usa constantes, al menos dos funciones propias y la descripción de la cabecera.</p><p><b>Cómo se entrega.</b> El proyecto tiene su propia tarea de Moodle, <b>Proyecto de automatización</b>, separada de la colección de programas. Subes dos archivos:</p><ul><li><code>proyecto.ino</code>: el programa, con la descripción al principio. Guárdalo con <b>Archivo → Guardar como...</b> y el nombre <code>proyecto</code>, sin tu nombre.</li><li>Un vídeo de 30 a 60 segundos, grabado con el móvil, en el que se vea el sistema funcionando en la placa en todas sus situaciones (por ejemplo, la persiana subiendo y bajando, y el mando manual). Pon junto a la placa el papel con tus iniciales y tu curso, y llama al vídeo <code>proyecto</code>.</li></ul><ol><li>Abre la tarea <b>Proyecto de automatización</b> de Moodle y pulsa <b>Agregar entrega</b>.</li><li>Arrastra el programa y el vídeo a la zona de archivos (el vídeo puedes subirlo desde el móvil) y pulsa <b>Guardar cambios</b>.</li></ol><p><b>Si no tienes móvil</b>, avísalo en clase: el vídeo se graba allí con un dispositivo del centro. Una entrega que llega sin vídeo se comprueba en la simulación, pero no puede llegar a la nota máxima.</p></div><div class="bloque bloque-nota"><p class="bloque-titulo">Lo que tienes que saber de esta página</p><ul><li>Un sistema automático lee entradas, decide con ellas y actúa sobre salidas; el proyecto tiene que tener las tres cosas.</li><li>Un movimiento controlado lo decide el programa y se hace despacio o hasta una posición calculada, no de golpe.</li><li>Antes de programar, describe el sistema: qué hace, entradas, salidas y funcionamiento.</li><li>Se programa por partes: entradas, salidas y, al final, las decisiones; y se prueba en la placa real.</li></ul></div>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/10-tecnologias-emergentes-e-ia-en-el-control.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/12-traza-y-prediccion-de-programas.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-nc-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="license">Creative Commons: Reconocimiento - no comercial - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(Ventana nueva)</span></span></a></p>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-fj8jawtw-hyqbwr8ab">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="exe-pass-score" content="5">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+<title>Chuleta de Arduino | Control, automatización y robótica</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Tecnología e Ingeniería I (1.º de Bachillerato). Control, automatización y robótica con Arduino, sensores e IoT.">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
+<script src="../libs/exe_math/tex-mml-svg.js"> </script>
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-fj8jawtw-hyqbwr8ab" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Bienvenida</a>
+</li>
+<li> <a href="../html/1-sistemas-de-control.html" class="no-ch">1. Sistemas de control</a>
+</li>
+<li> <a href="../html/2-primeros-pasos-con-arduino.html" class="no-ch">2. Primeros pasos con Arduino</a>
+</li>
+<li> <a href="../html/3-salidas-digitales-y-bucle-for.html" class="no-ch">3. Salidas digitales y bucle for</a>
+</li>
+<li> <a href="../html/4-pwm-led-rgb-y-tiempo-sin-bloquear.html" class="no-ch">4. PWM, LED RGB y tiempo sin bloquear</a>
+</li>
+<li> <a href="../html/5-entradas-digitales.html" class="no-ch">5. Entradas digitales</a>
+</li>
+<li> <a href="../html/6-entradas-analogicas-y-sensores.html" class="no-ch">6. Entradas analógicas y sensores</a>
+</li>
+<li> <a href="../html/7-servomotores-la-barrera.html" class="no-ch">7. Servomotores: la barrera</a>
+</li>
+<li> <a href="../html/8-comunicacion-serie-y-redes-de-dispositivos.html" class="no-ch">8. Comunicación serie y redes de dispositivos</a>
+</li>
+<li> <a href="../html/9-iot-telemetria-y-scada.html" class="no-ch">9. IoT, telemetría y SCADA</a>
+</li>
+<li> <a href="../html/10-tecnologias-emergentes-e-ia-en-el-control.html" class="no-ch">10. Tecnologías emergentes e IA en el control</a>
+</li>
+<li> <a href="../html/11-proyecto-de-automatizacion.html" class="no-ch">11. Proyecto de automatización</a>
+</li>
+<li> <a href="../html/12-traza-y-prediccion-de-programas.html" class="no-ch">12. Traza y predicción de programas</a>
+</li>
+<li class="active"> <a href="../html/chuleta-de-arduino.html" class="active no-ch">Chuleta de Arduino</a>
+</li>
+</ul>
+</nav><main id="page-fj8jawtw-hyqbwr8ab" class="page"> 
+<header class="main-header"> <p class="page-counter"> <span class="page-counter-label">Página </span><span class="page-counter-content"> <strong class="page-counter-current-page">14</strong><span class="page-counter-sep">/</span><strong class="page-counter-total">14</strong></span></p>
+
+<div class="package-header"><p class="package-title">Control, automatización y robótica</p></div>
+<div class="page-header"><h1 class="page-title">Chuleta de Arduino</h1></div>
+</header><div id="page-content-page-fj8jawtw-hyqbwr8ab" class="page-content">
+<article id="block-5uz26pu0-ffxn2fe8r" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-aamc9j4z-tty2qwmpd" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-aamc9j4z-tty2qwmpd&quot;}">
+<style>.exe-content{--chrome:#943d92;--chrome-osc:#752972;--chrome-tinte:#f8eff8;--chrome-linea:#e4c8e3}.exe-content .clave{color:var(--chrome-osc,#752972)}.exe-content pre.codigo{background:#faf6fa;border:1px solid var(--chrome-linea);border-left:5px solid var(--chrome);border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.5;white-space:pre;margin:1em 0}.exe-content pre.consola{background:#1f1d24;color:#ece8f2;border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.45;white-space:pre;margin:.4em 0 1em}.exe-content pre code{padding:0;background:none;color:inherit;font-size:1em}.exe-content p.cod-tit{font-weight:700;margin:1.2em 0 -.5em;color:var(--chrome-osc)}.exe-content code{font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace}</style><p>Aquí tienes reunido lo que más vas a consultar mientras programas: el pin de cada componente del shield y las instrucciones de Arduino que usas en la unidad. Es para estudiar y para tenerla a mano en clase.</p><h2>Los pines del shield HY-M302</h2><table class="tabla-datos"><thead><tr><th>Pin</th><th>Componente</th><th>Fíjate en</th></tr></thead><tbody><tr><td><strong>D2</strong></td><td>Pulsador SW1</td><td>pulsado da LOW, suelto da HIGH; frente al LED azul</td></tr><tr><td><strong>D3</strong></td><td>Pulsador SW2</td><td>pulsado da LOW, suelto da HIGH; frente al LED rojo</td></tr><tr><td><strong>D4</strong></td><td>Sensor DHT11</td><td>temperatura y humedad (necesita librería)</td></tr><tr><td><strong>D5</strong></td><td>Zumbador</td><td>suena con tone(); va a través de un transistor</td></tr><tr><td><strong>D6</strong></td><td>Receptor de infrarrojos</td><td>mando a distancia</td></tr><tr><td><strong>D7</strong></td><td>Conector libre de 3 patillas</td><td>GND, VCC y señal: servo u otro módulo</td></tr><tr><td><strong>D8</strong></td><td>Conector libre de 3 patillas</td><td>GND, VCC y señal: servo u otro módulo</td></tr><tr><td><strong>D9</strong></td><td>LED RGB: rojo</td><td>PWM (~)</td></tr><tr><td><strong>D10</strong></td><td>LED RGB: azul</td><td>PWM (~)</td></tr><tr><td><strong>D11</strong></td><td>LED RGB: verde</td><td>PWM (~)</td></tr><tr><td><strong>D12</strong></td><td>LED rojo</td><td>solo encendido o apagado</td></tr><tr><td><strong>D13</strong></td><td>LED azul</td><td>solo encendido o apagado; es también el LED «L» de la placa</td></tr><tr><td><strong>A0</strong></td><td>Potenciómetro</td><td>de 0 a 1023; sube al girarlo en sentido horario</td></tr><tr><td><strong>A1</strong></td><td>LDR (luz)</td><td>más luz, lectura mayor</td></tr><tr><td><strong>A2</strong></td><td>Sensor LM35</td><td>10 mV por cada °C</td></tr><tr><td><strong>A3</strong></td><td>Conector libre de 3 patillas</td><td>GND, VCC y señal: aquí va el servo</td></tr></tbody></table><div class="bloque bloque-nota"><p class="bloque-titulo">Dos cosas que conviene recordar</p><ul><li>Los pulsadores del shield tienen una resistencia hacia 5 V: <strong>sueltos dan HIGH y pulsados dan LOW</strong>.</li><li>La librería Servo usa el temporizador de los pines 9 y 10: mientras haya un servo, no uses <code>analogWrite</code> en esos dos pines; enciéndelos o apágalos con <code>digitalWrite</code>. El verde del RGB (pin 11) sigue funcionando con PWM.</li><li><code>tone()</code> usa el temporizador del pin 11: mientras suena el zumbador, el verde del RGB no se gradúa. Después del pitido, llama a <code>noTone()</code> y repite el <code>analogWrite</code> del verde (o repítelo en cada vuelta de <code>loop()</code>).</li></ul></div><h2>Instrucciones</h2><table class="tabla-datos"><thead><tr><th>Instrucción</th><th>Qué hace</th></tr></thead><tbody><tr><td><code>pinMode(pin, OUTPUT);</code></td><td>En <code>setup()</code>: el pin será una salida (o <code>INPUT</code>, una entrada).</td></tr><tr><td><code>digitalWrite(pin, HIGH);</code></td><td>Pone la salida a 5 V (<code>HIGH</code>) o a 0 V (<code>LOW</code>).</td></tr><tr><td><code>digitalRead(pin)</code></td><td>Lee una entrada digital: da <code>HIGH</code> o <code>LOW</code>. Los pulsadores del shield dan <code>LOW</code> al pulsarlos.</td></tr><tr><td><code>analogWrite(pin, valor);</code></td><td>Solo en pines con ~: valor de 0 (apagado) a 255 (al máximo) por PWM.</td></tr><tr><td><code>analogRead(pin)</code></td><td>Lee una entrada analógica (A0 a A5): da un número de 0 (0 V) a 1023 (5 V).</td></tr><tr><td><code>map(valor, 0, 1023, 0, 255)</code></td><td>Pasa un número de una escala a otra.</td></tr><tr><td><code>delay(ms);</code></td><td>Detiene el programa esos milisegundos.</td></tr><tr><td><code>millis()</code></td><td>Milisegundos desde que se encendió la placa (guárdalo en un <code>unsigned long</code>).</td></tr><tr><td><code>tone(pin, frecuencia);</code> · <code>noTone(pin);</code></td><td>Hace sonar el zumbador a esa frecuencia (Hz) · lo calla.</td></tr><tr><td><code>Serial.begin(9600);</code></td><td>En <code>setup()</code>: abre la comunicación con el ordenador a 9600 baudios.</td></tr><tr><td><code>Serial.println(x);</code></td><td>Escribe <code>x</code> en el monitor serie y salta de línea (<code>Serial.print</code> no salta).</td></tr><tr><td><code>#include &lt;Servo.h&gt;</code> · <code>Servo s;</code></td><td>Arriba del todo: incluye la librería y crea un servo.</td></tr><tr><td><code>s.attach(A3);</code> · <code>s.write(90);</code></td><td>En <code>setup()</code>: el servo está en el conector A3 · lo mueve a 90°.</td></tr></tbody></table><h2>Estructuras y operadores</h2><table class="tabla-datos"><thead><tr><th>Escribe…</th><th>Para…</th></tr></thead><tbody><tr><td><code>if (condición) { … } else { … }</code></td><td>Si se cumple la condición, hace lo primero; si no, lo segundo.</td></tr><tr><td><code>while (condición) { … }</code></td><td>Repite mientras se cumpla la condición.</td></tr><tr><td><code>for (int i = 0; i &lt; n; i++) { … }</code></td><td>Repite <code>n</code> veces, con <code>i</code> de 0 a <code>n − 1</code>.</td></tr><tr><td><code>==  !=  &lt;  &gt;  &lt;=  &gt;=</code></td><td>Comparaciones: igual, distinto, menor, mayor, menor o igual, mayor o igual.</td></tr><tr><td><code>&amp;&amp;  ||  !</code></td><td>Y, o, no.</td></tr><tr><td><code>void nombre() { … }</code></td><td>Define una función propia que no devuelve nada.</td></tr></tbody></table><h2>Antes de pedir ayuda, comprueba</h2><ul><li>¿Termina cada instrucción en <code>;</code>? ¿Están cerradas todas las llaves?</li><li>¿Están <code>HIGH</code>, <code>LOW</code>, <code>OUTPUT</code> e <code>INPUT</code> en mayúsculas?</li><li>¿Está el pin preparado con <code>pinMode</code> en <code>setup()</code>?</li><li>¿Has elegido la tarjeta y el puerto serial en el Arduino IDE (menú Herramientas)?</li></ul>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/12-traza-y-prediccion-de-programas.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<span class="nav-button nav-button-right" aria-hidden="true"><span>Siguiente</span></span>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-nc-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="license">Creative Commons: Reconocimiento - no comercial - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(Ventana nueva)</span></span></a></p>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-mvnp5ch9-6dcay04cn">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="exe-pass-score" content="5">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+<title>5. Entradas digitales | Control, automatización y robótica</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Tecnología e Ingeniería I (1.º de Bachillerato). Control, automatización y robótica con Arduino, sensores e IoT.">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
+<script src="../libs/exe_math/tex-mml-svg.js"> </script>
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mvnp5ch9-6dcay04cn" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Bienvenida</a>
+</li>
+<li> <a href="../html/1-sistemas-de-control.html" class="no-ch">1. Sistemas de control</a>
+</li>
+<li> <a href="../html/2-primeros-pasos-con-arduino.html" class="no-ch">2. Primeros pasos con Arduino</a>
+</li>
+<li> <a href="../html/3-salidas-digitales-y-bucle-for.html" class="no-ch">3. Salidas digitales y bucle for</a>
+</li>
+<li> <a href="../html/4-pwm-led-rgb-y-tiempo-sin-bloquear.html" class="no-ch">4. PWM, LED RGB y tiempo sin bloquear</a>
+</li>
+<li class="active"> <a href="../html/5-entradas-digitales.html" class="active no-ch">5. Entradas digitales</a>
+</li>
+<li> <a href="../html/6-entradas-analogicas-y-sensores.html" class="no-ch">6. Entradas analógicas y sensores</a>
+</li>
+<li> <a href="../html/7-servomotores-la-barrera.html" class="no-ch">7. Servomotores: la barrera</a>
+</li>
+<li> <a href="../html/8-comunicacion-serie-y-redes-de-dispositivos.html" class="no-ch">8. Comunicación serie y redes de dispositivos</a>
+</li>
+<li> <a href="../html/9-iot-telemetria-y-scada.html" class="no-ch">9. IoT, telemetría y SCADA</a>
+</li>
+<li> <a href="../html/10-tecnologias-emergentes-e-ia-en-el-control.html" class="no-ch">10. Tecnologías emergentes e IA en el control</a>
+</li>
+<li> <a href="../html/11-proyecto-de-automatizacion.html" class="no-ch">11. Proyecto de automatización</a>
+</li>
+<li> <a href="../html/12-traza-y-prediccion-de-programas.html" class="no-ch">12. Traza y predicción de programas</a>
+</li>
+<li> <a href="../html/chuleta-de-arduino.html" class="no-ch">Chuleta de Arduino</a>
+</li>
+</ul>
+</nav><main id="page-mvnp5ch9-6dcay04cn" class="page"> 
+<header class="main-header"> <p class="page-counter"> <span class="page-counter-label">Página </span><span class="page-counter-content"> <strong class="page-counter-current-page">6</strong><span class="page-counter-sep">/</span><strong class="page-counter-total">14</strong></span></p>
+
+<div class="package-header"><p class="package-title">Control, automatización y robótica</p></div>
+<div class="page-header"><h1 class="page-title">5. Entradas digitales</h1></div>
+</header><div id="page-content-page-mvnp5ch9-6dcay04cn" class="page-content">
+<article id="block-8n7setir-5inq446z3" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-ihh9yzmg-lq9aa6g0j" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-ihh9yzmg-lq9aa6g0j&quot;}">
+<style>.exe-content{--chrome:#943d92;--chrome-osc:#752972;--chrome-tinte:#f8eff8;--chrome-linea:#e4c8e3}.exe-content .clave{color:var(--chrome-osc,#752972)}.exe-content pre.codigo{background:#faf6fa;border:1px solid var(--chrome-linea);border-left:5px solid var(--chrome);border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.5;white-space:pre;margin:1em 0}.exe-content pre.consola{background:#1f1d24;color:#ece8f2;border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.45;white-space:pre;margin:.4em 0 1em}.exe-content pre code{padding:0;background:none;color:inherit;font-size:1em}.exe-content p.cod-tit{font-weight:700;margin:1.2em 0 -.5em;color:var(--chrome-osc)}.exe-content code{font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace}</style><div class="bloque bloque-nota"><p class="bloque-titulo">Qué vas a conseguir en esta página</p><p>Leer los pulsadores del shield, entender por qué llevan una resistencia pull-up, decidir con <code>if</code> y <code>else</code> qué hace el programa, y distinguir entre «está pulsado» y «lo acabo de pulsar».</p></div><h2>Leer una entrada digital</h2><p>Hasta ahora los pines daban órdenes. También pueden <strong>escuchar</strong>: si configuras un pin como entrada con <code>pinMode(pin, INPUT)</code>, la función <code>digitalRead(pin)</code> te dice qué tensión le llega. Como es una entrada digital, solo hay dos respuestas:</p><table class="tabla-datos"><thead><tr><th>Tensión en el pin</th><th>digitalRead da</th></tr></thead><tbody><tr><td>Por debajo de 1,5 V (lo ideal, 0 V)</td><td><code>LOW</code></td></tr><tr><td>Por encima de 3 V (lo ideal, 5 V)</td><td><code>HIGH</code></td></tr><tr><td>Entre 1,5 V y 3 V</td><td>No se sabe: puede dar cualquiera de los dos</td></tr></tbody></table><p>Por eso el circuito que hay fuera del pin tiene que dejar siempre una tensión clara, cerca de 0 V o cerca de 5 V.</p><h2>Por qué un pulsador lleva una resistencia</h2><p>Un pulsador solo une o separa dos contactos. Si lo pones entre el pin y GND, al pulsarlo el pin queda a 0 V. Pero al soltarlo, el pin no queda unido a nada: está <strong>al aire</strong>, y una entrada al aire lee lo que le parece, según las interferencias que le lleguen. Para evitarlo, el pin se une a 5 V con una resistencia de valor alto, la <strong>resistencia pull-up</strong> («tira hacia arriba»). Así están montados los dos pulsadores del shield:</p><figure style="max-width:820px;margin:1.2em auto"><a href="../content/resources/pullup_estados.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/pullup_estados.svg" alt="Dos esquemas del pulsador SW1 con su resistencia pull-up: suelto, el pin D2 queda a 5 V y lee HIGH; pulsado, queda unido a GND y lee LOW." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>Con la pull-up, el pin nunca se queda al aire. <a href="../content/resources/pullup_estados.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><p>Fíjate en la consecuencia, que es la que más errores provoca: en el shield, un pulsador <strong>suelto da <code>HIGH</code> y pulsado da <code>LOW</code></strong>. Para no liarte, guarda el valor en una constante: <code>const int PULSADO = LOW;</code> y compara siempre con ella.</p><table class="tabla-datos"><thead><tr><th>Pulsador</th><th>Pin</th><th>Dónde está</th><th>Suelto</th><th>Pulsado</th></tr></thead><tbody><tr><td>SW1</td><td>2</td><td>Enfrente del LED azul</td><td><code>HIGH</code></td><td><code>LOW</code></td></tr><tr><td>SW2</td><td>3</td><td>Enfrente del LED rojo</td><td><code>HIGH</code></td><td><code>LOW</code></td></tr></tbody></table><div class="bloque bloque-nota"><p class="bloque-titulo">¿Y si un circuito no trae la resistencia?</p><p>El Arduino lleva dentro una resistencia pull-up en cada pin que puedes activar con <code>pinMode(pin, INPUT_PULLUP)</code>. Con el shield no hace falta, porque ya trae la suya, pero te servirá cuando conectes un pulsador suelto.</p></div><h2>Decidir: if y else</h2><p>Frente a lo que has visto en Python, la idea es la misma; cambia la forma: la condición va entre paréntesis, cada bloque entre llaves y, en lugar de <code>elif</code>, se escribe <code>else if</code>.</p><pre class="codigo"><code>if (condición) {
+  // si se cumple
+} else if (otra condición) {
+  // si no se cumplía la primera, pero sí esta
+} else {
+  // si no se cumple ninguna
+}</code></pre><table class="tabla-datos"><thead><tr><th>Para…</th><th>En C++</th><th>En Python</th></tr></thead><tbody><tr><td>comparar si es igual / distinto</td><td><code>==</code> · <code>!=</code></td><td><code>==</code> · <code>!=</code></td></tr><tr><td>menor, mayor, menor o igual, mayor o igual</td><td><code>&lt;  &gt;  &lt;=  &gt;=</code></td><td>igual</td></tr><tr><td>y / o / no</td><td><code>&amp;&amp;</code> · <code>||</code> · <code>!</code></td><td><code>and</code> · <code>or</code> · <code>not</code></td></tr><tr><td>verdadero / falso</td><td><code>true</code> · <code>false</code> (tipo <code>bool</code>)</td><td><code>True</code> · <code>False</code></td></tr></tbody></table><div class="bloque bloque-nota"><p class="bloque-titulo">Un solo igual guarda; dos comparan</p><p><code>if (estado = HIGH)</code> no compara: <strong>guarda</strong> <code>HIGH</code> en <code>estado</code> y la condición sale siempre verdadera. El compilador no da error, así que el fallo es difícil de ver. Para comparar, <code>==</code>.</p></div><p class="cod-tit">Ejemplo: cada pulsador enciende el LED que tiene delante</p><pre class="codigo"><code>// Mientras pulsas SW1 se enciende el LED azul, que tiene delante; con SW2, el rojo
+const int SW1 = 2;
+const int SW2 = 3;
+const int LED_ROJO = 12;
+const int LED_AZUL = 13;
+const int PULSADO = LOW;   // los pulsadores del shield dan LOW al pulsarlos
+
+void setup() {
+  pinMode(SW1, INPUT);     // la resistencia de pull-up ya está en el shield
+  pinMode(SW2, INPUT);
+  pinMode(LED_ROJO, OUTPUT);
+  pinMode(LED_AZUL, OUTPUT);
+}
+
+void loop() {
+  if (digitalRead(SW1) == PULSADO) {
+    digitalWrite(LED_AZUL, HIGH);
+  } else {
+    digitalWrite(LED_AZUL, LOW);
+  }
+
+  if (digitalRead(SW2) == PULSADO) {
+    digitalWrite(LED_ROJO, HIGH);
+  } else {
+    digitalWrite(LED_ROJO, LOW);
+  }
+}</code></pre><h2>Añade los pulsadores a tu Shield virtual</h2><p>Abre tu <strong>Shield virtual</strong> (el original, no una copia) y añádele los dos pulsadores con su pull-up, como en el shield. Así, todas las copias que hagas a partir de ahora ya los tendrán.</p><figure style="max-width:900px;margin:1.2em auto"><a href="../content/resources/tc_sv_pulsadores_vista.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/tc_sv_pulsadores_vista.svg" alt="Captura de Tinkercad con el shield virtual: los dos pulsadores con sus resistencias, los cables a los pines 2 y 3 y el cable rojo desde el pin 5V hasta el carril + de arriba." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>El shield virtual con los pulsadores añadidos. <a href="../content/resources/tc_sv_pulsadores_vista.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><ol><li>Coloca un <strong>Pulsador</strong> saltando el canal central, con sus patillas en las columnas 6 y 8 (filas e y f). Pasa el ratón por las patillas: las dos de la columna 6 son el terminal 1 y las de la columna 8, el terminal 2. Al pulsarlo, se unen las dos columnas. Coloca otro igual en las columnas 11 y 13.</li><li>Pon una <strong>Resistencia</strong> de <strong>10 kΩ</strong> en vertical de i8 al carril + de arriba, y otra de i13 al carril +. Son las pull-up.</li><li>Une con cables: a8 con el pin 2, a13 con el pin 3, y a6 y a11 con el carril − de abajo.</li><li>El carril + de arriba todavía no tiene tensión: lleva un cable desde el pin <strong>5V</strong> del Arduino hasta él. Por el lado derecho de la placa de pruebas no se cruza con nada.</li></ol><figure style="max-width:900px;margin:1.2em auto"><a href="../content/resources/tc_sv_pulsadores_detalle.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/tc_sv_pulsadores_detalle.svg" alt="Detalle en Tinkercad de los dos pulsadores con sus resistencias de 10 kΩ y los cables a los pines 2 y 3 y a GND." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>Los pulsadores de cerca: cada número indica dónde va cada cosa. <a href="../content/resources/tc_sv_pulsadores_detalle.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><p>Para probarlo, pega en una copia el ejemplo de arriba e inicia la simulación.</p><figure style="max-width:820px;margin:1.2em auto"><a href="../content/resources/tc_sv_pulsadores_simula.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/tc_sv_pulsadores_simula.svg" alt="Simulación en Tinkercad: con el ratón sobre SW1 pulsado, el LED azul está encendido." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>Mientras mantienes el clic, el pulsador está pulsado. <a href="../content/resources/tc_sv_pulsadores_simula.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><h2>«Está pulsado» no es lo mismo que «lo acabo de pulsar»</h2><p>El ejemplo anterior pregunta si el pulsador <strong>está</strong> pulsado. Pero a veces quieres reaccionar <strong>una vez</strong> por cada pulsación: por ejemplo, que cada pulsación encienda o apague una luz. Si solo preguntas si está pulsado, <code>loop()</code> se repite miles de veces mientras tienes el dedo encima y la luz se enciende y se apaga sin control.</p><p>La solución es esperar a que sueltes el pulsador antes de seguir, con un <code>while</code> que no hace nada mientras siga pulsado. Hay un segundo problema: los contactos metálicos de un pulsador real <strong>rebotan</strong> durante unos milisegundos al pulsar y al soltar, y el Arduino es tan rápido que lo ve como varias pulsaciones. Se arregla esperando unos 20 ms (es el <strong>antirrebote</strong>). Tinkercad no simula los rebotes, pero la placa sí los tiene: no quites esa espera aunque en la simulación parezca innecesaria.</p><div class="bloque bloque-actividad"><p class="bloque-titulo">Práctica: un interruptor con un pulsador</p><p><i>No se entrega ni cuenta para la nota: sirve para practicar lo que necesitarás en las tareas y en el proyecto.</i></p><p>Este programa enciende o apaga el LED rojo cada vez que pulsas SW2. Piensa qué tiene que valer <code>estado</code> después de cada pulsación, cuándo tiene que seguir esperando el <code>while</code> y qué falta al soltar. Rellena los huecos y pruébalo primero en Tinkercad y después en la placa.</p><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Abrir el programa con huecos</summary><p>Es el programa de la práctica con algunas partes borradas. Cada <b>____</b> es una palabra, un número o un signo que ya has visto en esta página. Cópialo, sustituye cada hueco por lo que falta y pruébalo. Intenta primero hacerlo sin abrir esto: se aprende mucho más.</p><pre class="codigo"><code>// Cada pulsación de SW2 enciende o apaga el LED rojo, que tiene delante
+const int SW2 = 3;
+const int LED_ROJO = 12;
+const int PULSADO = LOW;
+const int ANTIRREBOTE = 20;   // milisegundos que se espera a que el contacto deje de rebotar
+
+int estado = LOW;             // cómo está el LED ahora
+
+void setup() {
+  pinMode(SW2, INPUT);
+  pinMode(LED_ROJO, OUTPUT);
+}
+
+void loop() {
+  if (digitalRead(SW2) == PULSADO) {
+    estado = ____;                    // cambia: LOW pasa a HIGH y HIGH a LOW
+    digitalWrite(LED_ROJO, estado);
+    delay(ANTIRREBOTE);
+    while (digitalRead(SW2) == ____) {
+      // espera sin hacer nada hasta que sueltes el pulsador
+    }
+    ____(ANTIRREBOTE);
+  }
+}</code></pre></details><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver el programa completo</summary><pre class="codigo"><code>// Cada pulsación de SW2 enciende o apaga el LED rojo, que tiene delante
+const int SW2 = 3;
+const int LED_ROJO = 12;
+const int PULSADO = LOW;
+const int ANTIRREBOTE = 20;   // milisegundos que se espera a que el contacto deje de rebotar
+
+int estado = LOW;             // cómo está el LED ahora
+
+void setup() {
+  pinMode(SW2, INPUT);
+  pinMode(LED_ROJO, OUTPUT);
+}
+
+void loop() {
+  if (digitalRead(SW2) == PULSADO) {
+    estado = !estado;                    // cambia: LOW pasa a HIGH y HIGH a LOW
+    digitalWrite(LED_ROJO, estado);
+    delay(ANTIRREBOTE);
+    while (digitalRead(SW2) == PULSADO) {
+      // espera sin hacer nada hasta que sueltes el pulsador
+    }
+    delay(ANTIRREBOTE);
+  }
+}</code></pre><p>Prueba en la placa a quitar las dos esperas de <code>ANTIRREBOTE</code>: de vez en cuando, una pulsación encenderá y apagará el LED a la vez, y parecerá que no ha hecho nada.</p></details></div><h2>Mantener pulsado para regular</h2><p>Al revés que el interruptor, a veces lo que interesa es justo que algo siga pasando <strong>mientras</strong> mantienes el pulsador. En este ejemplo, SW1 sube el brillo del azul del LED RGB y SW2 lo baja, sin pasarse de 0 ni de 255:</p><p class="cod-tit">Ejemplo: regular un brillo con dos pulsadores</p><pre class="codigo"><code>// Mientras mantienes SW1 el azul del LED RGB sube; mientras mantienes SW2, baja
+const int SW1 = 2;
+const int SW2 = 3;
+const int RGB_AZUL = 10;
+const int PULSADO = LOW;
+const int PAUSA_PASO = 8;
+
+int brillo = 128;   // empieza a medio brillo
+
+void setup() {
+  pinMode(SW1, INPUT);
+  pinMode(SW2, INPUT);
+  pinMode(RGB_AZUL, OUTPUT);
+  analogWrite(RGB_AZUL, brillo);
+}
+
+void loop() {
+  if (digitalRead(SW1) == PULSADO &amp;&amp; brillo &lt; 255) {
+    brillo++;
+  } else if (digitalRead(SW2) == PULSADO &amp;&amp; brillo &gt; 0) {
+    brillo--;
+  }
+  analogWrite(RGB_AZUL, brillo);
+  delay(PAUSA_PASO);
+}</code></pre><p>La condición <code>digitalRead(SW1) == PULSADO &amp;&amp; brillo &lt; 255</code> solo se cumple si las dos partes son ciertas: el pulsador está pulsado <strong>y</strong> todavía no se ha llegado al máximo.</p><div class="bloque bloque-teoria"><p class="bloque-titulo">Otros sensores digitales</p><p>Un pulsador es el sensor digital más sencillo, pero hay muchos que funcionan igual: dan <code>HIGH</code> o <code>LOW</code> según detecten algo o no. Por ejemplo, un detector de presencia por infrarrojos (PIR), un final de carrera que avisa de que una puerta ha llegado al tope o un sensor de inclinación. Casi todos tienen tres patillas: GND, alimentación (VCC) y señal, en el mismo orden que los conectores libres del shield (D7, D8 y A3), así que se pueden enchufar en ellos y leer con <code>digitalRead</code>.</p></div><div class="bloque bloque-nota"><p class="bloque-titulo">Si algo no funciona</p><table class="tabla-datos"><thead><tr><th>Lo que ves</th><th>Qué compruebas</th></tr></thead><tbody><tr><td>El LED se enciende sin pulsar y se apaga al pulsar</td><td>Estás comparando con <code>HIGH</code>: en el shield, pulsado es <code>LOW</code>.</td></tr><tr><td>Un pulsador parece estar siempre pulsado</td><td>Mira la placa de lado: ¿toca alguna patilla del shield el conector USB metálico?</td></tr><tr><td>En Tinkercad el pulsador no hace nada</td><td>¿Salta el canal central? ¿Llega el cable al pin y la resistencia al carril +? ¿Tiene 5 V el carril +?</td></tr><tr><td>Una pulsación cuenta dos veces o ninguna</td><td>Faltan la espera hasta soltar o las del antirrebote.</td></tr><tr><td>La condición siempre se cumple</td><td>¿Has escrito <code>=</code> en lugar de <code>==</code>?</td></tr></tbody></table></div><div class="bloque bloque-actividad"><p class="bloque-titulo">Tarea ED1 · Regulador de luz con alarma</p><p>Programa con los dos pulsadores y el LED RGB del shield este comportamiento:</p><ul><li>Mientras mantienes pulsado <strong>SW1</strong>, el azul del LED RGB sube poco a poco su brillo hasta 255, y ahí se queda aunque sigas pulsando.</li><li>Mientras mantienes pulsado <strong>SW2</strong>, hace lo mismo el rojo.</li><li>Al soltar, cada color se queda con el brillo al que haya llegado; así puedes mezclar el tono que quieras.</li><li>Si pulsas los <strong>dos a la vez</strong>, los dos colores se apagan y suena una alarma en el zumbador durante 1,5 segundos.</li></ul><p>Piensa en qué orden tienes que comprobar las condiciones: si preguntas primero solo por SW1, nunca llegarás a detectar que están pulsados los dos. Los brillos, en dos variables; los pines, el valor de <code>PULSADO</code> y la duración de la alarma, en constantes. En Tinkercad: copia del Shield virtual llamada <strong>Tarea ED1 - Regulador</strong>.</p><p><b>Está conseguida cuando…</b> en la placa, cada pulsador sube su color sin pasar de 255, los colores mantienen su brillo al soltar, pulsando los dos a la vez se apagan y suena la alarma 1,5 s, y el programa compara con la constante <code>PULSADO</code> y usa <code>&amp;&amp;</code> para detectar los dos pulsadores.</p><p><b>Entrega.</b> Guarda el programa como <code>tarea_ed1</code> (<b>Archivo → Guardar como...</b>) y graba con el móvil un vídeo corto de la placa haciéndolo todo, con el papel de tus iniciales y tu curso a la vista; llama al vídeo <code>tarea_ed1</code>. Súbelos a la tarea <b>Colección de programas (Arduino)</b> de Moodle con <b>Editar entrega</b> y <b>Guardar cambios</b>, igual que en la tarea SD1, sin pulsar todavía <b>Enviar tarea</b>.</p></div><div class="bloque bloque-nota"><p class="bloque-titulo">Lo que tienes que saber de esta página</p><ul><li>pinMode(pin, INPUT) prepara un pin como entrada y digitalRead(pin) da HIGH (más de 3 V) o LOW (menos de 1,5 V).</li><li>Una entrada al aire lee lo que le parece; la resistencia pull-up la lleva a 5 V mientras el pulsador está suelto.</li><li>En el shield, SW1 (pin 2) y SW2 (pin 3) dan HIGH sueltos y LOW pulsados: compara con una constante PULSADO.</li><li>if / else if / else decide; == compara y = guarda; && es «y», || es «o» y ! es «no».</li><li>Para reaccionar una vez por pulsación: espera a que se suelte con un while y añade unos 20 ms de antirrebote.</li></ul></div>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/4-pwm-led-rgb-y-tiempo-sin-bloquear.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/6-entradas-analogicas-y-sensores.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-nc-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="license">Creative Commons: Reconocimiento - no comercial - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(Ventana nueva)</span></span></a></p>
+</body>
+</html>

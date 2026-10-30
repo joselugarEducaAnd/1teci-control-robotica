@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-p1o7f11l-o0fgtzlmx">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="exe-pass-score" content="5">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+<title>8. Comunicación serie y redes de dispositivos | Control, automatización y robótica</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Tecnología e Ingeniería I (1.º de Bachillerato). Control, automatización y robótica con Arduino, sensores e IoT.">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
+<script src="../libs/exe_math/tex-mml-svg.js"> </script>
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-p1o7f11l-o0fgtzlmx" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Bienvenida</a>
+</li>
+<li> <a href="../html/1-sistemas-de-control.html" class="no-ch">1. Sistemas de control</a>
+</li>
+<li> <a href="../html/2-primeros-pasos-con-arduino.html" class="no-ch">2. Primeros pasos con Arduino</a>
+</li>
+<li> <a href="../html/3-salidas-digitales-y-bucle-for.html" class="no-ch">3. Salidas digitales y bucle for</a>
+</li>
+<li> <a href="../html/4-pwm-led-rgb-y-tiempo-sin-bloquear.html" class="no-ch">4. PWM, LED RGB y tiempo sin bloquear</a>
+</li>
+<li> <a href="../html/5-entradas-digitales.html" class="no-ch">5. Entradas digitales</a>
+</li>
+<li> <a href="../html/6-entradas-analogicas-y-sensores.html" class="no-ch">6. Entradas analógicas y sensores</a>
+</li>
+<li> <a href="../html/7-servomotores-la-barrera.html" class="no-ch">7. Servomotores: la barrera</a>
+</li>
+<li class="active"> <a href="../html/8-comunicacion-serie-y-redes-de-dispositivos.html" class="active no-ch">8. Comunicación serie y redes de dispositivos</a>
+</li>
+<li> <a href="../html/9-iot-telemetria-y-scada.html" class="no-ch">9. IoT, telemetría y SCADA</a>
+</li>
+<li> <a href="../html/10-tecnologias-emergentes-e-ia-en-el-control.html" class="no-ch">10. Tecnologías emergentes e IA en el control</a>
+</li>
+<li> <a href="../html/11-proyecto-de-automatizacion.html" class="no-ch">11. Proyecto de automatización</a>
+</li>
+<li> <a href="../html/12-traza-y-prediccion-de-programas.html" class="no-ch">12. Traza y predicción de programas</a>
+</li>
+<li> <a href="../html/chuleta-de-arduino.html" class="no-ch">Chuleta de Arduino</a>
+</li>
+</ul>
+</nav><main id="page-p1o7f11l-o0fgtzlmx" class="page"> 
+<header class="main-header"> <p class="page-counter"> <span class="page-counter-label">Página </span><span class="page-counter-content"> <strong class="page-counter-current-page">9</strong><span class="page-counter-sep">/</span><strong class="page-counter-total">14</strong></span></p>
+
+<div class="package-header"><p class="package-title">Control, automatización y robótica</p></div>
+<div class="page-header"><h1 class="page-title">8. Comunicación serie y redes de dispositivos</h1></div>
+</header><div id="page-content-page-p1o7f11l-o0fgtzlmx" class="page-content">
+<article id="block-vorqqidc-xqpnlr4cv" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-det10rdl-tfh8g85dy" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-det10rdl-tfh8g85dy&quot;}">
+<style>.exe-content{--chrome:#943d92;--chrome-osc:#752972;--chrome-tinte:#f8eff8;--chrome-linea:#e4c8e3}.exe-content .clave{color:var(--chrome-osc,#752972)}.exe-content pre.codigo{background:#faf6fa;border:1px solid var(--chrome-linea);border-left:5px solid var(--chrome);border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.5;white-space:pre;margin:1em 0}.exe-content pre.consola{background:#1f1d24;color:#ece8f2;border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.45;white-space:pre;margin:.4em 0 1em}.exe-content pre code{padding:0;background:none;color:inherit;font-size:1em}.exe-content p.cod-tit{font-weight:700;margin:1.2em 0 -.5em;color:var(--chrome-osc)}.exe-content code{font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace}</style><div class="bloque bloque-nota"><p class="bloque-titulo">Qué vas a conseguir en esta página</p><p>Entender cómo viajan los datos entre la placa y el ordenador, hacer que la placa <strong>reciba</strong> órdenes por el puerto serie y no solo que escriba, enviar varias medidas en una línea que otro programa pueda leer, y conocer las redes con las que se comunican los dispositivos de verdad: Bluetooth, wifi, LoRa, Zigbee y MQTT.</p></div><p>En la página <a href="../html/6-entradas-analogicas-y-sensores.html">6. Entradas analógicas y sensores</a> usaste el monitor serie para ver los números que leía la placa. Aquí vas a ver qué pasa por dentro, a usarlo en los dos sentidos y a dar el salto del cable a las redes de dispositivos.</p><h2>Comunicarse es seguir unas reglas: los protocolos</h2><p>Para que dos aparatos se entiendan no basta con unirlos con un cable o una antena: los dos tienen que seguir las mismas reglas. A qué velocidad se envía, cómo se sabe dónde empieza y dónde acaba cada dato, quién habla y cuándo, y qué se hace si algo llega mal. Ese conjunto de reglas se llama <strong>protocolo de comunicación</strong>. Es como una conversación por walkie-talkie: si uno no dice «cambio» o los dos hablan a la vez, no se entienden.</p><p>Hay dos formas básicas de enviar datos por cables. En la comunicación <strong>en paralelo</strong> van varios bits a la vez, cada uno por su cable. En la comunicación <strong>serie</strong> los bits van <strong>uno detrás de otro</strong> por un mismo cable. La serie necesita muchos menos cables y llega más lejos sin errores, y por eso es la que usan casi todos los aparatos actuales: el propio USB es una comunicación serie (su nombre significa <em>bus serie universal</em>).</p><h2>La comunicación serie de Arduino</h2><p>El Arduino UNO tiene dentro un circuito, la <strong>UART</strong>, que envía y recibe datos en serie por dos pines: el <strong>1 (TX)</strong>, por el que transmite, y el <strong>0 (RX)</strong>, por el que recibe. Es una comunicación <strong>asíncrona</strong>: no hay un cable que marque el ritmo, así que los dos extremos tienen que ponerse de acuerdo antes en la velocidad. Esa velocidad se mide en <strong>baudios</strong> (bits por segundo) y es el número que pones en <code>Serial.begin(9600)</code>.</p><p>Cada carácter que envías es un número de 0 a 255 (un <strong>byte</strong>). Por ejemplo, la letra A es el 65, la a minúscula el 97 y la cifra 0 el 48: es la tabla <strong>ASCII</strong>. La UART manda cada byte así: la línea está a 5 V en reposo, un <strong>bit de inicio</strong> a 0 V avisa de que empieza un carácter, después van sus 8 bits y un <strong>bit de parada</strong> a 5 V lo cierra.</p><figure style="max-width:860px;margin:1.2em auto"><a href="../content/resources/trama_serie.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/trama_serie.svg" alt="Señal de la línea TX al enviar la letra A a 9600 baudios: reposo a 5 V, bit de inicio a 0 V, los ocho bits del número 65 empezando por el de menor peso y bit de parada a 5 V." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>Un carácter completo son 10 bits: el de inicio, los 8 del dato y el de parada. <a href="../content/resources/trama_serie.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><div class="bloque bloque-actividad"><p class="bloque-titulo">Ahora tú: ¿cuánto tarda un mensaje?</p><p><i>No se entrega ni cuenta para la nota: sirve para comprobar si lo has entendido.</i></p><p>Tu programa escribe con <code>Serial.println</code> el texto <code>Temperatura: 23.5 C</code>. <code>println</code> añade al final dos caracteres invisibles para saltar de línea. A 9600 baudios, ¿cuánto tarda en salir el mensaje entero? ¿Cuántos mensajes así caben en un segundo? ¿Qué crees que pasará si el programa intenta enviar uno cada 10 ms?</p><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver la solución</summary><p>El texto tiene 19 caracteres; con los 2 del salto de línea son 21. Cada carácter son 10 bits, así que hay que enviar 210 bits: 210 / 9600 = 0,0219 s, unos <strong>22 ms</strong>. En un segundo caben unos 1000 / 22 ≈ <strong>45 mensajes</strong>.</p><p>Si el programa quiere enviar uno cada 10 ms, el cable no da abasto. El Arduino guarda lo que falta por enviar en una pequeña memoria de espera (64 bytes) y, cuando se llena, <code>Serial.print</code> se queda esperando a que haya sitio: <strong>todo el programa va más lento</strong>, aunque no veas ningún error. Por eso los programas que envían datos lo hacen cada cierto tiempo (con <code>millis()</code>) y no en cada vuelta de <code>loop()</code>.</p></details></div><h2>Dónde está la comunicación serie en tu placa</h2><figure style="max-width:860px;margin:1.2em auto"><a href="../content/resources/s8_uno_serie.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/s8_uno_serie.svg" alt="Foto del Arduino UNO con cinco marcas: los pines 0 y 1, los LED TX y RX, el chip USB, el conector USB y el microcontrolador ATmega328P." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>Las piezas de la placa que intervienen en la comunicación serie. <a href="../content/resources/s8_uno_serie.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><p>Los pines 0 y 1 están unidos a un segundo chip, junto al conector, que traduce la comunicación serie del microcontrolador al USB. Gracias a él, el ordenador ve la placa como un <strong>puerto serie</strong>: en los ordenadores del aula se llama <code>/dev/ttyACM0</code> o <code>/dev/ttyUSB0</code>, según el modelo de placa (el número del final cambia si hay más de una conectada), y es el que eliges en <strong>Herramientas → Puerto Serial</strong>. Por ese mismo camino se carga el programa y viajan los datos del monitor serie.</p><figure style="max-width:860px;margin:1.2em auto"><a href="../content/resources/camino_serie.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/camino_serie.svg" alt="Cinco bloques en fila: tu programa, el ATmega328P con los pines TX y RX, el chip USB, el ordenador con el puerto /dev/ttyACM0 o /dev/ttyUSB0 y el monitor serie o el panel web; flechas rojas para lo que envía la placa y azules para lo que recibe." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>Lo que escribe Serial.print sale por TX; lo que lee Serial.read entra por RX. <a href="../content/resources/camino_serie.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><div class="bloque bloque-nota"><p class="bloque-titulo">Dos cosas que conviene saber</p><ul><li><strong>No conectes nada a los pines 0 y 1.</strong> Los usa el USB: si hay algo conectado, la placa puede no cargar el programa o recibir datos extraños.</li><li><strong>Al abrir el puerto, la placa se reinicia.</strong> Cada vez que abres el Monitor Serial (o cualquier programa que use el puerto), el Arduino vuelve a empezar desde <code>setup()</code>. Por eso aparece otra vez el mensaje del principio. Es normal.</li></ul></div><h2>Recibir datos: Serial.available y Serial.read</h2><p>Hasta ahora la placa solo escribía. Para que <strong>reciba</strong>, hay dos funciones nuevas:</p><table class="tabla-datos"><thead><tr><th>Instrucción</th><th>Qué hace</th></tr></thead><tbody><tr><td><code>Serial.available()</code></td><td>Dice cuántos caracteres han llegado y esperan a ser leídos. Si no ha llegado nada, da 0.</td></tr><tr><td><code>Serial.read()</code></td><td>Saca el primer carácter que espera y lo devuelve. Si no había ninguno, devuelve −1.</td></tr></tbody></table><p>Los caracteres que llegan se van guardando en una cola, como en la fila de una tienda: el primero que llega es el primero que se lee. Por eso, antes de leer, se pregunta si hay algo: <code>if (Serial.available() &gt; 0)</code>. Lo que se lee se guarda en una variable de tipo <code>char</code>, que contiene un solo carácter.</p><p class="cod-tit">Ejemplo: la placa devuelve cada carácter que recibe y su código</p><pre class="codigo"><code>// Eco: la placa devuelve cada carácter que le llega por el puerto serie, con su código
+void setup() {
+  Serial.begin(9600);
+  Serial.println(&quot;Escribe algo y pulsa Enviar&quot;);
+}
+
+void loop() {
+  if (Serial.available() &gt; 0) {        // ¿hay algún carácter esperando?
+    char letra = Serial.read();         // saca el primero de la cola
+    Serial.print(&quot;Recibido: &quot;);
+    Serial.print(letra);
+    Serial.print(&quot;   codigo: &quot;);
+    Serial.println((int)letra);         // el mismo carácter, visto como número
+  }
+}</code></pre><p>Fíjate en <code>(int)letra</code>: delante de una variable, un tipo entre paréntesis la convierte a ese tipo. Así, <code>Serial.println</code> no escribe la letra, sino el número que la representa.</p><h3>Enviar desde el Arduino IDE</h3><p>Carga el programa, abre el <strong>Monitor Serial</strong> y escribe en el cuadro de arriba; después pulsa <strong>Enviar</strong>. Abajo a la derecha, junto a <strong>9600 baudio</strong>, hay otro desplegable que decide qué se añade al final de lo que envías:</p><table class="tabla-datos"><thead><tr><th>Opción</th><th>Qué añade al final</th><th>Códigos</th></tr></thead><tbody><tr><td><strong>No hay fin de línea</strong></td><td>Nada: solo lo que has escrito</td><td>—</td></tr><tr><td><strong>Nueva Línea</strong></td><td>Un salto de línea</td><td>10</td></tr><tr><td><strong>Retorno de Carro</strong></td><td>Un retorno de carro</td><td>13</td></tr><tr><td><strong>Ambos NL &amp; CR</strong></td><td>Los dos</td><td>13 y 10</td></tr></tbody></table><p>Para las prácticas de esta página, elige <strong>No hay fin de línea</strong>: así a la placa solo le llega lo que escribes.</p><p class="cod-tit">En el monitor serie, al enviar «Hola» con «No hay fin de línea»</p><pre class="consola"><code>Escribe algo y pulsa Enviar
+Recibido: H   codigo: 72
+Recibido: o   codigo: 111
+Recibido: l   codigo: 108
+Recibido: a   codigo: 97</code></pre><h3>Enviar desde Tinkercad</h3><p>En Tinkercad, el cuadro para escribir está debajo del <strong>Monitor en serie</strong>, con el botón <strong>Env.</strong> Tinkercad envía solo lo que escribes, sin nada al final, como la opción «No hay fin de línea» del IDE.</p><figure style="max-width:700px;margin:1.2em auto"><a href="../content/resources/s8_eco_tc.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/s8_eco_tc.svg" alt="Captura de Tinkercad con el programa de eco en simulación: el monitor en serie muestra la respuesta al enviar «Hola», con el cuadro de texto y los botones Env. y Borrar señalados." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>El eco en Tinkercad. <a href="../content/resources/s8_eco_tc.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><div class="bloque bloque-actividad"><p class="bloque-titulo">Ahora tú: lo que llega de verdad</p><p><i>No se entrega ni cuenta para la nota: sirve para comprobar si lo has entendido.</i></p><p>Con el programa de eco cargado, eliges <strong>Ambos NL &amp; CR</strong> y envías <code>ok</code>. ¿Cuántas líneas de «Recibido» aparecerán y qué código tendrá cada una? Piénsalo y compruébalo en la placa.</p><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver la solución</summary><p>Cuatro: <code>o</code> (111), <code>k</code> (107), el retorno de carro (13) y el salto de línea (10). Los dos últimos no se ven como letras: el 13 hace que el texto vuelva al principio de la línea y el 10 salta a la siguiente, así que esas dos líneas salen descolocadas. Si un programa espera una sola letra, esos caracteres de más le llegan como órdenes desconocidas.</p></details></div><h2>Práctica: el shield, mandado desde el teclado</h2><p>Con esto ya puedes controlar la placa desde el ordenador: cada letra que envías es una <strong>orden</strong>. Fíjate en una diferencia con Python: en C++, un solo carácter se escribe entre <strong>comillas simples</strong> (<code>'r'</code>, de tipo <code>char</code>) y un texto entre <strong>comillas dobles</strong> (<code>"rojo"</code>). Si comparas un <code>char</code> con <code>"r"</code>, el compilador se queja o, peor aún, la comparación no sale nunca verdadera.</p><p>El programa usa además dos funciones de Arduino: <code>min(a, b)</code> devuelve el menor de los dos números y <code>max(a, b)</code>, el mayor. Así el brillo no pasa de 255 ni baja de 0 sin necesidad de un <code>if</code>. Y <code>tone(pin, frecuencia, duración)</code> hace sonar el zumbador solo los milisegundos indicados.</p><div class="bloque bloque-actividad"><p class="bloque-titulo">Práctica: mando por teclado</p><p><i>No se entrega ni cuenta para la nota: sirve para practicar lo que necesitarás en las tareas y en el proyecto.</i></p><p>Con este programa, <code>r</code> enciende o apaga el LED rojo, <code>a</code> el azul, <code>+</code> y <code>-</code> suben y bajan el verde del LED RGB y <code>p</code> hace sonar el zumbador. Le faltan cuatro cosas: cuándo hay algo que leer, con qué función se lee, con qué carácter se compara la primera orden y cuál es el brillo máximo. Rellena los huecos y pruébalo en la placa y en Tinkercad (en una copia de tu Shield virtual).</p><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Abrir el programa con huecos</summary><p>Es el programa de la práctica con algunas partes borradas. Cada <b>____</b> es una palabra, un número o un signo que ya has visto en esta página. Cópialo, sustituye cada hueco por lo que falta y pruébalo. Intenta primero hacerlo sin abrir esto: se aprende mucho más.</p><pre class="codigo"><code>// Mando por teclado: cada letra que llega por el monitor serie es una orden para el shield
+const int LED_ROJO = 12;
+const int LED_AZUL = 13;
+const int RGB_VERDE = 11;
+const int ZUMBADOR = 5;
+const int PASO = 50;             // cuánto cambia el brillo del verde con + y con -
+
+int brillo = 0;                  // brillo del verde, de 0 a 255
+
+void setup() {
+  pinMode(LED_ROJO, OUTPUT);
+  pinMode(LED_AZUL, OUTPUT);
+  pinMode(RGB_VERDE, OUTPUT);
+  Serial.begin(9600);
+  Serial.println(&quot;Ordenes: r (rojo), a (azul), + y - (verde), p (pitido)&quot;);
+}
+
+void loop() {
+  if (Serial.available() &gt; ____) {
+    char orden = Serial.____();
+    if (orden == ____) {
+      digitalWrite(LED_ROJO, !digitalRead(LED_ROJO));   // si estaba encendido lo apaga, y al revés
+      Serial.println(&quot;Rojo cambiado&quot;);
+    } else if (orden == &#039;a&#039;) {
+      digitalWrite(LED_AZUL, !digitalRead(LED_AZUL));
+      Serial.println(&quot;Azul cambiado&quot;);
+    } else if (orden == &#039;+&#039;) {
+      brillo = min(brillo + PASO, ____);                // sin pasar de 255
+      analogWrite(RGB_VERDE, brillo);
+      Serial.print(&quot;Verde: &quot;);
+      Serial.println(brillo);
+    } else if (orden == &#039;-&#039;) {
+      brillo = max(brillo - PASO, 0);                    // sin bajar de 0
+      analogWrite(RGB_VERDE, brillo);
+      Serial.print(&quot;Verde: &quot;);
+      Serial.println(brillo);
+    } else if (orden == &#039;p&#039;) {
+      tone(ZUMBADOR, 880, 200);                          // 880 Hz durante 200 ms
+      delay(200);
+      noTone(ZUMBADOR);                                  // deja libre el temporizador que comparte con el pin 11
+      analogWrite(RGB_VERDE, brillo);                    // y después el verde vuelve a graduar
+    } else {
+      Serial.print(&quot;Orden desconocida, codigo &quot;);
+      Serial.println((int)orden);
+    }
+  }
+}</code></pre></details><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver el programa completo</summary><pre class="codigo"><code>// Mando por teclado: cada letra que llega por el monitor serie es una orden para el shield
+const int LED_ROJO = 12;
+const int LED_AZUL = 13;
+const int RGB_VERDE = 11;
+const int ZUMBADOR = 5;
+const int PASO = 50;             // cuánto cambia el brillo del verde con + y con -
+
+int brillo = 0;                  // brillo del verde, de 0 a 255
+
+void setup() {
+  pinMode(LED_ROJO, OUTPUT);
+  pinMode(LED_AZUL, OUTPUT);
+  pinMode(RGB_VERDE, OUTPUT);
+  Serial.begin(9600);
+  Serial.println(&quot;Ordenes: r (rojo), a (azul), + y - (verde), p (pitido)&quot;);
+}
+
+void loop() {
+  if (Serial.available() &gt; 0) {
+    char orden = Serial.read();
+    if (orden == &#039;r&#039;) {
+      digitalWrite(LED_ROJO, !digitalRead(LED_ROJO));   // si estaba encendido lo apaga, y al revés
+      Serial.println(&quot;Rojo cambiado&quot;);
+    } else if (orden == &#039;a&#039;) {
+      digitalWrite(LED_AZUL, !digitalRead(LED_AZUL));
+      Serial.println(&quot;Azul cambiado&quot;);
+    } else if (orden == &#039;+&#039;) {
+      brillo = min(brillo + PASO, 255);                // sin pasar de 255
+      analogWrite(RGB_VERDE, brillo);
+      Serial.print(&quot;Verde: &quot;);
+      Serial.println(brillo);
+    } else if (orden == &#039;-&#039;) {
+      brillo = max(brillo - PASO, 0);                    // sin bajar de 0
+      analogWrite(RGB_VERDE, brillo);
+      Serial.print(&quot;Verde: &quot;);
+      Serial.println(brillo);
+    } else if (orden == &#039;p&#039;) {
+      tone(ZUMBADOR, 880, 200);                          // 880 Hz durante 200 ms
+      delay(200);
+      noTone(ZUMBADOR);                                  // deja libre el temporizador que comparte con el pin 11
+      analogWrite(RGB_VERDE, brillo);                    // y después el verde vuelve a graduar
+    } else {
+      Serial.print(&quot;Orden desconocida, codigo &quot;);
+      Serial.println((int)orden);
+    }
+  }
+}</code></pre><p>Envía <code>+++r</code> de una vez: la placa ejecuta las cuatro órdenes seguidas, porque cada vuelta de <code>loop()</code> saca un carácter de la cola. Después prueba con «Nueva Línea» en el IDE y mira qué responde a ese carácter de más.</p></details></div><h2>Varias medidas en una línea</h2><p>Cuando lo que lee los datos no es una persona sino <strong>otro programa</strong> (una hoja de cálculo, una aplicación, un panel de control), el formato tiene que ser fijo y fácil de separar. Una forma muy usada es escribir cada medida como <code>nombre=valor</code>, separar las medidas con comas y terminar la línea con un salto de línea:</p><p class="cod-tit">Dos líneas de datos, una por segundo</p><pre class="consola"><code>pot=512,luz=433,temp=23.5
+pot=515,luz=430,temp=23.5</code></pre><pre class="codigo"><code>Serial.print(&quot;pot=&quot;);
+Serial.print(analogRead(A0));
+Serial.print(&quot;,luz=&quot;);
+Serial.print(analogRead(A1));
+Serial.print(&quot;,temp=&quot;);
+Serial.println(temp, 1);    // println: la línea termina aquí</code></pre><p>El programa que recibe solo tiene que partir cada línea por las comas y cada trozo por el <code>=</code>. Además, llevar el nombre delante hace que la línea se entienda también a simple vista, y que no importe el orden ni que un día añadas una medida nueva. Lo usarás en la página <a href="../html/9-iot-telemetria-y-scada.html">9. IoT, telemetría y SCADA</a> para enviar las medidas del shield a un panel de control.</p><h2>Del cable a la red: cómo se comunican los dispositivos</h2><p>El cable USB une <strong>dos</strong> aparatos que están juntos. Pero una fábrica, un invernadero o una casa inteligente tienen decenas o miles de sensores y actuadores, a veces separados por kilómetros, que tienen que hablar entre sí y con un ordenador central. Forman una <strong>red de dispositivos</strong>.</p><p>Dentro de un mismo aparato, los chips se comunican por buses serie cortos, como <strong>I2C</strong> o <strong>SPI</strong> (los usan muchas pantallas y sensores). En las fábricas se usan redes por cable muy fiables, como Ethernet industrial o <strong>Modbus</strong>. Y cuando no se puede o no compensa llevar cables, se usan redes <strong>inalámbricas</strong>. Ninguna es la mejor en todo: hay que elegir entre <strong>alcance</strong>, <strong>consumo</strong> (cuánto dura la pila) y <strong>cantidad de datos</strong> por segundo.</p><div class="bloque bloque-teoria"><p class="bloque-titulo">Las redes inalámbricas más usadas en dispositivos</p><table class="tabla-datos"><thead><tr><th>Red</th><th>Alcance aproximado</th><th>Consumo</th><th>Datos por segundo</th><th>Se usa en…</th></tr></thead><tbody><tr><td><strong>Bluetooth</strong> (de baja energía, BLE)</td><td>unos 10 m (más al aire libre)</td><td>muy bajo</td><td>hasta 1 o 2 Mbit/s</td><td>pulseras, auriculares, sensores que hablan con el móvil</td></tr><tr><td><strong>Wifi</strong></td><td>decenas de metros en interior</td><td>alto</td><td>decenas o cientos de Mbit/s</td><td>cámaras, enchufes y altavoces inteligentes; placas como la ESP32</td></tr><tr><td><strong>Zigbee</strong> o <strong>Thread</strong></td><td>de 10 a 100 m por salto, en malla</td><td>muy bajo</td><td>unos 250 kbit/s</td><td>domótica: bombillas, sensores de puertas, termostatos</td></tr><tr><td><strong>LoRa</strong> (red LoRaWAN)</td><td>varios kilómetros</td><td>muy bajo</td><td>muy pocos: de cientos de bit/s a unas decenas de kbit/s</td><td>agricultura, contadores de agua, plazas de aparcamiento</td></tr><tr><td><strong>Red móvil</strong> (NB-IoT, LTE-M, 4G, 5G)</td><td>toda la cobertura del operador</td><td>de bajo a alto</td><td>de pocos kbit/s a cientos de Mbit/s</td><td>contadores, coches conectados, bicicletas de alquiler</td></tr></tbody></table></div><p>En una red <strong>en malla</strong>, como Zigbee o Thread, cada aparato enchufado también reenvía los mensajes de sus vecinos: así el alcance total es mucho mayor que el de cada aparato. Y fíjate en la columna del consumo: un sensor con pila que tiene que durar años no puede usar wifi; envía pocos datos de vez en cuando por LoRa, Zigbee o BLE y el resto del tiempo «duerme».</p><div class="bloque bloque-actividad"><p class="bloque-titulo">Ahora tú: elige la red</p><p><i>No se entrega ni cuenta para la nota: sirve para comprobar si lo has entendido.</i></p><p>¿Qué red usarías en cada caso? Justifícalo con el alcance, el consumo y los datos que hay que enviar.</p><ol><li>Sensores de humedad del suelo, con pila, repartidos por un olivar de 3 km de largo; envían una medida cada hora.</li><li>Una pulsera que mide las pulsaciones y las muestra en el móvil.</li><li>Una cámara de vigilancia que emite vídeo desde el salón de una casa.</li><li>Treinta bombillas y sensores de puertas y ventanas repartidos por una casa de dos plantas.</li></ol><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver las soluciones</summary><ul><li><strong>LoRa</strong>: mucho alcance y consumo muy bajo; una medida por hora son muy pocos datos.</li><li><strong>Bluetooth de baja energía</strong>: el móvil está cerca y la pila de la pulsera tiene que durar días.</li><li><strong>Wifi</strong>: el vídeo necesita muchos datos por segundo, y la cámara está enchufada.</li><li><strong>Zigbee o Thread</strong>: bajo consumo y red en malla para llegar a toda la casa (el wifi también funcionaría, pero gastaría mucho más en los sensores de pila).</li></ul></details></div><h2>MQTT: un protocolo para el internet de las cosas</h2><p>Las redes de la tabla llevan los datos de un sitio a otro, pero hace falta además un acuerdo sobre <strong>cómo se organizan los mensajes</strong>. En los dispositivos conectados a internet uno de los más usados es <strong>MQTT</strong>. Es un protocolo muy ligero, pensado para aparatos pequeños y conexiones lentas o inestables, que funciona sobre cualquier red con conexión a internet (wifi, red móvil, Ethernet…).</p><p>Su idea es la de <strong>publicar y suscribirse</strong>, como en un tablón de anuncios con secciones:</p><ul><li>Un servidor, el <strong>bróker</strong>, recibe todos los mensajes y los reparte.</li><li>Cada mensaje se <strong>publica</strong> en un <strong>tema</strong> (<em>topic</em>), que es un nombre con niveles separados por barras, como una ruta de carpetas: <code>invernadero/nave1/temperatura</code>.</li><li>Quien quiere recibir los mensajes de un tema se <strong>suscribe</strong> a él. El bróker le envía cada mensaje nuevo de ese tema, sin que tenga que preguntar.</li></ul><figure style="max-width:860px;margin:1.2em auto"><a href="../content/resources/mqtt_bus.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/mqtt_bus.svg" alt="Dos sensores publican en temas de un invernadero; el bróker reparte los mensajes a un panel del móvil suscrito a invernadero/#, que además publica la orden ON en invernadero/nave1/ventilador, y el bróker se la entrega al ventilador suscrito a ese tema." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>Los dispositivos no hablan entre ellos directamente: todos hablan con el bróker. <a href="../content/resources/mqtt_bus.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><p>Quien publica no necesita saber quién escucha, y se pueden añadir aparatos nuevos sin tocar los que ya funcionan. Al suscribirse se pueden usar comodines: <code>+</code> vale por un nivel cualquiera (<code>invernadero/+/temperatura</code> recibe la temperatura de todas las naves) y <code>#</code> por todos los niveles que vengan detrás (<code>invernadero/#</code> lo recibe todo). Para dar órdenes se hace igual: el panel publica <code>ON</code> en <code>invernadero/nave1/ventilador</code> y el ventilador, que está suscrito, se enciende.</p><p>Compáralo con la comunicación serie que has usado en esta página: allí había <strong>dos</strong> extremos unidos por un cable; con MQTT puede haber <strong>miles</strong> de aparatos que no se conocen entre sí, cada uno en un sitio distinto.</p><div class="bloque bloque-actividad"><p class="bloque-titulo">Ahora tú: diseña los temas</p><p><i>No se entrega ni cuenta para la nota: sirve para comprobar si lo has entendido.</i></p><p>Una oficina quiere vigilar con MQTT la temperatura y el CO₂ de sus salas 1, 2 y 3, y poder encender a distancia el extractor de cada una. Escribe los temas que usarías, a qué tema se suscribiría un panel que muestre el CO₂ de todas las salas y qué publicaría para encender el extractor de la sala 2.</p><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver una solución</summary><ul><li>Medidas: <code>oficina/sala1/temperatura</code>, <code>oficina/sala1/co2</code>, y lo mismo para <code>sala2</code> y <code>sala3</code>.</li><li>Órdenes: <code>oficina/sala1/extractor</code>, <code>oficina/sala2/extractor</code>, <code>oficina/sala3/extractor</code>; cada extractor se suscribe al suyo.</li><li>Panel del CO₂ de todas las salas: suscrito a <code>oficina/+/co2</code>.</li><li>Encender el extractor de la sala 2: publicar <code>ON</code> en <code>oficina/sala2/extractor</code>.</li></ul><p>Hay otras soluciones válidas: lo importante es que los niveles vayan de lo general a lo particular, para que los comodines funcionen.</p></details></div><div class="bloque bloque-nota"><p class="bloque-titulo">Si algo no funciona</p><table class="tabla-datos"><thead><tr><th>Lo que ves</th><th>Qué compruebas</th></tr></thead><tbody><tr><td>En el monitor salen símbolos raros</td><td>Los baudios del monitor no coinciden con los de <code>Serial.begin</code>.</td></tr><tr><td>Envío una letra y la placa no hace nada</td><td>¿Has pulsado <strong>Enviar</strong> (o <strong>Env.</strong> en Tinkercad)? ¿Comparas con comillas simples (<code>'r'</code>)?</td></tr><tr><td>Cada orden responde dos veces o aparece «Orden desconocida»</td><td>El monitor añade un fin de línea: elige «No hay fin de línea».</td></tr><tr><td>Al abrir el monitor, el programa vuelve a empezar</td><td>Es normal: al abrir el puerto, la placa se reinicia.</td></tr><tr><td>No se carga el programa o llegan datos extraños</td><td>¿Hay algo conectado a los pines 0 o 1? Quítalo.</td></tr><tr><td>El programa va cada vez más lento</td><td>¿Envías datos en cada vuelta de <code>loop()</code>? Envía cada cierto tiempo, con <code>millis()</code>.</td></tr></tbody></table></div><div class="bloque bloque-nota"><p class="bloque-titulo">Lo que tienes que saber de esta página</p><ul><li>Un protocolo es el conjunto de reglas que siguen dos aparatos para entenderse.</li><li>En la comunicación serie los bits van uno detrás de otro; Arduino usa la UART: pin 1 (TX) para enviar y pin 0 (RX) para recibir, a la velocidad de Serial.begin (baudios).</li><li>Cada carácter es un byte (tabla ASCII) y viaja con un bit de inicio y otro de parada: 10 bits; a 9600 baudios, unos 1,04 ms por carácter.</li><li>Serial.available() dice cuántos caracteres esperan en la cola y Serial.read() saca el primero; un carácter va entre comillas simples.</li><li>Para que otro programa lea varias medidas: nombre=valor separados por comas y un salto de línea al final.</li><li>Las redes de dispositivos eligen entre alcance, consumo y datos: Bluetooth (cerca, poco consumo), wifi (muchos datos), Zigbee o Thread (malla), LoRa (kilómetros, muy pocos datos), red móvil.</li><li>MQTT: los dispositivos publican mensajes en temas y un bróker los reparte a los que están suscritos; + y # son comodines.</li></ul></div><div class="bloque bloque-nota"><p class="bloque-titulo">Antes de la próxima clase</p><p>Lee en casa la primera parte de la página <a href="../html/9-iot-telemetria-y-scada.html">9. IoT, telemetría y SCADA</a>, del internet de las cosas al SCADA, con sus ejercicios «Ahora tú». La clase será para la segunda parte, la que necesita la placa: el panel de telemetría, la práctica y la tarea TE1. Lee también el enunciado de la TE1 y <strong>empieza su programa</strong> en una copia del Shield virtual, probándolo con el <strong>Monitor en serie</strong>: en clase solo tendrás tiempo para terminarlo con la placa, conectarlo al panel y grabar el vídeo.</p></div>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/7-servomotores-la-barrera.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/9-iot-telemetria-y-scada.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-nc-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="license">Creative Commons: Reconocimiento - no comercial - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(Ventana nueva)</span></span></a></p>
+</body>
+</html>

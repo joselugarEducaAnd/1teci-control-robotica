@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel de telemetría</title>
+<style>
+:root{--c:#943d92;--co:#752972;--ct:#f8eff8;--cl:#e4c8e3;--tx:#263c4a;--gr:#6b7785;--ok:#16725e;--al:#c43232;--fondo:#f6f4f8}
+*{box-sizing:border-box}
+body{margin:0;font-family:"DejaVu Sans",Verdana,Arial,sans-serif;color:var(--tx);background:var(--fondo);font-size:15px}
+header{background:var(--c);color:#fff;padding:12px 16px}
+header h1{margin:0;font-size:1.25em}
+header p{margin:4px 0 0;font-size:.9em;opacity:.9}
+main{max-width:1100px;margin:0 auto;padding:12px 16px 40px}
+section{background:#fff;border:1px solid var(--cl);border-radius:10px;padding:12px 14px;margin:12px 0}
+h2{font-size:1.02em;margin:0 0 10px;color:var(--co)}
+button{font:inherit;border:2px solid var(--c);background:#fff;color:var(--co);border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:bold}
+button.pri{background:var(--c);color:#fff}
+button:disabled{opacity:.45;cursor:default}
+select,input{font:inherit;border:1px solid #b9b3c2;border-radius:6px;padding:6px 8px;background:#fff;color:var(--tx)}
+.fila{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+#estado{display:inline-block;padding:4px 10px;border-radius:20px;background:#eee;font-weight:bold}
+#estado.con{background:#dff1ea;color:var(--ok)}#estado.demo{background:#fdf1e4;color:#9a5a12}#estado.sin{background:#fbe5e5;color:var(--al)}
+#aviso{display:none;margin-top:10px;padding:8px 10px;border-radius:8px;background:#fbe5e5;color:var(--al);font-weight:bold}
+#tarjetas{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.tarjeta{border:2px solid var(--cl);border-radius:10px;padding:8px 10px;background:var(--ct)}
+.tarjeta.alarma{border-color:var(--al);background:#fbe5e5}
+.tarjeta .n{font-size:.85em;color:var(--gr);font-weight:bold}
+.tarjeta .v{font-size:1.9em;font-weight:bold;font-family:"DejaVu Sans Mono",monospace;margin:2px 0}
+.tarjeta .mm{font-size:.8em;color:var(--gr)}
+#lienzo{width:100%;height:240px;display:block;border:1px solid var(--cl);border-radius:8px;background:#fff}
+#banner{display:none;margin:0 0 10px;padding:10px;border-radius:8px;background:var(--al);color:#fff;font-weight:bold}
+#consola{background:#1f1d24;color:#ece8f2;font-family:"DejaVu Sans Mono",monospace;font-size:.82em;height:150px;overflow:auto;border-radius:8px;padding:8px;white-space:pre-wrap;margin:0}
+.peq{font-size:.85em;color:var(--gr)}
+textarea{width:100%;font-family:"DejaVu Sans Mono",monospace;font-size:.9em;border:1px solid #b9b3c2;border-radius:6px;padding:6px}
+details summary{cursor:pointer;font-weight:bold;color:var(--co)}
+@media (max-width:600px){.tarjeta .v{font-size:1.5em}#lienzo{height:200px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Panel de telemetría</h1>
+  <p>Una sala de control a pequeña escala: recibe las medidas de la placa por el cable USB y le envía órdenes.</p>
+</header>
+<main>
+<section id="secConexion">
+  <h2>1. Conexión</h2>
+  <div class="fila">
+    <span id="estado" class="sin">Sin conectar</span>
+    <label>Velocidad <select id="baudios"><option>9600</option><option>19200</option><option>57600</option><option>115200</option></select> baudios</label>
+    <button id="btnConectar" class="pri">Conectar con la placa</button>
+    <button id="btnDemo">Modo demostración</button>
+    <button id="btnDesconectar" disabled>Desconectar</button>
+  </div>
+  <div id="aviso"></div>
+  <p class="peq">Antes de conectar, cierra el Monitor Serial del Arduino IDE: el puerto solo puede usarlo un programa. Al conectar, la placa se reinicia y tarda un par de segundos en enviar.</p>
+</section>
+<section>
+  <h2>2. Medidas</h2>
+  <div id="banner"></div>
+  <div id="tarjetas"><p class="peq">Todavía no ha llegado ninguna medida. Cada línea que envíe la placa debe tener la forma <code>nombre=valor,nombre=valor</code>.</p></div>
+  <p class="peq" id="ultimo"></p>
+</section>
+<section>
+  <h2>3. Gráfica</h2>
+  <div class="fila" style="margin-bottom:8px"><label>Muestra <select id="selGrafica"></select></label><span class="peq">últimas 120 medidas</span></div>
+  <canvas id="lienzo" aria-label="Gráfica de la medida elegida"></canvas>
+</section>
+<section>
+  <h2>4. Alarma</h2>
+  <div class="fila">
+    <label>Si <select id="alVar"></select></label>
+    <select id="alCond"><option value="&gt;">es mayor que</option><option value="&lt;">es menor que</option></select>
+    <input id="alUmbral" type="number" step="any" value="26" style="width:7em" aria-label="Umbral de la alarma">
+    <label>enviar la orden <input id="alOrden" maxlength="20" style="width:4em" placeholder="R"></label>
+    <label>y al volver a la normalidad <input id="alVuelta" maxlength="20" style="width:4em" placeholder="r"></label>
+    <label><input id="alActiva" type="checkbox"> Activar</label>
+  </div>
+  <p class="peq">La orden se envía una sola vez cuando salta la alarma, y la de vuelta, una vez cuando se apaga. Deja las casillas vacías si solo quieres el aviso.</p>
+</section>
+<section>
+  <h2>5. Órdenes</h2>
+  <div class="fila" id="botones"></div>
+  <div class="fila" style="margin-top:10px"><input id="txtOrden" placeholder="Escribe una orden" style="flex:1;min-width:10em" maxlength="40"><button id="btnEnviar">Enviar</button></div>
+  <details style="margin-top:10px"><summary>Cambiar los botones</summary>
+    <p class="peq">Una línea por botón: el texto del botón, un signo = y la orden que envía. Por ejemplo, <code>Encender rojo = R</code>.</p>
+    <textarea id="cfgBotones" rows="5"></textarea>
+    <p><button id="btnAplicar">Aplicar</button></p>
+  </details>
+</section>
+<section>
+  <h2>6. Registro</h2>
+  <div class="fila"><button id="btnCSV" disabled>Descargar el registro (CSV)</button><span class="peq" id="nReg">0 medidas guardadas</span><button id="btnBorrar">Empezar de nuevo</button></div>
+  <p class="peq">El registro solo vive en esta pestaña: si la cierras, se pierde. Descárgalo antes.</p>
+  <h2 style="margin-top:12px">Lo que llega de la placa</h2>
+  <pre id="consola" aria-live="off"></pre>
+</section>
+</main>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const COLORES = ["#943d92", "#2f5fa8", "#16725e", "#d9822b", "#c43232", "#453f93"];
+const BOTONES_DEF = "Encender rojo = R\nApagar rojo = r\nEncender azul = A\nApagar azul = a\nPitido = p";
+let puerto = null, lector = null, cierreLectura = null, modo = "sin", temporizadorDemo = null;
+let registro = [], nombres = [], datos = {}, minmax = {}, t0 = null, ultimaLlegada = 0, alarmaOn = false, alVarElegida = false;
+const demo = {pot: 512, luz: 450, temp: 23.5, rojo: 0, azul: 0, t: 0};
+
+function leerHash() {           // permite configurar los botones desde la dirección: #botones=Texto:orden|Texto:orden
+  try {
+    const m = decodeURIComponent(location.hash || "").match(/botones=([^&]+)/);
+    return m ? m[1].split("|").map(x => x.replace(":", " = ")).join("\n") : null;
+  } catch (e) { return null; }
+}
+function guardarCfg(txt) { try { localStorage.setItem("panel_botones", txt); } catch (e) {} }
+function cargarCfg() { try { return localStorage.getItem("panel_botones"); } catch (e) { return null; } }
+
+function pintarBotones(txt) {
+  const cont = $("botones"); cont.innerHTML = "";
+  txt.split("\n").map(l => l.trim()).filter(l => l.includes("=")).forEach(l => {
+    const i = l.lastIndexOf("="); const texto = l.slice(0, i).trim(), orden = l.slice(i + 1).trim();
+    if (!texto || !orden) return;
+    const b = document.createElement("button"); b.textContent = texto + " (" + orden + ")";
+    b.onclick = () => enviar(orden); cont.appendChild(b);
+  });
+}
+
+function consola(txt) {
+  const c = $("consola"); c.textContent += txt + "\n";
+  const lineas = c.textContent.split("\n"); if (lineas.length > 300) c.textContent = lineas.slice(-300).join("\n");
+  c.scrollTop = c.scrollHeight;
+}
+
+function ponerEstado(m, texto) {
+  modo = m; const e = $("estado"); e.className = m; e.textContent = texto;
+  $("btnConectar").disabled = m !== "sin"; $("btnDemo").disabled = m !== "sin"; $("btnDesconectar").disabled = m === "sin";
+}
+function aviso(txt) { const a = $("aviso"); a.style.display = txt ? "block" : "none"; a.textContent = txt || ""; }
+
+// ------------------------------------------------------------ lo que llega: una línea nombre=valor,nombre=valor
+function procesarLinea(linea) {
+  linea = linea.replace(/\r/g, "").trim();
+  if (!linea) return;
+  consola(linea);
+  const medidas = {};
+  for (const trozo of linea.split(",")) {
+    const i = trozo.indexOf("=");
+    if (i < 1) return;                                   // no es una línea de datos: solo se muestra
+    const n = trozo.slice(0, i).trim(), v = Number(trozo.slice(i + 1).trim().replace(",", "."));
+    if (!n || !isFinite(v)) return;
+    medidas[n] = v;
+  }
+  if (!Object.keys(medidas).length) return;
+  const ahora = Date.now(); if (t0 === null) t0 = ahora; ultimaLlegada = ahora;
+  for (const [n, v] of Object.entries(medidas)) {
+    if (!(n in datos)) { nombres.push(n); datos[n] = []; minmax[n] = [v, v]; actualizarSelectores(); }
+    datos[n].push(v); if (datos[n].length > 120) datos[n].shift();
+    minmax[n] = [Math.min(minmax[n][0], v), Math.max(minmax[n][1], v)];
+  }
+  registro.push({t: (ahora - t0) / 1000, hora: new Date(ahora), m: medidas});
+  $("nReg").textContent = registro.length + (registro.length === 1 ? " medida guardada" : " medidas guardadas");
+  $("btnCSV").disabled = false;
+  pintarTarjetas(medidas); comprobarAlarma(medidas); dibujar();
+}
+
+function actualizarSelectores() {
+  for (const id of ["selGrafica", "alVar"]) {
+    const s = $(id), valor = s.value; s.innerHTML = "";
+    nombres.forEach(n => { const o = document.createElement("option"); o.textContent = n; s.appendChild(o); });
+    if (id === "alVar" && !alVarElegida && nombres.includes("temp")) s.value = "temp";   // por defecto, la temperatura
+    else if (nombres.includes(valor)) s.value = valor;
+  }
+}
+
+function fmt(v) { return (Math.round(v * 100) / 100).toString().replace(".", ","); }
+function pintarTarjetas(ultimas) {
+  const cont = $("tarjetas"); cont.innerHTML = "";
+  nombres.forEach(n => {
+    const d = document.createElement("div"); d.className = "tarjeta"; d.id = "tj_" + n;
+    const v = datos[n][datos[n].length - 1];
+    d.innerHTML = '<div class="n"></div><div class="v"></div><div class="mm"></div>';
+    d.querySelector(".n").textContent = n; d.querySelector(".v").textContent = fmt(v);
+    d.querySelector(".mm").textContent = "mín. " + fmt(minmax[n][0]) + " · máx. " + fmt(minmax[n][1]);
+    cont.appendChild(d);
+  });
+  marcarAlarma();
+}
+
+function comprobarAlarma(m) {
+  const n = $("alVar").value, u = Number($("alUmbral").value), cond = $("alCond").value;
+  if (!$("alActiva").checked || !(n in m) || !isFinite(u)) { if (alarmaOn) apagarAlarma(); return; }
+  const fuera = cond === ">" ? m[n] > u : m[n] < u;
+  if (fuera && !alarmaOn) {
+    alarmaOn = true; const o = $("alOrden").value.trim(); if (o) enviar(o);
+    consola("# ALARMA: " + n + " " + cond + " " + fmt(u));
+  } else if (!fuera && alarmaOn) apagarAlarma();
+  marcarAlarma();
+}
+function apagarAlarma() {
+  alarmaOn = false; const o = $("alVuelta").value.trim(); if (o) enviar(o);
+  consola("# Fin de la alarma"); marcarAlarma();
+}
+function marcarAlarma() {
+  const n = $("alVar").value, b = $("banner");
+  document.querySelectorAll(".tarjeta").forEach(t => t.classList.toggle("alarma", alarmaOn && t.id === "tj_" + n));
+  b.style.display = alarmaOn ? "block" : "none";
+  b.textContent = alarmaOn ? "ALARMA: " + n + " " + ($("alCond").value === ">" ? "mayor que " : "menor que ") + fmt(Number($("alUmbral").value)) : "";
+}
+
+function dibujar() {
+  const cv = $("lienzo"), dpr = window.devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight;
+  cv.width = W * dpr; cv.height = H * dpr; const g = cv.getContext("2d"); g.scale(dpr, dpr);
+  g.clearRect(0, 0, W, H);
+  const n = $("selGrafica").value, serie = datos[n] || [];
+  g.font = "12px DejaVu Sans, Verdana, sans-serif"; g.fillStyle = "#6b7785";
+  if (serie.length < 2) { g.fillText("La gráfica aparece cuando llegan dos medidas.", 12, 24); return; }
+  let lo = Math.min(...serie), hi = Math.max(...serie); if (hi - lo < 1e-9) { lo -= 1; hi += 1; }
+  const m = (hi - lo) * 0.1; lo -= m; hi += m;
+  const x0 = 52, x1 = W - 10, y0 = H - 22, y1 = 10;
+  const X = i => x0 + (x1 - x0) * i / 119, Y = v => y0 - (y0 - y1) * (v - lo) / (hi - lo);
+  g.strokeStyle = "#e4c8e3"; g.lineWidth = 1;
+  for (let k = 0; k <= 4; k++) { const v = lo + (hi - lo) * k / 4, y = Y(v); g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke(); g.fillText(fmt(v), 4, y + 4); }
+  if ($("alActiva").checked && $("alVar").value === n) {
+    const u = Number($("alUmbral").value);
+    if (u > lo && u < hi) { g.strokeStyle = "#c43232"; g.setLineDash([6, 4]); g.beginPath(); g.moveTo(x0, Y(u)); g.lineTo(x1, Y(u)); g.stroke(); g.setLineDash([]); g.fillStyle = "#c43232"; g.fillText("umbral", x1 - 50, Y(u) - 4); }
+  }
+  const off = 120 - serie.length;
+  g.strokeStyle = COLORES[nombres.indexOf(n) % COLORES.length]; g.lineWidth = 2.5; g.beginPath();
+  serie.forEach((v, i) => { const x = X(i + off), y = Y(v); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+  g.fillStyle = "#6b7785"; g.fillText(n, x0 + 6, y1 + 12);
+}
+
+// ------------------------------------------------------------ enviar órdenes
+async function enviar(txt) {
+  if (!txt) return;
+  if (modo === "demo") { ordenDemo(txt); consola("> " + txt); return; }
+  if (modo !== "con" || !puerto || !puerto.writable) { aviso("No hay ninguna placa conectada: conecta primero (o usa el modo demostración)."); return; }
+  const w = puerto.writable.getWriter();
+  try { await w.write(new TextEncoder().encode(txt)); consola("> " + txt); }
+  catch (e) { aviso("No se ha podido enviar la orden: " + e.message); }
+  finally { w.releaseLock(); }
+}
+
+// ------------------------------------------------------------ Web Serial
+async function conectar() {
+  aviso("");
+  if (!("serial" in navigator)) {
+    aviso("Este navegador no puede conectarse a la placa. Abre el panel en Chrome o en Chromium (en una página https), o usa el modo demostración.");
+    return;
+  }
+  try {
+    puerto = await navigator.serial.requestPort();
+  } catch (e) { aviso("No has elegido ningún puerto. Pulsa otra vez «Conectar con la placa» y elige el de tu Arduino."); return; }
+  try {
+    await puerto.open({baudRate: Number($("baudios").value)});
+  } catch (e) {
+    aviso("No se ha podido abrir el puerto. ¿Tienes abierto el Monitor Serial del Arduino IDE u otra pestaña con el panel? Ciérralos y vuelve a intentarlo.");
+    puerto = null; return;
+  }
+  ponerEstado("con", "Conectado a la placa"); consola("# Conectado a " + $("baudios").value + " baudios");
+  leer();
+}
+async function leer() {
+  const decodificador = new TextDecoderStream();
+  cierreLectura = puerto.readable.pipeTo(decodificador.writable).catch(() => {});
+  lector = decodificador.readable.getReader();
+  let resto = "";
+  try {
+    while (true) {
+      const {value, done} = await lector.read();
+      if (done) break;
+      resto += value; const partes = resto.split("\n"); resto = partes.pop();
+      partes.forEach(procesarLinea);
+    }
+  } catch (e) {
+    if (modo === "con") aviso("Se ha perdido la conexión con la placa. ¿Se ha soltado el cable?");
+  } finally { try { lector.releaseLock(); } catch (e) {} }
+  if (modo === "con") await desconectar(true);
+}
+async function desconectar(porFallo) {
+  if (modo === "demo") { clearInterval(temporizadorDemo); temporizadorDemo = null; }
+  if (modo === "con" && puerto) {
+    const p = puerto; modo = "cerrando"; puerto = null;
+    try { if (lector) await lector.cancel(); } catch (e) {}
+    try { await cierreLectura; } catch (e) {}
+    try { await p.close(); } catch (e) {}
+  }
+  ponerEstado("sin", "Sin conectar"); if (!porFallo) consola("# Desconectado");
+}
+
+// ------------------------------------------------------------ modo demostración (datos simulados, sin placa)
+function ordenDemo(txt) {
+  for (const ch of txt) {
+    if (ch === "R") demo.rojo = 1; else if (ch === "r") demo.rojo = 0;
+    else if (ch === "A") demo.azul = 1; else if (ch === "a") demo.azul = 0;
+  }
+}
+function pasoDemo() {
+  demo.t++;
+  demo.pot = Math.max(0, Math.min(1023, Math.round(demo.pot + (Math.random() - 0.5) * 60)));
+  demo.luz = Math.round(450 + 250 * Math.sin(demo.t / 15) + (Math.random() - 0.5) * 20);
+  demo.temp = Math.round((23.5 + 2.5 * Math.sin(demo.t / 40) + (Math.random() - 0.5) * 0.6) * 2) / 2;
+  procesarLinea(`pot=${demo.pot},luz=${demo.luz},temp=${demo.temp.toFixed(1)},rojo=${demo.rojo},azul=${demo.azul}`);
+}
+function empezarDemo() {
+  aviso(""); ponerEstado("demo", "Demostración: datos simulados"); consola("# Modo demostración: los datos son inventados");
+  pasoDemo(); temporizadorDemo = setInterval(pasoDemo, 1000);
+}
+
+// ------------------------------------------------------------ registro CSV (punto y coma y coma decimal: se abre bien en las hojas de cálculo en español)
+function descargarCSV() {
+  const cab = ["segundos", "hora"].concat(nombres);
+  const dos = n => String(n).padStart(2, "0");
+  const filas = registro.map(r => [fmt(r.t), dos(r.hora.getHours()) + ":" + dos(r.hora.getMinutes()) + ":" + dos(r.hora.getSeconds())]
+    .concat(nombres.map(n => n in r.m ? fmt(r.m[n]) : "")).join(";"));
+  const blob = new Blob(["﻿" + cab.join(";") + "\n" + filas.join("\n") + "\n"], {type: "text/csv;charset=utf-8"});
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "registro_telemetria.csv";
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+function empezarDeNuevo() {
+  registro = []; nombres = []; datos = {}; minmax = {}; t0 = null; alarmaOn = false; alVarElegida = false;
+  $("tarjetas").innerHTML = ""; $("nReg").textContent = "0 medidas guardadas"; $("btnCSV").disabled = true;
+  $("consola").textContent = ""; actualizarSelectores(); marcarAlarma(); dibujar();
+}
+
+// ------------------------------------------------------------ vigilancia de la comunicación
+setInterval(() => {
+  const u = $("ultimo");
+  if (!ultimaLlegada || modo === "sin") { u.textContent = ""; return; }
+  const s = Math.round((Date.now() - ultimaLlegada) / 1000);
+  u.textContent = s >= 5 ? "Atención: no llegan datos desde hace " + s + " s." : "Última medida hace " + s + " s.";
+  u.style.color = s >= 5 ? "#c43232" : "";
+}, 1000);
+
+$("btnConectar").onclick = conectar;
+$("btnDemo").onclick = empezarDemo;
+$("btnDesconectar").onclick = () => desconectar(false);
+$("btnEnviar").onclick = () => { enviar($("txtOrden").value.trim()); $("txtOrden").value = ""; };
+$("txtOrden").addEventListener("keydown", e => { if (e.key === "Enter") $("btnEnviar").click(); });
+$("btnCSV").onclick = descargarCSV;
+$("btnBorrar").onclick = empezarDeNuevo;
+$("btnAplicar").onclick = () => { guardarCfg($("cfgBotones").value); pintarBotones($("cfgBotones").value); };
+["alVar", "alCond", "alUmbral", "alActiva"].forEach(id => $(id).addEventListener("change", () => { marcarAlarma(); dibujar(); }));
+$("selGrafica").onchange = dibujar;
+$("alVar").addEventListener("change", () => { alVarElegida = true; });
+window.addEventListener("resize", dibujar);
+if ("serial" in navigator) navigator.serial.addEventListener("disconnect", () => { if (modo === "con") { aviso("Se ha desconectado la placa."); desconectar(true); } });
+const cfg = leerHash() || cargarCfg() || BOTONES_DEF;
+$("cfgBotones").value = cfg; pintarBotones(cfg); dibujar();
+if (!("serial" in navigator)) aviso("Este navegador no puede conectarse a la placa: abre el panel en Chrome o en Chromium. Mientras, puedes probarlo con el modo demostración.");
+</script>
+</body>
+</html>

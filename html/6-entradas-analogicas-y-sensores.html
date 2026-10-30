@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-mvnp5ch9-vomhegb5s">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="exe-pass-score" content="5">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+<title>6. Entradas analógicas y sensores | Control, automatización y robótica</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Tecnología e Ingeniería I (1.º de Bachillerato). Control, automatización y robótica con Arduino, sensores e IoT.">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
+<script src="../libs/exe_math/tex-mml-svg.js"> </script>
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mvnp5ch9-vomhegb5s" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Bienvenida</a>
+</li>
+<li> <a href="../html/1-sistemas-de-control.html" class="no-ch">1. Sistemas de control</a>
+</li>
+<li> <a href="../html/2-primeros-pasos-con-arduino.html" class="no-ch">2. Primeros pasos con Arduino</a>
+</li>
+<li> <a href="../html/3-salidas-digitales-y-bucle-for.html" class="no-ch">3. Salidas digitales y bucle for</a>
+</li>
+<li> <a href="../html/4-pwm-led-rgb-y-tiempo-sin-bloquear.html" class="no-ch">4. PWM, LED RGB y tiempo sin bloquear</a>
+</li>
+<li> <a href="../html/5-entradas-digitales.html" class="no-ch">5. Entradas digitales</a>
+</li>
+<li class="active"> <a href="../html/6-entradas-analogicas-y-sensores.html" class="active no-ch">6. Entradas analógicas y sensores</a>
+</li>
+<li> <a href="../html/7-servomotores-la-barrera.html" class="no-ch">7. Servomotores: la barrera</a>
+</li>
+<li> <a href="../html/8-comunicacion-serie-y-redes-de-dispositivos.html" class="no-ch">8. Comunicación serie y redes de dispositivos</a>
+</li>
+<li> <a href="../html/9-iot-telemetria-y-scada.html" class="no-ch">9. IoT, telemetría y SCADA</a>
+</li>
+<li> <a href="../html/10-tecnologias-emergentes-e-ia-en-el-control.html" class="no-ch">10. Tecnologías emergentes e IA en el control</a>
+</li>
+<li> <a href="../html/11-proyecto-de-automatizacion.html" class="no-ch">11. Proyecto de automatización</a>
+</li>
+<li> <a href="../html/12-traza-y-prediccion-de-programas.html" class="no-ch">12. Traza y predicción de programas</a>
+</li>
+<li> <a href="../html/chuleta-de-arduino.html" class="no-ch">Chuleta de Arduino</a>
+</li>
+</ul>
+</nav><main id="page-mvnp5ch9-vomhegb5s" class="page"> 
+<header class="main-header"> <p class="page-counter"> <span class="page-counter-label">Página </span><span class="page-counter-content"> <strong class="page-counter-current-page">7</strong><span class="page-counter-sep">/</span><strong class="page-counter-total">14</strong></span></p>
+
+<div class="package-header"><p class="package-title">Control, automatización y robótica</p></div>
+<div class="page-header"><h1 class="page-title">6. Entradas analógicas y sensores</h1></div>
+</header><div id="page-content-page-mvnp5ch9-vomhegb5s" class="page-content">
+<article id="block-6b0wtf3q-4acvnll0q" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-do2c9wjk-7vyyzc27p" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-do2c9wjk-7vyyzc27p&quot;}">
+<style>.exe-content{--chrome:#943d92;--chrome-osc:#752972;--chrome-tinte:#f8eff8;--chrome-linea:#e4c8e3}.exe-content .clave{color:var(--chrome-osc,#752972)}.exe-content pre.codigo{background:#faf6fa;border:1px solid var(--chrome-linea);border-left:5px solid var(--chrome);border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.5;white-space:pre;margin:1em 0}.exe-content pre.consola{background:#1f1d24;color:#ece8f2;border-radius:8px;padding:.8em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace;font-size:.9em;line-height:1.45;white-space:pre;margin:.4em 0 1em}.exe-content pre code{padding:0;background:none;color:inherit;font-size:1em}.exe-content p.cod-tit{font-weight:700;margin:1.2em 0 -.5em;color:var(--chrome-osc)}.exe-content code{font-family:"DejaVu Sans Mono","Liberation Mono",Menlo,Consolas,monospace}</style><div class="bloque bloque-nota"><p class="bloque-titulo">Qué vas a conseguir en esta página</p><p>Leer tensiones con <code>analogRead</code>, ver los números en el monitor serie y usar los tres sensores analógicos del shield: el potenciómetro, la LDR (luz) y el sensor de temperatura. Al final, cada lectura se convertirá en algo útil: un brillo, una farola automática y un termómetro de colores.</p></div><h2>Leer una tensión: analogRead</h2><p>Una entrada digital solo distingue «poca tensión» de «mucha». Pero muchos sensores dan una tensión que cambia poco a poco con lo que miden: más luz, más temperatura, más giro. Para leerla, el Arduino tiene seis entradas <strong>analógicas</strong>, de <strong>A0</strong> a <strong>A5</strong>, y un <strong>conversor analógico-digital</strong> que convierte la tensión de 0 a 5 V en un número entero de <strong>0 a 1023</strong>.</p><figure style="max-width:860px;margin:1.2em auto"><a href="../content/resources/adc_escala.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/adc_escala.svg" alt="Escala de tensiones de 0 a 5 V y la lectura que le corresponde: 0 V da 0, 2,5 V dan 512 y 5 V dan 1023." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>Cada tensión tiene su número: el conversor la reparte en 1024 valores, de 0 a 1023. <a href="../content/resources/adc_escala.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><p>Se lee con <code>analogRead(pin)</code>, por ejemplo <code>int luz = analogRead(A1);</code>. Las entradas analógicas no necesitan <code>pinMode</code>. Si quieres saber la tensión que corresponde a una lectura, deshaz la escala:</p><div class="marco-formula"><p class="formula-bloque">\[V=\frac{\text{lectura}\cdot 5\ \text{V}}{1023}\]</p></div><div class="bloque bloque-actividad"><p class="bloque-titulo">Ahora tú: de lectura a tensión y al revés</p><p><i>No se entrega ni cuenta para la nota: sirve para comprobar si lo has entendido.</i></p><p>¿Qué tensión hay en el pin si <code>analogRead</code> da 307? ¿Y qué lectura esperas si el pin está a 3,3 V?</p><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver la solución</summary><p>307 · 5 / 1023 = <strong>1,5 V</strong>. Al revés: 3,3 · 1023 / 5 = 675,2, así que leerás <strong>675</strong> (o uno muy cercano: un sensor real siempre baila un poco).</p></details></div><h2>Ver los números: el monitor serie</h2><p>Con un LED solo ves «encendido» o «apagado», pero para trabajar con un sensor necesitas ver los números que lee. El Arduino puede enviarlos al ordenador por el cable USB y el IDE los muestra en el <strong>monitor serie</strong>. Bastan tres instrucciones:</p><table class="tabla-datos"><thead><tr><th>Instrucción</th><th>Qué hace</th></tr></thead><tbody><tr><td><code>Serial.begin(9600);</code></td><td>En <code>setup()</code>: abre la comunicación con el ordenador a 9600 baudios (bits por segundo).</td></tr><tr><td><code>Serial.print(x);</code></td><td>Escribe <code>x</code> (un texto entre comillas o el valor de una variable) y sigue en la misma línea.</td></tr><tr><td><code>Serial.println(x);</code></td><td>Escribe <code>x</code> y salta a la línea siguiente.</td></tr></tbody></table><p>Para verlo en el IDE, carga el programa y pulsa el botón <strong>Monitor Serial</strong>, el de la derecha de la barra. Abajo a la derecha de la ventana que se abre, comprueba que pone <strong>9600 baudio</strong>: si no coincide con el número de <code>Serial.begin</code>, saldrán símbolos raros. En Tinkercad, abre el panel del código y pulsa <strong>Monitor en serie</strong>, abajo. Escribe los textos sin tildes ni eñes: el monitor del IDE no siempre las muestra bien. Más adelante, en la página <a href="../html/8-comunicacion-serie-y-redes-de-dispositivos.html">8. Comunicación serie y redes de dispositivos</a>, verás cómo funciona por dentro esta comunicación.</p><h2>El potenciómetro</h2><p>Un potenciómetro es una resistencia con una tercera patilla, el <strong>cursor</strong>, que se desliza por ella al girar el mando. Si los extremos se unen a 5 V y a GND, el cursor da cualquier tensión entre 0 y 5 V según la posición: es un <strong>divisor de tensión</strong> variable. El del shield va a <strong>A0</strong> y su lectura <strong>sube al girarlo en el sentido de las agujas del reloj</strong>.</p><p class="cod-tit">Ejemplo: el potenciómetro regula el brillo del azul del LED RGB</p><pre class="codigo"><code>// El potenciómetro (A0) regula el brillo del azul del LED RGB; el monitor serie muestra los dos valores
+const int POT = A0;
+const int RGB_AZUL = 10;
+
+void setup() {
+  pinMode(RGB_AZUL, OUTPUT);
+  Serial.begin(9600);                           // abre la comunicación con el ordenador a 9600 baudios
+}
+
+void loop() {
+  int lectura = analogRead(POT);                // de 0 a 1023
+  int brillo = map(lectura, 0, 1023, 0, 255);   // pasa a la escala de analogWrite
+  analogWrite(RGB_AZUL, brillo);
+  Serial.print(&quot;Potenciometro: &quot;);
+  Serial.print(lectura);
+  Serial.print(&quot;   Brillo: &quot;);
+  Serial.println(brillo);
+  delay(200);
+}</code></pre><p class="cod-tit">En el monitor serie, al girar el mando de un extremo al otro</p><pre class="consola"><code>Potenciometro: 0   Brillo: 0
+Potenciometro: 348   Brillo: 86
+Potenciometro: 1023   Brillo: 255</code></pre><p>Fíjate en la idea, porque la usarás con todos los sensores: <strong>leer</strong>, <strong>cambiar de escala</strong> con <code>map</code> y <strong>actuar</strong>.</p><h2>Añade los sensores a tu Shield virtual</h2><p>Abre tu <strong>Shield virtual</strong> (el original, no una copia) y añádele los tres sensores analógicos en una segunda placa de pruebas, debajo del Arduino. Así quedan separados: arriba, las salidas y los pulsadores; abajo, los sensores.</p><figure style="max-width:760px;margin:1.2em auto"><a href="../content/resources/tc_sv_sensores_vista.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/tc_sv_sensores_vista.svg" alt="Captura de Tinkercad con el shield virtual ya completo: la placa de las salidas arriba, el Arduino en el centro y la placa de sensores debajo." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>El shield virtual con la placa de sensores. <a href="../content/resources/tc_sv_sensores_vista.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><ol><li>Arrastra una <strong>Placa de pruebas</strong> pequeña debajo del Arduino. Lleva un cable del pin <strong>5V</strong> al carril + de arriba de esta placa y otro de un pin <strong>GND</strong> al carril −. Del mismo pin pueden salir varios cables.</li><li>Coloca un <strong>Potenciómetro</strong> con sus patillas en h12, h13 y h14. Une j12 con el carril +, j14 con el carril − y j13 (el cursor) con el pin <strong>A0</strong>.</li><li>Coloca una <strong>Fotorresistencia</strong> (la LDR) en f17 y f18. Une j17 con el carril + y pon una <strong>Resistencia</strong> de <strong>10 kΩ</strong> de j18 al carril −. Lleva un cable de i18 al pin <strong>A1</strong>.</li><li>Coloca un <strong>Sensor de temperatura</strong> en f22, f23 y f24. Pasa el ratón por las patillas: la de la izquierda es la alimentación (únela al carril + desde j22), la de la derecha es tierra (j24 al carril −) y la del centro, la señal (j23 al pin <strong>A2</strong>).</li></ol><figure style="max-width:900px;margin:1.2em auto"><a href="../content/resources/tc_sv_sensores_detalle.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/tc_sv_sensores_detalle.svg" alt="Detalle en Tinkercad de la placa de sensores: potenciómetro, LDR con su resistencia de 10 kΩ y sensor de temperatura, con sus cables a A0, A1 y A2." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>Los tres sensores de cerca: cada número indica dónde va cada cosa. <a href="../content/resources/tc_sv_sensores_detalle.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><p>Para probarlo, pega en una copia el programa de prueba de los tres sensores (más abajo) e inicia la simulación. Mientras simula, puedes cambiar lo que mide cada sensor:</p><figure style="max-width:620px;margin:1.2em auto"><a href="../content/resources/tc_sv_sensores_simula.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/tc_sv_sensores_simula.svg" alt="Simulación en Tinkercad: la LDR muestra una barra para cambiar la luz, el potenciómetro se gira con el ratón y el monitor serie muestra las tres lecturas." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>Con la simulación en marcha, cada sensor se controla con el ratón. <a href="../content/resources/tc_sv_sensores_simula.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><div class="bloque bloque-nota"><p class="bloque-titulo">Si al girar el mando a la derecha el número baja</p><p>Depende de cómo hayas colocado el potenciómetro. Intercambia los cables de j12 y j14 y ya subirá en el sentido de las agujas del reloj, como en el shield.</p></div><h2>La LDR: un sensor de luz</h2><p>Una <strong>LDR</strong> (<em>light dependent resistor</em>) es una resistencia que <strong>baja cuando recibe luz</strong>: a oscuras puede valer decenas de kΩ y con mucha luz, solo uno o dos. El Arduino no mide resistencias, sino tensiones; por eso la LDR va en serie con una resistencia fija, formando un divisor de tensión. En el shield está montada de forma que <strong>con más luz, la lectura de A1 es mayor</strong>:</p><figure style="max-width:860px;margin:1.2em auto"><a href="../content/resources/divisor_ldr.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/divisor_ldr.svg" alt="La LDR del shield en serie con una resistencia de 10 kΩ: a oscuras A1 recibe unos 0,8 V y lee unos 170; con mucha luz recibe unos 4,2 V y lee unos 850." style="display:block;max-width:100%;height:auto;margin:auto"/></a><figcaption>El mismo circuito con poca y con mucha luz. <a href="../content/resources/divisor_ldr.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><div class="bloque bloque-actividad"><p class="bloque-titulo">Práctica: calibra tu LDR</p><p><i>No se entrega ni cuenta para la nota: sirve para practicar lo que necesitarás en las tareas y en el proyecto.</i></p><p>Cada LDR y cada aula son distintas, así que antes de usarla hay que saber qué números da. Carga este programa en la placa, abre el monitor serie y apunta tres lecturas: con la luz normal del aula, tapando la LDR con la mano y iluminándola con la linterna del móvil.</p><pre class="codigo"><code>// Muestra la lectura de la LDR (A1): sirve para saber cuánto da tu sensor con luz y a oscuras
+const int LDR = A1;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int luz = analogRead(LDR);                    // más luz, número mayor
+  Serial.print(&quot;Luz: &quot;);
+  Serial.println(luz);
+  delay(300);
+}</code></pre><p>Con esos números ya puedes elegir los umbrales de tus programas. Si quieres convertir la luz en otra escala, por ejemplo en un brillo, usa tus valores de «tapada» y «con linterna» en <code>map</code>. Como en el aula la lectura puede salirse un poco de esos límites, recórtala después con <code>constrain(valor, mínimo, máximo)</code>, que deja el número dentro del intervalo:</p><pre class="codigo"><code>int brillo = map(luz, OSCURO, CLARO, 0, 255);   // OSCURO y CLARO: tus lecturas
+brillo = constrain(brillo, 0, 255);            // por si la luz se sale de lo medido</code></pre></div><h2>Una farola automática con dos umbrales</h2><p>Una farola debe encenderse al oscurecer. Si usas un solo umbral, cuando la luz está justo en ese valor la lectura baila un poco y la farola parpadea sin parar. La solución es la misma que la del termostato de la página <a href="../html/1-sistemas-de-control.html">1. Sistemas de control</a>: <strong>dos umbrales</strong> (histéresis). Se enciende por debajo de uno y solo se apaga por encima del otro; entre los dos, se queda como estaba.</p><div class="bloque bloque-actividad"><p class="bloque-titulo">Práctica: la farola</p><p><i>No se entrega ni cuenta para la nota: sirve para practicar lo que necesitarás en las tareas y en el proyecto.</i></p><p>Al programa le faltan tres cosas: con qué constante se compara para encender, qué comparación hace falta para apagar y qué valor se escribe entonces en el LED. Rellena los huecos, ajusta <code>ENCENDER</code> y <code>APAGAR</code> con tu calibración y pruébalo tapando la LDR poco a poco.</p><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Abrir el programa con huecos</summary><p>Es el programa de la práctica con algunas partes borradas. Cada <b>____</b> es una palabra, un número o un signo que ya has visto en esta página. Cópialo, sustituye cada hueco por lo que falta y pruébalo. Intenta primero hacerlo sin abrir esto: se aprende mucho más.</p><pre class="codigo"><code>// Farola automática: el LED rojo se enciende al oscurecer y se apaga cuando vuelve la luz
+const int LDR = A1;
+const int LED_ROJO = 12;
+const int ENCENDER = 300;   // por debajo de esta lectura se enciende (ajústalo a tu placa)
+const int APAGAR = 400;     // por encima de esta se apaga; el margen entre las dos evita el parpadeo
+
+void setup() {
+  pinMode(LED_ROJO, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int luz = analogRead(LDR);
+  Serial.print(&quot;Luz: &quot;);
+  Serial.println(luz);
+  if (luz &lt; ____) {
+    digitalWrite(LED_ROJO, HIGH);
+  } else if (luz ____ APAGAR) {
+    digitalWrite(LED_ROJO, ____);
+  }
+  // entre ENCENDER y APAGAR no se cambia nada: el LED sigue como estaba
+  delay(200);
+}</code></pre></details><details style="margin: 1rem 0; border: 1px solid var(--chrome-linea); border-radius: .5rem; padding: 0 1rem; background: var(--chrome-tinte);"><summary style="cursor: pointer; font-weight: 700; color: var(--chrome-osc); border-left: 5px solid var(--chrome); margin: 0 -1rem; padding: .6rem 1rem;">Ver el programa completo</summary><pre class="codigo"><code>// Farola automática: el LED rojo se enciende al oscurecer y se apaga cuando vuelve la luz
+const int LDR = A1;
+const int LED_ROJO = 12;
+const int ENCENDER = 300;   // por debajo de esta lectura se enciende (ajústalo a tu placa)
+const int APAGAR = 400;     // por encima de esta se apaga; el margen entre las dos evita el parpadeo
+
+void setup() {
+  pinMode(LED_ROJO, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int luz = analogRead(LDR);
+  Serial.print(&quot;Luz: &quot;);
+  Serial.println(luz);
+  if (luz &lt; ENCENDER) {
+    digitalWrite(LED_ROJO, HIGH);
+  } else if (luz &gt; APAGAR) {
+    digitalWrite(LED_ROJO, LOW);
+  }
+  // entre ENCENDER y APAGAR no se cambia nada: el LED sigue como estaba
+  delay(200);
+}</code></pre><p>Prueba a poner el mismo número en <code>ENCENDER</code> y en <code>APAGAR</code> y deja la mano a la altura justa: verás el parpadeo que evitan los dos umbrales.</p></details></div><h2>El sensor de temperatura</h2><p>El shield lleva un <strong>LM35</strong> en <strong>A2</strong>. Es un sensor que da una tensión <strong>proporcional a la temperatura</strong>: <strong>10 mV por cada grado</strong>. A 23 °C da 230 mV. Para obtener la temperatura hay que pasar la lectura a milivoltios y dividir entre 10:</p><div class="marco-formula"><p class="formula-bloque">\[T=\frac{V_{mV}-\text{desplazamiento}}{10}\]</p></div><p>Tinkercad no tiene el LM35: su sensor de temperatura es el <strong>TMP36</strong>, que da también 10 mV por grado pero con <strong>500 mV de más</strong> (a 0 °C ya da 500 mV, y así puede medir temperaturas bajo cero). Por eso el programa guarda ese desplazamiento en una constante: <strong>0 en la placa y 500 en Tinkercad</strong>.</p><p class="cod-tit">Ejemplo: termómetro en el monitor serie</p><pre class="codigo"><code>// Termómetro: lee el sensor de temperatura (A2) y muestra los grados en el monitor serie
+const int SENSOR_T = A2;
+const float DESPLAZAMIENTO = 0;   // 0 con el LM35 del shield; 500 con el sensor de Tinkercad (TMP36)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int lectura = analogRead(SENSOR_T);
+  float mV = lectura * 5000.0 / 1023;               // de 0-1023 a milivoltios
+  float grados = (mV - DESPLAZAMIENTO) / 10;        // 10 mV por cada grado
+  Serial.print(&quot;Temperatura: &quot;);
+  Serial.print(grados, 1);                          // con un decimal
+  Serial.println(&quot; C&quot;);
+  delay(500);
+}</code></pre><p>La temperatura lleva decimales, así que se guarda en una variable de tipo <code>float</code> (número con decimales); por eso se escribe <code>5000.0</code> y no <code>5000</code>: si todos los números de una cuenta son enteros, C++ hace la división entera y pierde los decimales. <code>Serial.print(grados, 1)</code> la escribe con un decimal.</p><div class="bloque bloque-nota"><p class="bloque-titulo">El termómetro va a saltos de medio grado</p><p>Cada escalón del conversor son unos 4,9 mV y el LM35 da 10 mV por grado, así que la temperatura cambia de 0,5 en 0,5 °C. Además, el LM35 tarda en calentarse: si lo tocas con los dedos, la lectura sube despacio, en varios segundos, y solo unas décimas o un par de grados.</p></div><h2>Leer varios sensores seguidos</h2><p>El Arduino tiene un solo conversor que va midiendo los pines uno detrás de otro. Cuando cambia de pin, la primera lectura puede salir «contaminada» por el pin anterior; con el LM35 se nota mucho, porque da una tensión muy pequeña justo después de la LDR. La solución es hacer una <strong>lectura de descarte</strong>: leer el pin una vez, esperar unos milisegundos y quedarse con la segunda lectura.</p><p class="cod-tit">Ejemplo: los tres sensores a la vez (también es el programa de prueba de tu Shield virtual)</p><pre class="codigo"><code>// Prueba de los tres sensores analógicos: potenciómetro (A0), luz (A1) y temperatura (A2)
+const int POT = A0;
+const int LDR = A1;
+const int SENSOR_T = A2;
+const float DESPLAZAMIENTO = 0;   // 0 con el LM35 del shield; 500 con el sensor de Tinkercad (TMP36)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int pot = analogRead(POT);
+  int luz = analogRead(LDR);
+  analogRead(SENSOR_T);             // lectura de descarte: el conversor viene de medir otro pin
+  delay(10);
+  int lectura = analogRead(SENSOR_T);
+  float grados = (lectura * 5000.0 / 1023 - DESPLAZAMIENTO) / 10;
+  Serial.print(&quot;Pot: &quot;);
+  Serial.print(pot);
+  Serial.print(&quot;   Luz: &quot;);
+  Serial.print(luz);
+  Serial.print(&quot;   Temperatura: &quot;);
+  Serial.print(grados, 1);
+  Serial.println(&quot; C&quot;);
+  delay(500);
+}</code></pre><p class="cod-tit">En la placa: al tapar la LDR, solo cambia la luz</p><pre class="consola"><code>Pot: 512   Luz: 433   Temperatura: 23.5 C
+Pot: 512   Luz: 431   Temperatura: 23.5 C
+Pot: 512   Luz: 98   Temperatura: 23.5 C</code></pre><p>Escribir cada valor con su nombre delante («Luz: …») es mejor que poner números en columnas: en el monitor del IDE, las columnas se descuadran en cuanto un número tiene más cifras que otro.</p><div class="bloque bloque-teoria"><p class="bloque-titulo">Otros sensores analógicos</p><p>Muchos sensores funcionan igual que estos tres: dan una tensión que cambia con lo que miden y se leen con <code>analogRead</code>. Por ejemplo, el sensor de humedad del suelo de un sistema de riego, un sensor de gas, el joystick de un mando (son dos potenciómetros) o un sensor de distancia por infrarrojos. Antes de usar uno, mira en su hoja de características cómo se relacionan la tensión y la magnitud, y calíbralo con el monitor serie, como has hecho con la LDR.</p></div><div class="bloque bloque-nota"><p class="bloque-titulo">Si algo no funciona</p><table class="tabla-datos"><thead><tr><th>Lo que ves</th><th>Qué compruebas</th></tr></thead><tbody><tr><td>La lectura está siempre en 0 o en 1023</td><td>¿Llega el cable al pin analógico correcto? ¿Tienen 5 V y GND los extremos del sensor?</td></tr><tr><td>La luz y la temperatura cambian a la vez</td><td>Falta la lectura de descarte antes de leer A2.</td></tr><tr><td>La LDR casi no cambia o da saltos</td><td>Mueve un poco la LDR con cuidado: puede tener una patilla floja.</td></tr><tr><td>La temperatura sale absurda (más de 40 °C en el aula o bajo cero)</td><td>¿Tienes el desplazamiento correcto? 0 en la placa, 500 en Tinkercad.</td></tr><tr><td>En el monitor salen símbolos raros</td><td>El número de baudios del monitor no coincide con el de <code>Serial.begin</code>.</td></tr><tr><td>El brillo no sigue a la lectura</td><td>¿Has pasado la lectura (0 a 1023) a la escala de <code>analogWrite</code> (0 a 255) con <code>map</code>?</td></tr></tbody></table></div><div class="bloque bloque-actividad"><p class="bloque-titulo">Tarea AN1 · Termómetro de colores</p><p>Programa un termómetro que muestre la temperatura con el color del LED RGB:</p><ul><li><strong>Azul</strong> si la temperatura está por debajo de <code>T_FRIO</code>.</li><li><strong>Verde</strong> si está entre <code>T_FRIO</code> y <code>T_CALOR</code>.</li><li><strong>Rojo</strong> si está por encima de <code>T_CALOR</code>.</li><li>El <strong>potenciómetro</strong> regula el brillo del color encendido, de 0 a 255.</li><li>El monitor serie muestra la temperatura con un decimal y el brillo.</li></ul><p>Los umbrales van en constantes de tipo <code>float</code>. Para probarlo en la placa, pon <code>T_CALOR</code> medio grado por encima de la temperatura que marca el aula y calienta el sensor con los dedos durante un rato; después, sube <code>T_FRIO</code> por encima de la del aula para ver el azul. Como lees dos pines, no olvides la lectura de descarte. En Tinkercad: copia del Shield virtual llamada <strong>Tarea AN1 - Termómetro</strong>, con el desplazamiento del TMP36; allí puedes mover la temperatura con su barra.</p><p><b>Está conseguida cuando…</b> en la placa, el LED se pone azul, verde o rojo según la temperatura y los umbrales, el potenciómetro gradúa el brillo del color encendido, el monitor muestra la temperatura con un decimal, y el programa usa constantes para pines, umbrales y desplazamiento y hace la lectura de descarte.</p><p><b>Entrega.</b> Guarda el programa como <code>tarea_an1</code> (<b>Archivo → Guardar como...</b>) y graba con el móvil un vídeo corto de la placa haciéndolo todo, con el papel de tus iniciales y tu curso a la vista; llama al vídeo <code>tarea_an1</code>. Súbelos a la tarea <b>Colección de programas (Arduino)</b> de Moodle con <b>Editar entrega</b> y <b>Guardar cambios</b>, igual que en la tarea SD1, sin pulsar todavía <b>Enviar tarea</b>.</p></div><div class="bloque bloque-nota"><p class="bloque-titulo">Lo que tienes que saber de esta página</p><ul><li>analogRead(pin) lee A0 a A5 y da un número de 0 (0 V) a 1023 (5 V); V = lectura · 5 / 1023.</li><li>Serial.begin(9600) en setup(); Serial.print escribe y Serial.println escribe y salta de línea. El monitor tiene que estar a los mismos baudios.</li><li>Patrón de los sensores: leer, cambiar de escala con map (y constrain si hace falta) y actuar.</li><li>Potenciómetro (A0): sube en el sentido de las agujas del reloj. LDR (A1): más luz, lectura mayor; hay que calibrarla.</li><li>LM35 (A2): 10 mV por grado, T = mV / 10. El TMP36 de Tinkercad tiene 500 mV de desplazamiento: T = (mV − 500) / 10.</li><li>float guarda números con decimales; en las cuentas, escribe 5000.0 para que no se pierdan.</li><li>Al leer varios pines analógicos seguidos, haz una lectura de descarte antes de la buena.</li></ul></div>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/5-entradas-digitales.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/7-servomotores-la-barrera.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-nc-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="license">Creative Commons: Reconocimiento - no comercial - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(Ventana nueva)</span></span></a></p>
+</body>
+</html>
