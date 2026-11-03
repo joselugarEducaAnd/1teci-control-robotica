@@ -53,7 +53,7 @@ details summary{cursor:pointer;font-weight:bold;color:var(--co)}
     <button id="btnDesconectar" disabled>Desconectar</button>
   </div>
   <div id="aviso"></div>
-  <p class="peq">Antes de conectar, cierra el Monitor Serial del Arduino IDE: el puerto solo puede usarlo un programa. Al conectar, la placa se reinicia y tarda un par de segundos en enviar.</p>
+  <p class="peq">Antes de conectar, cierra el Arduino IDE por completo (no basta con cerrar el Monitor Serial), desconecta y vuelve a conectar el cable USB y espera unos segundos: el puerto solo puede usarlo un programa. Para cargar otro programa en la placa, pulsa antes «Desconectar». Al conectar, la placa se reinicia y tarda un par de segundos en enviar.</p>
 </section>
 <section>
   <h2>2. Medidas</h2>
@@ -253,7 +253,7 @@ async function conectar() {
   try {
     await puerto.open({baudRate: Number($("baudios").value)});
   } catch (e) {
-    aviso("No se ha podido abrir el puerto. ¿Tienes abierto el Monitor Serial del Arduino IDE u otra pestaña con el panel? Ciérralos y vuelve a intentarlo.");
+    aviso("No se ha podido abrir el puerto. ¿Tienes abierto el Arduino IDE u otra pestaña con el panel? Ciérralos y vuelve a intentarlo.");
     puerto = null; return;
   }
   ponerEstado("con", "Conectado a la placa"); consola("# Conectado a " + $("baudios").value + " baudios");
@@ -272,7 +272,7 @@ async function leer() {
       partes.forEach(procesarLinea);
     }
   } catch (e) {
-    if (modo === "con") aviso("Se ha perdido la conexión con la placa. ¿Se ha soltado el cable?");
+    if (modo === "con") aviso("Se ha perdido la conexión con la placa. ¿Se ha soltado el cable? Si acabas de conectar: cierra el Arduino IDE del todo, desconecta y vuelve a conectar el cable USB, espera unos segundos y conecta otra vez.");
   } finally { try { lector.releaseLock(); } catch (e) {} }
   if (modo === "con") await desconectar(true);
 }
